@@ -65,9 +65,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\tools\graph.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\tools\angled_dijkstra.hpp" />
+    <ClInclude Include="src\tools\graph.hpp" />
     <ClInclude Include="src\tools\coordinate.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

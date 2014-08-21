@@ -9,11 +9,12 @@
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\tools\graph.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\tools\angled_dijkstra.hpp">
+    <ClInclude Include="src\tools\coordinate.hpp" />
+    <ClInclude Include="src\tools\graph.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\tools\coordinate.hpp" />
   </ItemGroup>
 </Project>
