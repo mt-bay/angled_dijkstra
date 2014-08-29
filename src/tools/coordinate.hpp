@@ -10,6 +10,11 @@
 
 namespace cd
 {
+
+/* class */
+/* 
+ * Two-dimensional coordinates class
+ */
 template <typename T>
 class xy_t
 {
@@ -63,9 +68,43 @@ public:
     {
 
     }
+    
+    /* operator overload */
+public:
+    xy_t<T>& operator= (const xy_t<T>& _rhs)
+    {
+        x = _rhs.x;
+        y = _rhs.y;
+        return *this;
+    }
 
     /* method */
 public:
+    /* 
+     * length in p0 to p1
+     * parameter    : p0, p1
+     * return value : length of p0 to p1
+     * exception    : none
+     */
+    static long double length(xy_t<T> p0, xy_t<T> p1)
+    {
+    xy_t<long double> p0 = xy_t<long double>
+                               ((long double)_p0.x, (long double)_p0.y);
+    xy_t<long double> p1 = xy_t<long double>
+                               ((long double)_p1.x, (long double)_p1.y);
+
+    xy_t<long double> p = xy_t<long double>
+                               (p1.x - p0.x, p1.y - p0.y);
+
+    return sqrt(p.x * p.x + p.y * p.y);
+    }
+
+    /* 
+     * this to string
+     * parameter    : void
+     * return value : this data of string
+     * exception    : none
+     */
     std::string toString() const
     {
         return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";

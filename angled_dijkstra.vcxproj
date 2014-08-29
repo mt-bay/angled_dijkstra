@@ -68,6 +68,7 @@
     <ClCompile Include="src\tools\graph.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\dijkstra\dijkstra.hpp" />
     <ClInclude Include="src\tools\graph.hpp" />
     <ClInclude Include="src\tools\coordinate.hpp" />
   </ItemGroup>

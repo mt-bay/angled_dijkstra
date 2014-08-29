@@ -16,5 +16,6 @@
     <ClInclude Include="src\tools\graph.hpp">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\dijkstra\dijkstra.hpp" />
   </ItemGroup>
 </Project>

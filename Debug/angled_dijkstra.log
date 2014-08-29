@@ -1,0 +1,24 @@
+﻿2014/08/26 14:25:32 にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "C:\Users\Yamaura\Documents\Products\angled_dijkstra\angled_dijkstra.vcxproj" (Build ターゲット)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\tools\graph.cpp
+         graph.cpp
+     1>c:\users\yamaura\documents\products\angled_dijkstra\src\tools\coordinate.hpp(28): warning C4290: C++ の例外の指定は無視されます。関数が __declspec(nothrow) でないことのみ表示されます。
+                 c:\users\yamaura\documents\products\angled_dijkstra\src\tools\coordinate.hpp(90) : コンパイルされたクラスの テンプレート のインスタンス化 'cd::xy_t<T>' の参照を確認してください
+     1>c:\users\yamaura\documents\products\angled_dijkstra\src\tools\coordinate.hpp(41): warning C4290: C++ の例外の指定は無視されます。関数が __declspec(nothrow) でないことのみ表示されます。
+     1>c:\users\yamaura\documents\products\angled_dijkstra\src\tools\coordinate.hpp(54): warning C4290: C++ の例外の指定は無視されます。関数が __declspec(nothrow) でないことのみ表示されます。
+     1>c:\users\yamaura\documents\products\angled_dijkstra\src\tools\graph.hpp(73): warning C4290: C++ の例外の指定は無視されます。関数が __declspec(nothrow) でないことのみ表示されます。
+     1>c:\users\yamaura\documents\products\angled_dijkstra\src\tools\graph.hpp(93): warning C4290: C++ の例外の指定は無視されます。関数が __declspec(nothrow) でないことのみ表示されます。
+     1>c:\users\yamaura\documents\products\angled_dijkstra\src\tools\graph.hpp(96): warning C4290: C++ の例外の指定は無視されます。関数が __declspec(nothrow) でないことのみ表示されます。
+     1>c:\users\yamaura\documents\products\angled_dijkstra\src\tools\graph.cpp(41): warning C4290: C++ の例外の指定は無視されます。関数が __declspec(nothrow) でないことのみ表示されます。
+     1>c:\users\yamaura\documents\products\angled_dijkstra\src\tools\graph.cpp(76): warning C4290: C++ の例外の指定は無視されます。関数が __declspec(nothrow) でないことのみ表示されます。
+     1>c:\users\yamaura\documents\products\angled_dijkstra\src\tools\graph.cpp(88): warning C4290: C++ の例外の指定は無視されます。関数が __declspec(nothrow) でないことのみ表示されます。
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Yamaura\Documents\Products\angled_dijkstra\Debug\angled_dijkstra.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Yamaura\Documents\Products\angled_dijkstra\Debug\angled_dijkstra.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Yamaura\Documents\Products\angled_dijkstra\Debug\angled_dijkstra.lib" /MACHINE:X86 Debug\main.obj
+         Debug\graph.obj
+         angled_dijkstra.vcxproj -> C:\Users\Yamaura\Documents\Products\angled_dijkstra\Debug\angled_dijkstra.exe
+     1>プロジェクト "C:\Users\Yamaura\Documents\Products\angled_dijkstra\angled_dijkstra.vcxproj" (Build ターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+
+経過時間 00:00:01.11
