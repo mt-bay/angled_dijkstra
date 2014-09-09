@@ -29,7 +29,9 @@ t_dijkstra t_dijkstra::gen_dijkstra(cd::graph    _graph          ,
 t_dijkstra t_dijkstra::gen_dijkstra_angled(cd::graph _graph                ,
                                            unsigned int _src_node_number   ,
                                            unsigned int _dst_node_number   ,
-                                           std::function<double> andle_cost);
+                                           std::function<double> andle_cost)
+{
+}
 
 void t_dijkstra::set_graph_size(unsigned int _graph_size)
 {
@@ -37,5 +39,11 @@ void t_dijkstra::set_graph_size(unsigned int _graph_size)
     m_path       = &std::vector< std::vector<unsigned int> >
                        (_graph_size, std::vector<unsigned int>
                                          (0, 0));
+}
+
+void t_dijkstra::init(unsigned int _graph_size, unsigned int _src_node_number)
+                  throw(std::out_of_range)
+{
+
 }
 }

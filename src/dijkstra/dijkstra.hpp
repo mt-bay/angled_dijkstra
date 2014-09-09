@@ -84,11 +84,12 @@ protected:
 
     /* 
      * init instance
-     * parameter    : graph size, source node number, destination node number
+     * parameter    : graph size, source node number
      * return value : void
-     exception      : std::out_of_range
+     * exception    : std::out_of_range
      */
-
+    void init(unsigned int _graph_size, unsigned int _src_node_number)
+                  throw(std::out_of_range);
 };
 
 }

@@ -1,12 +1,14 @@
 #ifndef SRC_TOOLS_COORDINATE_H_
 #define SRC_TOOLS_COORDINATE_H_
 
+#define _USE_MATH_DEFINES
 
 #include <iostream>
 #include <string>
 #include <type_traits>
 #include <exception>
 
+#include <cmath>
 
 namespace cd
 {
@@ -182,9 +184,19 @@ public:
         t_xy<T> via = t_xy<T>(_via.x - src.x, -_via.y - src.y);
         t_xy<T> dst = t_xy<T>(_dst.x - src.x, -_dst.y - src.y);
 
+        double ang_via = std::atan2(via.y, via.x);
+        if(ang_via < 0.0)
+            ang_via = M_PI + (-ang_via);
 
+        double ang_dst = std::atan2(dst.y, dst.x);
+        ang_dst = ((ang_dst < 0.0)? M_PI + (-ang_dst) : ang_dst) - ang_via;
 
+        if(ang_dst < 0.0)
+            ang_dst = M_PI + (-ang_dst);
+        if(ang_dst > 2 * M_PI)
+            ang_dst = fmod(ang_dst / 2 * M_PI);
 
+        return ang_dst;
     }
 
 
