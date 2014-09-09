@@ -10,6 +10,7 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\tools\graph.cpp" />
+    <ClCompile Include="src\dijkstra\dijkstra.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\tools\coordinate.hpp" />

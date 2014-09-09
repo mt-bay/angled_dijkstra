@@ -64,6 +64,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\dijkstra\dijkstra.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\tools\graph.cpp" />
   </ItemGroup>

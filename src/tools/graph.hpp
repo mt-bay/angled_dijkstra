@@ -9,12 +9,12 @@
 namespace cd
 {
 template<typename T>
-class xy_t;
+class t_xy;
 
 }
 
 
-namespace ad
+namespace cd
 {
 
 class graph
@@ -22,7 +22,7 @@ class graph
     /* member variable and instance */
 public:
     //V
-    std::vector< cd::xy_t<long int>* >*        m_node_location;
+    std::vector< t_xy<long int>* >*        m_node_location;
     //E
     std::vector< std::vector<unsigned char> >* m_adjacency_matrix;
     std::vector< std::vector<long double> >*   m_link_cost;
@@ -41,7 +41,7 @@ public:
     /* 
      * copy constractor
      * parameter : original
-     * build     : copy
+     * build     : deep copy
      * exception : none
      */
     graph(const graph& _origin);
@@ -61,9 +61,14 @@ public:
      * build     : network by parameter
      * exception : none
      */
-    graph(const std::vector< cd::xy_t<long int> >         _node_location   ,
+    graph(const std::vector< t_xy<long int> >             _node_location   ,
           const std::vector< std::vector<unsigned char> > _adjacency_matrix);
 
+    /* 
+     * destractor
+     * parameter : void
+     */
+    ~graph();
 
     /* method */
 public:
@@ -90,9 +95,9 @@ public:
      * return value : void
      * exception    : out_of_range
      */
-    void set_link_cost(long     double  _link_cost   ,
-                       unsigned int     _src_node_num,
-                       unsigned int     _dst_node_num)
+    void set_link_cost(long     double _link_cost   ,
+                       unsigned int    _src_node_num,
+                       unsigned int    _dst_node_num)
                            throw(std::out_of_range);
 
 
@@ -112,14 +117,14 @@ protected:
      * return value : void
      * exception    : out_of_range
      */
-    virtual void set_node_location(const unsigned int       _node_number  ,
-                                   const cd::xy_t<long int> _node_location) 
+    virtual void set_node_location(const unsigned int   _node_number  ,
+                                   const t_xy<long int> _node_location) 
                                        throw(std::out_of_range);
-    virtual void set_node_location(const std::vector<cd::xy_t<long int> >
-                                             _node_location_array        ,
-                                   const std::vector<unsigned char      >
-                                             _do_write                   )
-                         throw(std::out_of_range);
+    virtual void set_node_location(const std::vector<t_xy<long int> >
+                                             _node_location_array    ,
+                                   const std::vector<unsigned char  >
+                                             _do_write               )
+                                       throw(std::out_of_range);
 };
 
 }

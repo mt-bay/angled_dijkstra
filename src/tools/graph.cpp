@@ -1,7 +1,7 @@
 #include "graph.hpp"
 #include "coordinate.hpp"
 
-namespace ad
+namespace cd
 {
 /* constractor and destractor */
 graph::graph()
@@ -43,7 +43,7 @@ graph::graph(const std::vector< std::vector<long double  > > _link_cost       ,
 
 }
 
-graph::graph(const std::vector< cd::xy_t<long int> >         _node_location   ,
+graph::graph(const std::vector< cd::t_xy<long int> >         _node_location   ,
              const std::vector< std::vector<unsigned char> > _adjacency_matrix)
 {
     set_graph_size(_node_location.size());
@@ -57,7 +57,7 @@ graph::graph(const std::vector< cd::xy_t<long int> >         _node_location   ,
             m_adjacency_matrix->at(i).at(j)
                 = _adjacency_matrix.at(i).at(j);
             m_link_cost->at(i).at(j)
-                = cd::xy_t<long int>::length(*m_node_location->at(i),
+                = cd::t_xy<long int>::length(*m_node_location->at(i),
                                              *m_node_location->at(j));
         }
     }
@@ -107,8 +107,8 @@ void graph::set_link_cost(long     double  _link_cost   ,
 
 void graph::set_graph_size(unsigned int _graph_size)
 {
-    m_node_location    = &std::vector<cd::xy_t<long int>* >
-                             (_graph_size, &cd::xy_t<long int>(0, 0));
+    m_node_location    = &std::vector<cd::t_xy<long int>* >
+                             (_graph_size, &cd::t_xy<long int>(0, 0));
 
     m_adjacency_matrix = &std::vector< std::vector<unsigned char> >
                               (_graph_size, std::vector<unsigned char>
@@ -123,7 +123,7 @@ void graph::set_graph_size(unsigned int _graph_size)
 
 
 void graph::set_node_location(const unsigned int  _node_number  ,
-                              const cd::xy_t<long int> _node_location) 
+                              const t_xy<long int> _node_location) 
                                   throw(std::out_of_range)
 {
     if(_node_number >= m_node_location->size())
@@ -134,10 +134,10 @@ void graph::set_node_location(const unsigned int  _node_number  ,
     *m_node_location->at(_node_number) = _node_location;
 
 }
-void graph::set_node_location(const std::vector<cd::xy_t<long int> >
-                                        _node_location_array        ,
-                              const std::vector<unsigned char      >
-                                        _do_write                   )
+void graph::set_node_location(const std::vector<t_xy<long int> >
+                                        _node_location_array    ,
+                              const std::vector<unsigned char  >
+                                        _do_write               )
                          throw(std::out_of_range)
 {
     for(unsigned int i = 0; i < _node_location_array.size(); i++)
