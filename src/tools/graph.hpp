@@ -108,7 +108,7 @@ protected:
      * return value : void
      * exception    : none
      */
-    virtual void set_graph_size(unsigned int _graph_size);
+    inline virtual void set_graph_size(unsigned int _graph_size);
 
     /* 
      * setting node location
@@ -117,14 +117,14 @@ protected:
      * return value : void
      * exception    : out_of_range
      */
-    virtual void set_node_location(const unsigned int   _node_number  ,
-                                   const t_xy<long int> _node_location) 
-                                       throw(std::out_of_range);
-    virtual void set_node_location(const std::vector<t_xy<long int> >
-                                             _node_location_array    ,
-                                   const std::vector<unsigned char  >
-                                             _do_write               )
-                                       throw(std::out_of_range);
+    inline virtual void set_node_location(const unsigned int   _node_number  ,
+                                          const t_xy<long int> _node_location) 
+                                             throw(std::out_of_range);
+    inline virtual void set_node_location(const std::vector<t_xy<long int> >
+                                                    _node_location_array    ,
+                                          const std::vector<unsigned char  >
+                                                    _do_write               )
+                                              throw(std::out_of_range);
 };
 
 }

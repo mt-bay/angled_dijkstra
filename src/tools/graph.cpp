@@ -105,7 +105,7 @@ void graph::set_link_cost(long     double  _link_cost   ,
 
 }
 
-void graph::set_graph_size(unsigned int _graph_size)
+inline void graph::set_graph_size(unsigned int _graph_size)
 {
     m_node_location    = &std::vector<cd::t_xy<long int>* >
                              (_graph_size, &cd::t_xy<long int>(0, 0));
@@ -122,9 +122,9 @@ void graph::set_graph_size(unsigned int _graph_size)
 
 
 
-void graph::set_node_location(const unsigned int  _node_number  ,
-                              const t_xy<long int> _node_location) 
-                                  throw(std::out_of_range)
+inline void graph::set_node_location(const unsigned int  _node_number  ,
+                                     const t_xy<long int> _node_location) 
+                                         throw(std::out_of_range)
 {
     if(_node_number >= m_node_location->size())
         throw;
@@ -134,11 +134,11 @@ void graph::set_node_location(const unsigned int  _node_number  ,
     *m_node_location->at(_node_number) = _node_location;
 
 }
-void graph::set_node_location(const std::vector<t_xy<long int> >
-                                        _node_location_array    ,
-                              const std::vector<unsigned char  >
-                                        _do_write               )
-                         throw(std::out_of_range)
+inline void graph::set_node_location(const std::vector<t_xy<long int> >
+                                               _node_location_array    ,
+                                     const std::vector<unsigned char  >
+                                                _do_write               )
+                                        throw(std::out_of_range)
 {
     for(unsigned int i = 0; i < _node_location_array.size(); i++)
     {
