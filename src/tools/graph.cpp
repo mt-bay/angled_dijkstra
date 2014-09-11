@@ -4,11 +4,11 @@
 namespace cd
 {
 /* constractor and destractor */
-graph::graph()
+t_graph::t_graph()
 {
-    set_graph_size(0);
+    set_graph_size(1);
 }
-graph::graph(const graph& _origin)
+t_graph::t_graph(const t_graph& _origin)
 {
     set_graph_size(_origin.get_V_size());
     for(unsigned int i = 0; i < _origin.get_V_size(); i++)
@@ -25,8 +25,9 @@ graph::graph(const graph& _origin)
     }
 
 }
-graph::graph(const std::vector< std::vector<long double  > > _link_cost       ,
-             const std::vector< std::vector<unsigned char> > _adjacency_matrix)
+t_graph::t_graph
+    (const std::vector< std::vector<long double  > > _link_cost       ,
+     const std::vector< std::vector<unsigned char> > _adjacency_matrix)
 {
     set_graph_size(_link_cost.size());
     for(unsigned int i = 0; i < get_V_size(); i++)
@@ -43,8 +44,9 @@ graph::graph(const std::vector< std::vector<long double  > > _link_cost       ,
 
 }
 
-graph::graph(const std::vector< cd::t_xy<long int> >         _node_location   ,
-             const std::vector< std::vector<unsigned char> > _adjacency_matrix)
+t_graph::t_graph
+    (const std::vector< cd::t_xy<long int> >         _node_location   ,
+     const std::vector< std::vector<unsigned char> > _adjacency_matrix)
 {
     set_graph_size(_node_location.size());
     for(unsigned int i = 0; i < m_node_location->size(); i++)
@@ -64,14 +66,19 @@ graph::graph(const std::vector< cd::t_xy<long int> >         _node_location   ,
 
 }
 
+
+t_graph::~t_graph()
+{
+}
+
 /* method */
-unsigned int graph::get_V_size() const
+unsigned int t_graph::get_V_size() const
 {
     return m_adjacency_matrix->size();
 }
 
-long double graph::get_link_cost(unsigned int _src_node_num, 
-                                 unsigned int _dst_node_num) const
+long double t_graph::get_link_cost(unsigned int _src_node_num, 
+                                   unsigned int _dst_node_num) const
 {
     try
     {
@@ -86,10 +93,10 @@ long double graph::get_link_cost(unsigned int _src_node_num,
     }
 }
 
-void graph::set_link_cost(long     double  _link_cost   ,
-                          unsigned int     _src_node_num,
-                          unsigned int     _dst_node_num)
-                              throw(std::out_of_range)
+void t_graph::set_link_cost(long     double  _link_cost   ,
+                            unsigned int     _src_node_num,
+                            unsigned int     _dst_node_num)
+                                throw(std::out_of_range)
 {
     if(_link_cost <  0                     ||
        _link_cost == (long double) INFINITY)
@@ -105,7 +112,7 @@ void graph::set_link_cost(long     double  _link_cost   ,
 
 }
 
-inline void graph::set_graph_size(unsigned int _graph_size)
+inline void t_graph::set_graph_size(unsigned int _graph_size)
 {
     m_node_location    = &std::vector<cd::t_xy<long int>* >
                              (_graph_size, &cd::t_xy<long int>(0, 0));
@@ -122,9 +129,9 @@ inline void graph::set_graph_size(unsigned int _graph_size)
 
 
 
-inline void graph::set_node_location(const unsigned int  _node_number  ,
-                                     const t_xy<long int> _node_location) 
-                                         throw(std::out_of_range)
+inline void t_graph::set_node_location(const unsigned int  _node_number  ,
+                                       const t_xy<long int> _node_location)
+                                           throw(std::out_of_range)
 {
     if(_node_number >= m_node_location->size())
         throw;
@@ -134,11 +141,11 @@ inline void graph::set_node_location(const unsigned int  _node_number  ,
     *m_node_location->at(_node_number) = _node_location;
 
 }
-inline void graph::set_node_location(const std::vector<t_xy<long int> >
-                                               _node_location_array    ,
-                                     const std::vector<unsigned char  >
-                                                _do_write               )
-                                        throw(std::out_of_range)
+inline void t_graph::set_node_location(const std::vector<t_xy<long int> >
+                                                 _node_location_array    ,
+                                       const std::vector<unsigned char  >
+                                                  _do_write               )
+                                          throw(std::out_of_range)
 {
     for(unsigned int i = 0; i < _node_location_array.size(); i++)
     {

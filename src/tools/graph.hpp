@@ -17,26 +17,28 @@ class t_xy;
 namespace cd
 {
 
-class graph
+class t_graph
 {
     /* member variable and instance */
-public:
+public    :
     //V
-    std::vector< t_xy<long int>* >*        m_node_location;
+    std::vector< t_xy<long int>* >*            m_node_location;
+
+protected :
     //E
-    std::vector< std::vector<unsigned char> >* m_adjacency_matrix;
-    std::vector< std::vector<long double> >*   m_link_cost;
-private:
+    std::vector< ::std::vector<unsigned char> >* m_adjacency_matrix;
+    std::vector< ::std::vector<long double> >*   m_link_cost;
+private   :
     
     /* constractor, destractor */
-public:
+public    :
     /* 
      * default constractor
      * parameter : void
      * build     : empty network
      * exception : none
      */
-    graph();
+    t_graph();
 
     /* 
      * copy constractor
@@ -44,7 +46,7 @@ public:
      * build     : deep copy
      * exception : none
      */
-    graph(const graph& _origin);
+    t_graph(const t_graph& _origin);
 
     /* 
      * setter constractor(no location)
@@ -52,8 +54,8 @@ public:
      * build     : network by parameter
      * exception : none
      */
-    graph(const std::vector< std::vector<long double  > > _link_cost       ,
-          const std::vector< std::vector<unsigned char> > _adjacency_matrix);
+    t_graph(const std::vector< std::vector<long double  > > _link_cost       ,
+            const std::vector< std::vector<unsigned char> > _adjacency_matrix);
 
     /* 
      * setter constractor
@@ -61,17 +63,17 @@ public:
      * build     : network by parameter
      * exception : none
      */
-    graph(const std::vector< t_xy<long int> >             _node_location   ,
-          const std::vector< std::vector<unsigned char> > _adjacency_matrix);
+    t_graph(const std::vector< t_xy<long int> >             _node_location   ,
+            const std::vector< std::vector<unsigned char> > _adjacency_matrix);
 
     /* 
      * destractor
      * parameter : void
      */
-    ~graph();
+    ~t_graph();
 
     /* method */
-public:
+public    :
     /* 
      * get |V|
      * parameter    : void
@@ -101,7 +103,7 @@ public:
                            throw(std::out_of_range);
 
 
-protected:
+protected :
     /* 
      * seting size of graph
      * parameter    : graph size
@@ -119,7 +121,7 @@ protected:
      */
     inline virtual void set_node_location(const unsigned int   _node_number  ,
                                           const t_xy<long int> _node_location) 
-                                             throw(std::out_of_range);
+                                             throw(::std::out_of_range);
     inline virtual void set_node_location(const std::vector<t_xy<long int> >
                                                     _node_location_array    ,
                                           const std::vector<unsigned char  >

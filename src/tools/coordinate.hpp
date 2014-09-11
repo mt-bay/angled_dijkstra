@@ -1,13 +1,16 @@
 #ifndef SRC_TOOLS_COORDINATE_H_
 #define SRC_TOOLS_COORDINATE_H_
 
+#ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES
+#endif  //_USE_MATH_DEFINES
 
 #include <iostream>
 #include <string>
 #include <type_traits>
 #include <exception>
 
+#include <math.h>
 #include <cmath>
 
 namespace cd
@@ -32,7 +35,7 @@ public:
      * build     : origin point
      * exception : std::bad_typeid
      */
-    t_xy()           throw(std::bad_typeid)
+    t_xy<T>()           throw(std::bad_typeid)
     {
         if (!std::is_arithmetic<T>::value)
             throw;
@@ -45,7 +48,7 @@ public:
      * build     : deep copy
      * exception : std::bad_typeid
      */
-    t_xy(const xy_t<T>& _origin) throw(std::bad_typeid)
+    t_xy<T>(const t_xy<T>& _origin) throw(std::bad_typeid)
     {
         if (!std::is_arithmetic<T>::value)
             throw;
@@ -58,7 +61,7 @@ public:
      * build     : point by parameter
      * exception : std::bad_typeid
      */
-    t_xy(const T _x, const T _y) throw(std::bad_typeid)
+    t_xy<T>(const T _x, const T _y) throw(std::bad_typeid)
     {
         if (!std::is_arithmetic<T>::value)
             throw;
@@ -66,7 +69,7 @@ public:
         x = _x; y = _y;
     }
 
-    ~xy_t()
+    ~t_xy()
     {
 
     }
@@ -80,7 +83,7 @@ public:
      * return value : assignmented instance reference
      * exception    : none
      */
-    t_xy<T>& operator= (const xy_t<T>& _rhs)
+    t_xy<T>& operator= (const t_xy<T>& _rhs)
     {
         x = _rhs.x;
         y = _rhs.y;
@@ -146,7 +149,8 @@ public:
      * return value : length of p0 to p1
      * exception    : none
      */
-    static long double length(const t_xy<T> _src, const t_xy<T> _dst) const
+    template<typename T1, typename T2>
+    static long double length(const t_xy<T1> _src, const t_xy<T2> _dst)
     {
     t_xy<long double> p0 = t_xy<long double>
                                ((long double)_src.x, (long double)_src.y);
@@ -176,13 +180,17 @@ public:
      * return value : anele
      * exception    : none
      */
-    static double get_angle(const t_xy<T> _src,
-                            const t_xy<T> _via,
-                            const t_xy<T> _dst) const
+    template<typename T1, typename T2, typename T3>
+    static double get_angle(const t_xy<T1> _src,
+                            const t_xy<T2> _via,
+                            const t_xy<T3> _dst)
     {
-        t_xy<T> src = t_xy<T>(_src.x, -_src.y);
-        t_xy<T> via = t_xy<T>(_via.x - src.x, -_via.y - src.y);
-        t_xy<T> dst = t_xy<T>(_dst.x - src.x, -_dst.y - src.y);
+        t_xy<double> src = t_xy<double>( (double)_src.x,
+                                        -(double)_src.y);
+        t_xy<double> via = t_xy<double>( (double)_via.x - (double)src.x,
+                                        -(double)_via.y - (double)src.y);
+        t_xy<double> dst = t_xy<double>( (double)_dst.x - (double)src.x,
+                                        -(double)_dst.y - (double)src.y);
 
         double ang_via = std::atan2(via.y, via.x);
         if(ang_via < 0.0)
@@ -194,8 +202,8 @@ public:
         if(ang_dst < 0.0)
             ang_dst = M_PI + (-ang_dst);
         if(ang_dst > 2 * M_PI)
-            ang_dst = fmod(ang_dst / 2 * M_PI);
-
+            ang_dst = fmod(ang_dst, 2.0 * M_PI);
+        
         return ang_dst;
 
 

@@ -11,6 +11,7 @@
     </ClCompile>
     <ClCompile Include="src\tools\graph.cpp" />
     <ClCompile Include="src\dijkstra\dijkstra.cpp" />
+    <ClCompile Include="src\JMCmap\JMC.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\tools\coordinate.hpp" />
