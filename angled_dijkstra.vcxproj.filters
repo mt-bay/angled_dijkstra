@@ -12,6 +12,7 @@
     <ClCompile Include="src\tools\graph.cpp" />
     <ClCompile Include="src\dijkstra\dijkstra.cpp" />
     <ClCompile Include="src\JMCmap\JMC.cpp" />
+    <ClCompile Include="src\log\log.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\tools\coordinate.hpp" />
@@ -19,5 +20,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\dijkstra\dijkstra.hpp" />
+    <ClInclude Include="src\log\log.hpp" />
   </ItemGroup>
 </Project>

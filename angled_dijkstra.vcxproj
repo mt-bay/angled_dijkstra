@@ -66,11 +66,13 @@
   <ItemGroup>
     <ClCompile Include="src\dijkstra\dijkstra.cpp" />
     <ClCompile Include="src\JMCmap\JMC.cpp" />
+    <ClCompile Include="src\log\log.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\tools\graph.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\dijkstra\dijkstra.hpp" />
+    <ClInclude Include="src\log\log.hpp" />
     <ClInclude Include="src\tools\graph.hpp" />
     <ClInclude Include="src\tools\coordinate.hpp" />
   </ItemGroup>

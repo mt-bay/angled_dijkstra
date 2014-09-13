@@ -8,6 +8,8 @@
 #include "tools/coordinate.hpp"
 #include "tools/graph.hpp"
 
+#include "log/log.hpp"
+
 int main(int argc, char** argv){
     std::vector< cd::t_xy<long int> > test_V = std::vector< cd::t_xy<long int> >(0, cd::t_xy<long int>(0, 0));
 

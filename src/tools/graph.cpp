@@ -32,7 +32,6 @@ t_graph::t_graph
     set_graph_size(_link_cost.size());
     for(unsigned int i = 0; i < get_V_size(); i++)
     {
-        m_node_location->at(i) = &t_xy<long int>(0, 0);
         for(unsigned int j = 0; j < get_V_size(); j++)
         {
             m_adjacency_matrix->at(i).at(j)
@@ -48,26 +47,22 @@ t_graph::t_graph
     (const std::vector< cd::t_xy<long int> >         _node_location   ,
      const std::vector< std::vector<unsigned char> > _adjacency_matrix)
 {
-    m_node_location = &std::vector< cd::t_xy<long int>* >();
+    set_graph_size(_node_location.size());
     for(unsigned int i = 0; i < _node_location.size(); ++i)
     {
-        m_node_location->push_back(&cd::t_xy<long int>(_node_location.at(i)));
+        *m_node_location->at(i) = _node_location.at(i);
     }
-
-    m_adjacency_matrix = &std::vector< std::vector<unsigned char> >();
-    m_link_cost        = &std::vector< std::vector<long double  > >();
 
     for(unsigned int i = 0; i < _adjacency_matrix.size(); ++i)
     {
-        m_adjacency_matrix->push_back(std::vector<unsigned char>());
-        m_link_cost->push_back(std::vector<long double>());
         for(unsigned int j = 0; j < _adjacency_matrix.at(i).size(); ++j)
         {
-            m_adjacency_matrix->at(i).push_back(_adjacency_matrix.at(i).at(j));
-            m_link_cost->at(i).push_back(
-                                   cd::t_xy<long int>::length(
-                                       *m_node_location->at(i),
-                                       *m_node_location->at(j)));
+            m_adjacency_matrix->at(i).at(j) = _adjacency_matrix.at(i).at(j);
+            
+            m_link_cost->at(i).at(j)
+                = (cd::t_xy<long int>::length(
+                       *m_node_location->at(i),
+                       *m_node_location->at(j)));
         }
     }
 }
@@ -120,13 +115,13 @@ void t_graph::set_link_cost(long     double  _link_cost   ,
 
 void t_graph::set_graph_size(unsigned int _graph_size)
 {
-    m_node_location    = &std::vector< cd::t_xy<long int>* >();
+    m_node_location    = new std::vector< cd::t_xy<long int>* >();
     for(unsigned int i = 0; i < _graph_size; ++i)
     {
-        m_node_location->push_back(&cd::t_xy<long int>(0, 0));
+        m_node_location->push_back(new cd::t_xy<long int>(0, 0));
     }
 
-    m_adjacency_matrix = &std::vector< std::vector<unsigned char> >();
+    m_adjacency_matrix = new std::vector< std::vector<unsigned char> >();
     for(unsigned int i = 0; i < _graph_size; ++i)
     {
         m_adjacency_matrix->push_back(std::vector<unsigned char>());
@@ -134,7 +129,7 @@ void t_graph::set_graph_size(unsigned int _graph_size)
             m_adjacency_matrix->at(i).push_back(false);
     }
 
-    m_link_cost = &std::vector< std::vector<long double> >();
+    m_link_cost = new std::vector< std::vector<long double> >();
     for(unsigned int i = 0; i < _graph_size; ++i)
     {
         m_link_cost->push_back(std::vector<long double>());

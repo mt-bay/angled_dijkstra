@@ -23,7 +23,7 @@ namespace cd
 template <typename T>
 class t_xy
 {
-    /* member variable */
+    /* member variable and instance */
 public:
     T x, y;
 
