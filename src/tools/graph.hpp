@@ -22,7 +22,7 @@ class t_graph
     /* member variable and instance */
 public    :
     //V
-    std::vector< t_xy<long int>* >*            m_node_location;
+    std::vector< t_xy<long int>* >*              m_node_location;
 
 protected :
     //E
@@ -110,7 +110,7 @@ protected :
      * return value : void
      * exception    : none
      */
-    inline virtual void set_graph_size(unsigned int _graph_size);
+    virtual void set_graph_size(unsigned int _graph_size);
 
     /* 
      * setting node location
