@@ -12,14 +12,20 @@ t_log::~t_log()
 
 t_log::t_log()
 {
-    m_writer = new std::ofstream(m_s_file_path);
-    std::atexit(io::t_log::del_instance);
+    m_writer = new std::ofstream(C_FILE_PATH);
 }
 
 t_log::t_log(const t_log& _origin)
 {
     //nothing to do
 }
+
+
+t_log& t_log::operator= (const t_log& _rhs)
+{
+    return get_instance();
+}
+
 
 void t_log::write(const std::string _contents)
 {
@@ -38,23 +44,17 @@ void t_log::write_line(const std::string _contents)
 
 t_log& t_log::get_instance()
 {
+    static t_log m_s_instance;
+
+    return m_s_instance;
+    /*
     if(m_instance == nullptr)
     {
         m_instance = new t_log();
     }
 
     return *m_instance;
+    */
 }
-
-void t_log::del_instance()
-{
-    if(m_instance != nullptr)
-    {
-        delete m_instance;
-    }
-
-    return;
-}
-
 
 }

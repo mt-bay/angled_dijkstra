@@ -12,7 +12,6 @@ namespace jc
 
 class t_jmc
 {
-    /* member valiable */
 
     /*  */
 

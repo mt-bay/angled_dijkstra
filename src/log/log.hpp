@@ -1,3 +1,7 @@
+#ifndef SRC_LOG_LOG_H
+#define SRC_LOG_LOG_H
+
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -9,13 +13,6 @@ namespace io
 /* logger class */
 class t_log
 {
-    /* member variable and instance */
-public   :
-private  :
-    static t_log*  m_instance;
-    std::ofstream* m_writer;
-    const std::string m_s_file_path = "log.txt";
-
     /* constractor and destractor */
 public   :
     /* 
@@ -30,7 +27,7 @@ private  :
      * built     : log file
      * exception : none
      */
-     t_log();
+    t_log();
 
     /* 
      * copy constractor
@@ -38,10 +35,25 @@ private  :
      * built     : copy
      * exception : none
      */
-     t_log(const t_log& _origin);
+    t_log(const t_log& _origin);
+
+
+    /* operator overload */
+public    :
+private   :
+    t_log& operator= (const t_log& _rhs);
+
 
     /* method */
 public   :
+    /* 
+     * get instance
+     * parameter    : void
+     * return value : log file instance
+     * exception    : none
+     */
+    static t_log& get_instance();
+
     /* 
      * add contents
      * parameter    : contents
@@ -58,21 +70,28 @@ public   :
      */
     void write_line(const std::string _contents);
 
-    /* 
-     * get instance
-     * parameter    : void
-     * return value : log file instance
-     * exception    : none
-     */
-    static t_log& get_instance();
-
 private:
-    /* 
-     * delete instance
-     * parameter    : void
-     * return value : void
-     * exception    : none
-     */
-    static void del_instance();
+
+
+    /* member const value and instance */
+public    :
+private   :
+    const std::string C_FILE_PATH = "log.txt";
+
+
+    /* static variable and instance */
+public    :
+private   :
+//    static t_log* m_instance;
+
+
+    /* member variable and instance */
+public    :
+private   :
+    std::ofstream* m_writer;
+
 };
 }
+
+
+#endif //!LOG_LOG_H
