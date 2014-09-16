@@ -27,18 +27,27 @@ int main(int argc, char** argv)
 
     try
     {
-        cd::t_graph test = cd::t_graph(test_V, test_adj);
+        cd::t_graph test
+            = cd::t_graph::csv_location_and_csv_adj_to_graph
+                ("bin\\test_location.csv",
+                 "bin\\test_adj.csv"     );
 
-        test.to_csv("test graph.csv");
-        
-        di::t_dijkstra test_dij
-            = di::t_dijkstra::gen_dijkstra_angled(test, 0.0, 0, false, 0);
-        test_dij.to_csv("test.csv");
+        std::cout << test.m_node_location << std::endl;
+        std::cout << test.get_V_size() <<std::endl;
+
+        test.to_csv("test graph.csv", false);
+
+        di::t_dijkstra::gen_dijkstra_angled(test,  0.0, 0)
+            .to_csv("test(cost0).csv");
+
+        di::t_dijkstra::gen_dijkstra_angled(test, 50.0, 0)
+            .to_csv("test(cost50).csv");
     }
     catch(std::exception e)
     {
         std::cout << "catch" << std::endl;
         std::cout << e.what() << std::endl;
+        std::getchar();
     }
 
     return 0;

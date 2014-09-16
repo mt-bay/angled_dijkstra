@@ -1,6 +1,8 @@
 #ifndef SRC_COORDINATE_GRAPH_H
 #define SRC_COORDINATE_GRAPH_H
 
+#pragma warning(disable : 4290)
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -22,7 +24,7 @@ class t_graph
     /* constractor, destractor */
 public    :
     /* 
-     * default constractor
+     * default constructor
      * parameter : void
      * build     : empty network
      * exception : none
@@ -30,7 +32,7 @@ public    :
     t_graph();
 
     /* 
-     * copy constractor
+     * copy constructor
      * parameter : original
      * build     : deep copy
      * exception : none
@@ -38,7 +40,7 @@ public    :
     t_graph(const t_graph& _origin);
 
     /* 
-     * setter constractor(no location)
+     * setter constructor(no location)
      * parameter : E
      * build     : network by parameter
      * exception : none
@@ -47,7 +49,7 @@ public    :
             const std::vector< std::vector<unsigned char> > _adjacency_matrix);
 
     /* 
-     * setter constractor
+     * setter constructor
      * parameter : V's location,Å@adjacency matrix
      * build     : network by parameter
      * exception : none
@@ -56,13 +58,37 @@ public    :
             const std::vector< std::vector<unsigned char> > _adjacency_matrix);
 
     /* 
-     * destractor
+     * destructor
      * parameter : void
      */
-    ~t_graph();
+    virtual ~t_graph();
+
+
+    /* static method */
+public    :
+    /* 
+     * csv(link cost) to graph
+     * "-"          -> INFINITY,
+     * double value -> link cost
+     * parameter    : csv file path
+     * return value : graph
+     * exception    : none
+     */
+    static t_graph csv_link_cost_to_graph(std::string _file_path);
+
+    /* 
+     * csv(location) and csv(adjacency matrix) to graph
+     * parameter    : csv file(location), csv file(adjacency matrix)
+     * return value : graph
+     * exception    : none
+     */
+    static t_graph csv_location_and_csv_adj_to_graph
+                (std::string _file_path_location,
+                 std::string _file_path_adj     );
+
 
     /* method */
-public    :
+public    :    
     /* 
      * get |V|
      * parameter    : void
@@ -93,11 +119,11 @@ public    :
 
     /* 
      * this instance to csv
-     * parameter    : file path
+     * parameter    : file path, write index
      * return value : write successful
      * exception    : none
      */
-    bool to_csv(std::string _file_path);
+    bool to_csv(std::string _file_path, bool _write_index = true);
 
 protected :
     /* 
@@ -134,12 +160,12 @@ protected :
     /* member variable and instance */
 public    :
     //V
-    std::vector< t_xy<long int>* >*              m_node_location;
+    std::vector< t_xy<long int>* >*            m_node_location;
 
 protected :
     //E
-    std::vector< ::std::vector<unsigned char> >* m_adjacency_matrix;
-    std::vector< ::std::vector<long double> >*   m_link_cost;
+    std::vector< std::vector<unsigned char> >* m_adjacency_matrix;
+    std::vector< std::vector<long double> >*   m_link_cost;
 private   :
     
 };

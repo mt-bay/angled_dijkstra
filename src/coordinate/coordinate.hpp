@@ -5,6 +5,8 @@
 #define _USE_MATH_DEFINES
 #endif  //_USE_MATH_DEFINES
 
+#pragma warning(disable : 4290)
+
 #include <iostream>
 #include <string>
 #include <type_traits>

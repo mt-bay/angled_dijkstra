@@ -31,6 +31,14 @@ t_dijkstra::t_dijkstra(const cd::t_graph  _graph          ,
 }
 
 
+t_dijkstra::~t_dijkstra()
+{
+    delete m_graph;
+    delete m_route_cost;
+    delete m_is_confirmed;
+    delete m_path;
+}
+
 /* operator overload */
 t_dijkstra& t_dijkstra::operator= (t_dijkstra& _rhs)
 {
@@ -313,7 +321,7 @@ bool t_dijkstra::satisfy_end_condition(const bool         _use_dst        ,
 
     if(_use_dst)
     {
-        return (bool)m_is_confirmed->at(_dst_node_number);
+        return (m_is_confirmed->at(_dst_node_number) != (unsigned char)false);
     }
     else
     {

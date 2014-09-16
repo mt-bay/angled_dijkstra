@@ -1,6 +1,8 @@
 #ifndef SRC_DIJKSTRA_DIJKSTRA_H
 #define SRC_DIJKSTRA_DIJKSTRA_H
 
+#pragma warning(disable : 4290)
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -38,7 +40,7 @@ public    :
     t_dijkstra(const t_dijkstra& _origin);
 
     /* 
-     * size setter constracter
+     * size setter constructor
      * parameter : size of graph, source node number
      * built     : initialized dijkstra result
      * exception : std::out_of_range
@@ -47,6 +49,10 @@ public    :
                const unsigned int  _src_node_number)
                   throw(::std::out_of_range);
 
+    /* 
+     * destructor
+     */
+    ~t_dijkstra();
 protected :
 
 
@@ -55,7 +61,7 @@ public    :
     t_dijkstra& operator= (t_dijkstra& _rhs);
 
 
-    /* method */
+    /* static method */
 public    :
     /* 
      * run nomal dijkstra
@@ -87,7 +93,8 @@ public    :
                                           const unsigned int _dst_node_number
                                                             = 0              )
                                               throw(std::out_of_range);
-
+    /* method */
+public    :
     /* 
      * graph size getter
      * parameter    : void
