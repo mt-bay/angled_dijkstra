@@ -1,29 +1,18 @@
-#include <iostream>
-#include <string>
+#include <list>
 
+#include "JMC.hpp"
 
-namespace cd
+#include "../coordinate/graph.hpp"
+#include "../tools/tools.hpp"
+namespace jmc
 {
-class t_graph;
+
+cd::t_graph t_jmc::jmc_to_graph(std::string _jmc_data_dir)
+{
+    std::list<std::string> file_list = mt::get_file_path_list
+                                           (_jmc_data_dir, "*.dat");
+
+
 }
-
-namespace jc
-{
-
-class t_jmc
-{
-
-    /*  */
-
-    /* method */
-public:
-    /* 
-     * jmc data files to graph
-     * parameter    : jmc data file directory
-     * return value : generated graph
-     * exception    : 
-     */
-    static cd::t_graph jmc_to_graph();
-};
 
 }

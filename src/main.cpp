@@ -9,6 +9,7 @@
 #include "coordinate/graph.hpp"
 
 #include "dijkstra/dijkstra.hpp"
+#include "dijkstra/angled_dijkstra.hpp"
 
 int main(int argc, char** argv)
 {
@@ -37,10 +38,10 @@ int main(int argc, char** argv)
 
         test.to_csv("test graph.csv", false);
 
-        di::t_dijkstra::gen_dijkstra_angled(test,  0.0, 0)
+        di::t_dijkstra::gen_dijkstra(test, 0)
             .to_csv("test(cost0).csv");
 
-        di::t_dijkstra::gen_dijkstra_angled(test, 50.0, 0)
+        di::t_angled_dijkstra::gen_dijkstra(test, 50.0, 0)
             .to_csv("test(cost50).csv");
     }
     catch(std::exception e)

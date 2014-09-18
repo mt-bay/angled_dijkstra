@@ -1,5 +1,5 @@
-#ifndef SRC_LOG_LOG_H
-#define SRC_LOG_LOG_H
+#ifndef SRC_LOG_LOG_HPP
+#define SRC_LOG_LOG_HPP
 
 
 #include <iostream>
@@ -13,16 +13,16 @@ namespace io
 /* logger class */
 class t_log
 {
-    /* constractor and destractor */
+    /* constructor and destractor */
 public   :
     /* 
-     * destractor
+     * destructor
      */
     ~t_log();
 
 private  :
     /* 
-     * default constractor
+     * default constructor
      * parameter : void
      * built     : log file
      * exception : none
@@ -30,7 +30,7 @@ private  :
     t_log();
 
     /* 
-     * copy constractor
+     * copy constructor
      * parameter : origin
      * built     : copy
      * exception : none
@@ -43,6 +43,7 @@ public    :
 private   :
     t_log& operator= (const t_log& _rhs);
 
+    /* static method */
 
     /* method */
 public   :
@@ -81,8 +82,6 @@ private   :
 
     /* static variable and instance */
 public    :
-private   :
-//    static t_log* m_instance;
 
 
     /* member variable and instance */
@@ -94,4 +93,4 @@ private   :
 }
 
 
-#endif //!LOG_LOG_H
+#endif //!LOG_LOG_HPP

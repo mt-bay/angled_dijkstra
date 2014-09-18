@@ -49,20 +49,9 @@ t_dijkstra& t_dijkstra::operator= (t_dijkstra& _rhs)
 /* method */
 t_dijkstra t_dijkstra::gen_dijkstra(const cd::t_graph  _graph          , 
                                     const unsigned int _src_node_number,
-                                    const unsigned int _dst_node_number,
-                                    const bool         _use_dst        )
+                                    const bool         _use_dst        ,
+                                    const unsigned int _dst_node_number)
                                         throw(std::out_of_range)
-{
-    return gen_dijkstra_angled(_graph, 0, 0, 0.0, _use_dst);
-}
-
-
-t_dijkstra t_dijkstra::gen_dijkstra_angled(const cd::t_graph  _graph          ,
-                                           const long double  _angle_weight   ,
-                                           const unsigned int _src_node_number,
-                                           const bool         _use_dst        ,
-                                           const unsigned int _dst_node_number)
-                                               throw(std::out_of_range)
 {
     //preprcessing
     if(_src_node_number <                   0 ||
@@ -76,7 +65,7 @@ t_dijkstra t_dijkstra::gen_dijkstra_angled(const cd::t_graph  _graph          ,
     t_dijkstra result = t_dijkstra(_graph, _src_node_number);
     
 #ifdef  _DEBUG
-    io::t_log::get_instance().write_line("angled dijkstra start");
+    io::t_log::get_instance().write_line("dijkstra start");
 #endif //_DEBUG
 
     //body of process
@@ -89,18 +78,12 @@ t_dijkstra t_dijkstra::gen_dijkstra_angled(const cd::t_graph  _graph          ,
                result.m_is_confirmed->at(i) == false)
             {
                 if(result.m_route_cost->at(last_confirmed)          +
-                   result.m_graph->get_link_cost(last_confirmed, i) +
-                   result.get_angle_cost(_angle_weight ,
-                                         last_confirmed,
-                                         i             )
+                   result.m_graph->get_link_cost(last_confirmed, i)
                    < result.m_route_cost->at(i))
                 {
                     result.m_route_cost->at(i)
                         = result.m_route_cost->at(last_confirmed)          +
-                          result.m_graph->get_link_cost(last_confirmed, i) +
-                              result.get_angle_cost(_angle_weight ,
-                                                    last_confirmed,
-                                                    i             );
+                          result.m_graph->get_link_cost(last_confirmed, i);
 
                     result.m_path->at(i) 
                         = std::vector<unsigned int>();
@@ -120,10 +103,12 @@ t_dijkstra t_dijkstra::gen_dijkstra_angled(const cd::t_graph  _graph          ,
     }
 
 #ifdef _DEBUG
-    io::t_log::get_instance().write_line("angled dijkstra end");
+    io::t_log::get_instance().write_line("dijkstra end");
 #endif //_DEBUG
     return result;
 }
+
+
 
 
 unsigned int t_dijkstra::get_V_size() const
@@ -216,15 +201,7 @@ inline void t_dijkstra::deep_copy(const t_dijkstra& _origin)
 }
 
 
-inline double t_dijkstra::get_angle_cost(const double       _angle_weight   ,
-                                         const unsigned int _src_node_number,
-                                         const unsigned int _dst_node_number)
-{
-    return (abs(_angle_weight) < 1.0e-14)?
-                0.0 :
-                abs(_angle_weight * sin(path_to_angle(_src_node_number,
-                                                      _dst_node_number)));
-}
+
 
 
 unsigned int t_dijkstra::get_confirm_node_number()
@@ -271,40 +248,7 @@ inline void t_dijkstra::init(const cd::t_graph  _graph          ,
 }
 
 
-double t_dijkstra::path_to_angle(unsigned int _src_node_number,
-                                 unsigned int _dst_node_number)
-                                     throw(std::out_of_range)
-{
-    if(_src_node_number >= m_graph->get_V_size() || _src_node_number < 0)
-        throw;
-    if(_dst_node_number >= m_graph->get_V_size() || _dst_node_number < 0)
-        throw;
 
-    if(m_path->at(_src_node_number).size() < 2)
-    {
-        return 0.0;
-    }
-    else
-    {
-        cd::t_xy<long int> p0 
-                           = *m_graph->
-                             m_node_location->
-                             at(m_path->at(_src_node_number).
-                                 at(m_path->at(_src_node_number).size() - 2));
-
-        cd::t_xy<long int> p1
-                           = *m_graph->
-                             m_node_location->
-                             at(m_path->at(_src_node_number).
-                                 at(m_path->at(_src_node_number).size() - 1));
-
-        cd::t_xy<long int> p2
-                           = *m_graph->
-                             m_node_location->at(_dst_node_number);
-
-        return cd::t_xy<long int>::get_angle(p0, p1, p2);
-    }
-}
 
 
 bool t_dijkstra::satisfy_end_condition(const bool         _use_dst        ,

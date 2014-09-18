@@ -1,7 +1,7 @@
-#ifndef SRC_COORDINATE_GRAPH_H
-#define SRC_COORDINATE_GRAPH_H
+#ifndef SRC_COORDINATE_GRAPH_HPP
+#define SRC_COORDINATE_GRAPH_HPP
 
-#pragma warning(disable : 4290)
+#pragma warning(disable : 4290) //hide warning C4290
 
 #include <iostream>
 #include <string>
@@ -172,4 +172,4 @@ private   :
 
 }
 
-#endif //!SRC_COORDINATE_GRAPH_H
+#endif //!SRC_COORDINATE_GRAPH_HPP

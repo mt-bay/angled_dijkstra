@@ -1,12 +1,13 @@
-#ifndef SRC_DIJKSTRA_DIJKSTRA_H
-#define SRC_DIJKSTRA_DIJKSTRA_H
+#ifndef SRC_DIJKSTRA_DIJKSTRA_HPP
+#define SRC_DIJKSTRA_DIJKSTRA_HPP
 
-#pragma warning(disable : 4290)
+#pragma warning(disable : 4290) //hide warning C4290
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <exception>
+
 
 namespace cd
 {
@@ -52,19 +53,20 @@ public    :
     /* 
      * destructor
      */
-    ~t_dijkstra();
+    virtual ~t_dijkstra();
 protected :
-
+private   :
 
     /* operator overload */
 public    :
-    t_dijkstra& operator= (t_dijkstra& _rhs);
-
+    virtual t_dijkstra& operator= (t_dijkstra& _rhs);
+protected :
+private   :
 
     /* static method */
 public    :
     /* 
-     * run nomal dijkstra
+     * run dijkstra
      * parameter    : network graph, 
      *                source node number, destination node number
      * return value : dijkstra result
@@ -72,27 +74,16 @@ public    :
      */
     static t_dijkstra gen_dijkstra(const cd::t_graph  _graph          , 
                                    const unsigned int _src_node_number,
-                                   const unsigned int _dst_node_number,
-                                   const bool         _use_dst = true )
-                                       throw(::std::out_of_range);
+                                   const bool         _use_dst 
+                                                        = false       ,
+                                   const unsigned int _dst_node_number
+                                                        = 0           )
+                                    throw(::std::out_of_range);
 
-    /* 
-     * run angled dijkstra
-     * parameter    : network graph, 
-     *                source node number, destination node number,
-     *                angle weight(angle cost : |weight * sin(angle / 2)|),
-     *                use destination node
-     * return value : dijkstra result
-     * exception    : std::out_of_range
-     */
-    static t_dijkstra gen_dijkstra_angled(const cd::t_graph  _graph          ,
-                                          const long double  _angle_weight   ,
-                                          const unsigned int _src_node_number,
-                                          const bool         _use_dst 
-                                                            = false          ,
-                                          const unsigned int _dst_node_number
-                                                            = 0              )
-                                              throw(std::out_of_range);
+    
+protected :
+private   :
+
     /* method */
 public    :
     /* 
@@ -101,7 +92,7 @@ public    :
      * return value : network size
      * exception    : none
      */
-    unsigned int get_V_size() const;
+    virtual unsigned int get_V_size() const;
 
     /* 
      * this instance to csv file
@@ -109,7 +100,7 @@ public    :
      * return value : write successful
      * exception    : none
      */
-    bool to_csv(const std::string _file_path) const;
+    virtual bool to_csv(const std::string _file_path) const;
 
 protected :
     /* 
@@ -119,17 +110,9 @@ protected :
      * return value : void
      * exception    : none
      */
-    inline void deep_copy(const t_dijkstra& _origin);
+    virtual inline void deep_copy(const t_dijkstra& _origin);
 
-    /* 
-     * get angle cost
-     * parameter    : angle weight, source node number, destination node number
-     * return value : angle cost
-     * exception    : out_of_range
-     */
-    inline  double get_angle_cost(const double       _angle_cost     ,
-                                 const unsigned int _src_node_number,
-                                 const unsigned int _dst_node_number);
+
     
     /* 
      * get confirm node number
@@ -137,7 +120,7 @@ protected :
      * return value : confirm node number
      * exception    : none
      */
-    unsigned int get_confirm_node_number();
+    virtual unsigned int get_confirm_node_number();
 
     /* 
      * initilize instance
@@ -145,19 +128,11 @@ protected :
      * return value : void
      * exception    : std::out_of_range
      */
-    inline void init(const cd::t_graph  _graph          ,
-                     const unsigned int _src_node_number)
-                        throw(std::out_of_range);
+    virtual inline void init(const cd::t_graph  _graph          ,
+                             const unsigned int _src_node_number)
+                                throw(std::out_of_range);
 
-    /* 
-     * path to angle
-     * parameter    : source node number, destination node number
-     * return value : angle that path of A to B
-     * exception    : out_of_range
-     */
-    double     path_to_angle(unsigned int _src_node_number,
-                             unsigned int _dst_node_number)
-                                 throw(std::out_of_range);
+
 
 
     /* 
@@ -176,11 +151,13 @@ protected :
      * return value : void
      * exception    : none
      */
-    inline void set_graph_size(const unsigned int _graph_size);
-
+    virtual inline void set_graph_size(const unsigned int _graph_size);
+private   :
 
     /* const value and instance */
-
+public    :
+protected :
+private   :
 
     /* static valiable and instance */
 
@@ -193,8 +170,10 @@ protected :
     std::vector<long double>*                 m_route_cost;
     std::vector<unsigned char>*               m_is_confirmed;
     std::vector< std::vector<unsigned int> >* m_path;
+private   :
 };
 
 }
 
-#endif  //!SRC_DIJKSTRA_DIJKSTRA_H
+
+#endif  //!SRC_DIJKSTRA_DIJKSTRA_HPP

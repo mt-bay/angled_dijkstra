@@ -1,11 +1,11 @@
-#ifndef SRC_COORDINATE_COORDINATE_H
-#define SRC_COORDINATE_COORDINATE_H
+#ifndef SRC_COORDINATE_COORDINATE_HPP
+#define SRC_COORDINATE_COORDINATE_HPP
 
 #ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES
 #endif  //_USE_MATH_DEFINES
 
-#pragma warning(disable : 4290)
+#pragma warning(disable : 4290) //hide warning C4290
 
 #include <iostream>
 #include <string>
@@ -142,6 +142,28 @@ public:
         return *this;
     }
 
+    /* 
+     * equality operator
+     * parameter    : right hand side
+     * return value : are this and rhs. of equal value
+     * exception    : none
+     */
+    bool     operator==(const t_xy<T>& _rhs)
+    {
+        return (this->x == _rhs.x && this->y == _rhs.y);
+    }
+
+    /* 
+     * unequality operator
+     * parameter    : right hand side
+     * return value : are this and rhs. not of equal value
+     * exception    : none
+     */
+    bool     operator!=(const t_xy<T>& _rhs)
+    {
+        return (this->x != _rhs.x || this->y != _rhs.y);
+    }
+
 
     /* method */
 public:
@@ -248,4 +270,4 @@ private:
 
 }
 
-#endif //!SRC_COORDINATE_COORDINATE_H
+#endif //!SRC_COORDINATE_COORDINATE_HPP

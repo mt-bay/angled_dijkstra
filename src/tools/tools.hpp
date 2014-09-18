@@ -1,5 +1,5 @@
-#ifndef SRC_TOOLS_TOOLS_H
-#define SRC_TOOLS_TOOLS_H
+#ifndef SRC_TOOLS_TOOLS_HPP
+#define SRC_TOOLS_TOOLS_HPP
 
 
 
@@ -12,6 +12,15 @@ namespace mt
 {
 /* function */
 /* 
+ * get file list in directory
+ * parameter    : search directory
+ * return value : file list
+ * exception    : none
+ */
+std::list<std::string> get_file_path_list(const std::string _directory     ,
+                                          const std::string _filter = "*.*");
+
+/* 
  * std::list to std::vector
  * parameter    : std::list
  * return value : std::vector
@@ -19,6 +28,15 @@ namespace mt
  */
 template<typename T>
 std::vector<T> list_to_vector(const std::list<T>& _source);
+
+/* 
+ * file path to file name
+ * ex : "./path/file_name.txt" -> "file_name"
+ * parameter    : file path
+ * return value : file name or ""(if file is not found)
+ * exception    : none
+ */
+std::string file_path_to_file_name(const std::string _file_path);
 
 /* 
  * split string
@@ -48,6 +66,6 @@ template<typename T>
 std::list<T> vector_to_list(const std::vector<T>& _source);
 
 }
-//#include "tools.cpp"
 
-#endif //!SRC_TOOLS_TOOLS_H
+
+#endif //!SRC_TOOLS_TOOLS_HPP
