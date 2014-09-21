@@ -1,5 +1,5 @@
-#ifndef SRC_DIJKSTRA_ANGLED_DIJKSTRA_HPP
-#define SRC_DIJKSTRA_ANGLED_DIJKSTRA_HPP
+#pragma once
+
 
 #include "dijkstra.hpp"
 
@@ -110,5 +110,3 @@ private   :
 
 };
 }
-
-#endif //!SRC_DIJKSTRA_ANGLED_DIJKSTRA_HPP

@@ -1,9 +1,6 @@
-#ifndef SRC_LOG_LOG_HPP
-#define SRC_LOG_LOG_HPP
+#pragma once
 
 
-#include <iostream>
-#include <fstream>
 #include <string>
 
 
@@ -91,6 +88,3 @@ private   :
 
 };
 }
-
-
-#endif //!LOG_LOG_HPP

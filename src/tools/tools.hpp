@@ -1,9 +1,6 @@
-#ifndef SRC_TOOLS_TOOLS_HPP
-#define SRC_TOOLS_TOOLS_HPP
+#pragma once
 
 
-
-#include <iostream>
 #include <string>
 #include <vector>
 #include <list>
@@ -66,6 +63,3 @@ template<typename T>
 std::list<T> vector_to_list(const std::vector<T>& _source);
 
 }
-
-
-#endif //!SRC_TOOLS_TOOLS_HPP

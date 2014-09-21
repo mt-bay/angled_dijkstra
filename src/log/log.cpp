@@ -45,16 +45,7 @@ void t_log::write_line(const std::string _contents)
 t_log& t_log::get_instance()
 {
     static t_log m_s_instance;
-
     return m_s_instance;
-    /*
-    if(m_instance == nullptr)
-    {
-        m_instance = new t_log();
-    }
-
-    return *m_instance;
-    */
 }
 
 }

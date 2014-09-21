@@ -1,5 +1,4 @@
-#ifndef SRC_COORDINATE_GRAPH_HPP
-#define SRC_COORDINATE_GRAPH_HPP
+#pragma once
 
 #pragma warning(disable : 4290) //hide warning C4290
 
@@ -171,5 +170,3 @@ private   :
 };
 
 }
-
-#endif //!SRC_COORDINATE_GRAPH_HPP

@@ -66,6 +66,7 @@
   <ItemGroup>
     <ClCompile Include="src\dijkstra\angled_dijkstra.cpp" />
     <ClCompile Include="src\dijkstra\dijkstra.cpp" />
+    <ClCompile Include="src\JMCmap\common.cpp" />
     <ClCompile Include="src\JMCmap\JMC.cpp" />
     <ClCompile Include="src\log\log.cpp" />
     <ClCompile Include="src\main.cpp" />

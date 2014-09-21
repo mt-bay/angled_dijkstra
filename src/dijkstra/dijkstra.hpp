@@ -1,5 +1,5 @@
-#ifndef SRC_DIJKSTRA_DIJKSTRA_HPP
-#define SRC_DIJKSTRA_DIJKSTRA_HPP
+#pragma once
+
 
 #pragma warning(disable : 4290) //hide warning C4290
 
@@ -174,6 +174,3 @@ private   :
 };
 
 }
-
-
-#endif  //!SRC_DIJKSTRA_DIJKSTRA_HPP

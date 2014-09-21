@@ -1,5 +1,4 @@
-#ifndef SRC_COORDINATE_COORDINATE_HPP
-#define SRC_COORDINATE_COORDINATE_HPP
+#pragma once
 
 #ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES
@@ -7,7 +6,7 @@
 
 #pragma warning(disable : 4290) //hide warning C4290
 
-#include <iostream>
+
 #include <string>
 #include <type_traits>
 #include <exception>
@@ -269,5 +268,3 @@ private:
 };
 
 }
-
-#endif //!SRC_COORDINATE_COORDINATE_HPP
