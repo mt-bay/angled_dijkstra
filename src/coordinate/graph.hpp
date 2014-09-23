@@ -85,6 +85,13 @@ public    :
                 (std::string _file_path_location,
                  std::string _file_path_adj     );
 
+    /* 
+     * jmc map data to graph
+     * parameter    : jmc data file directory
+     * return value : graph
+     * exception    : none
+     */
+    static t_graph jmc_to_graph(std::string _jmc_data_dir);
 
     /* method */
 public    :    
@@ -125,6 +132,14 @@ public    :
     bool to_csv(std::string _file_path, bool _write_index = true);
 
 protected :
+    /* 
+     * add size of graph
+     * parameter    : size to add
+     * return value : void
+     * exception    : none
+     */
+    virtual void add_graph_size(unsigned int _add_graph_size);
+
     /* 
      * seting size of graph
      * parameter    : graph size

@@ -1,5 +1,6 @@
 #include <fstream>
 #include <list>
+#include <regex>
 
 #include "graph.hpp"
 #include "coordinate.hpp"
@@ -130,6 +131,46 @@ t_graph t_graph::csv_link_cost_to_graph(std::string _file_path)
     csv.close();
 
     return result;
+}
+
+
+t_graph t_graph::jmc_to_graph(std::string _jmc_data_dir)
+{
+    std::list<std::string> file_list = mt::get_file_path_list
+                                           (_jmc_data_dir, "*.dat");
+
+    t_graph result = t_graph();
+
+    std::ifstream jmc;
+    std::string line;
+
+    std::regex regex_header("^H2");
+    std::regex regex_road("^L\\s");
+    std::regex regex_node("^[\\d\\s][\\d\\s]");
+
+    bool is_road_layer = false;
+    std::string recode_type;
+
+    for(std::list<std::string>::iterator it = file_list.begin();
+        it != file_list.end()                                  ;
+        it++                                                   )
+    {
+        jmc = std::ifstream(*it);
+        while(std::getline(jmc, line))
+        {
+            if(line.length() > 2)
+            {
+                if(std::regex_search(line.begin(),
+                                     line.end(),
+                                     regex_header))
+                {
+
+                }
+            }
+        }
+    }
+    return result;
+
 }
 
 
@@ -282,6 +323,29 @@ bool t_graph::to_csv(std::string _file_path, bool _write_index)
     }
     csv.close();
     return true;
+}
+
+void t_graph::add_graph_size(unsigned int _add_graph_size)
+{
+#ifdef _DEBUG
+    io::t_log::get_instance().write_line("graph size add");
+#endif //_DEBUG
+    for(unsigned int i = 0; i < _add_graph_size; ++i)
+    {
+        m_node_location->push_back(new cd::t_xy<long int>(0, 0));
+        m_adjacency_matrix->push_back
+            (std::vector<unsigned char>(m_adjacency_matrix->size(), false));
+
+        m_link_cost->push_back
+            (std::vector<long double>(0));
+
+        for(unsigned int j = 0; j < m_adjacency_matrix->size(); ++j)
+        {
+            m_adjacency_matrix->at(i).push_back(false);
+            m_link_cost->at(i).push_back((long double)INFINITY);
+        }
+    }
+
 }
 
 void t_graph::set_graph_size(unsigned int _graph_size)

@@ -64,7 +64,7 @@ std::vector<T> list_to_vector(const std::list<T>& _source)
 
 std::string file_path_to_file_name(const std::string _file_path)
 {
-
+    return "";
 }
 
 std::list<std::string> split_l(const std::string _source,

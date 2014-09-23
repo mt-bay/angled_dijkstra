@@ -10,12 +10,12 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\dijkstra\dijkstra.cpp" />
-    <ClCompile Include="src\JMCmap\JMC.cpp" />
     <ClCompile Include="src\log\log.cpp" />
     <ClCompile Include="src\coordinate\graph.cpp" />
     <ClCompile Include="src\tools\tools.cpp" />
     <ClCompile Include="src\dijkstra\angled_dijkstra.cpp" />
     <ClCompile Include="src\JMCmap\common.cpp" />
+    <ClCompile Include="src\JMCmap\IO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\dijkstra\dijkstra.hpp" />
@@ -28,5 +28,6 @@
     <ClInclude Include="src\JMCmap\JMC.hpp" />
     <ClInclude Include="src\dijkstra\angled_dijkstra.hpp" />
     <ClInclude Include="src\JMCmap\common.hpp" />
+    <ClInclude Include="src\JMCmap\IO.hpp" />
   </ItemGroup>
 </Project>

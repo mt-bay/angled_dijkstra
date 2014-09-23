@@ -2,6 +2,7 @@
 
 #include "../coordinate/coordinate.hpp"
 #include "../coordinate/graph.hpp"
+#include "../log/log.hpp"
 
 namespace di
 {
