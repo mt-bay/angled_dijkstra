@@ -8,10 +8,6 @@ namespace JMC_csv_converter
 {
     class t_graph
     {
-        /* member value and instance */
-        public List< t_xy<long> > m_location;
-        public List< List<bool> > m_adjacency_matrix;
-
         /* constructor */
         /// <summary>
         /// default constructor
@@ -150,6 +146,10 @@ namespace JMC_csv_converter
             return;
         }
 
+
+        /* member value and instance */
+        public List< t_xy<long> > m_location;
+        public List< List<bool> > m_adjacency_matrix;
 
     }
 }

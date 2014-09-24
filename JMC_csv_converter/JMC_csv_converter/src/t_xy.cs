@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace JMC_csv_converter
 {
+    /// <summary>
+    /// 2-dimentional decalt point class
+    /// </summary>
+    /// <typeparam name="T">point type</typeparam>
     class t_xy<T>
         where T : struct
     {
-        public T x, y;
+        
         /* constructor */
         public t_xy()
         {
@@ -64,6 +68,16 @@ namespace JMC_csv_converter
 
         /* method */
         
+
+        /* const value */
+
+
+        /* static value and instance */
+
+
+        /* member value and instance */
+        public T x, y;
+
 
     }
 }
