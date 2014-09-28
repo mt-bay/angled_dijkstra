@@ -45,6 +45,7 @@
     <Compile Include="src\main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\t_JMC.cs" />
+    <Compile Include="src\t_logger.cs" />
     <Compile Include="src\t_xy.cs" />
     <Compile Include="src\util_xy.cs" />
   </ItemGroup>
