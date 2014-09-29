@@ -5,3 +5,8 @@ C:\Users\Poncho\Documents\DIY Products\C++\練習\angled_dijkstra\JMC_csv_conver
 C:\Users\Poncho\Documents\DIY Products\C++\練習\angled_dijkstra\JMC_csv_converter\JMC_csv_converter\obj\Release\JMC_csv_converter.exe
 C:\Users\Poncho\Documents\DIY Products\C++\練習\angled_dijkstra\JMC_csv_converter\JMC_csv_converter\obj\Release\JMC_csv_converter.pdb
 C:\Users\Yamaura\Documents\Products\angled_dijkstra\JMC_csv_converter\JMC_csv_converter\bin\Release\JMC_csv_converter.exe.config
+C:\Users\Yamaura\Documents\Products\angled_dijkstra\JMC_csv_converter\JMC_csv_converter\bin\Release\JMC_csv_converter.exe
+C:\Users\Yamaura\Documents\Products\angled_dijkstra\JMC_csv_converter\JMC_csv_converter\bin\Release\JMC_csv_converter.pdb
+C:\Users\Yamaura\Documents\Products\angled_dijkstra\JMC_csv_converter\JMC_csv_converter\obj\Release\JMC_csv_converter.csprojResolveAssemblyReference.cache
+C:\Users\Yamaura\Documents\Products\angled_dijkstra\JMC_csv_converter\JMC_csv_converter\obj\Release\JMC_csv_converter.exe
+C:\Users\Yamaura\Documents\Products\angled_dijkstra\JMC_csv_converter\JMC_csv_converter\obj\Release\JMC_csv_converter.pdb

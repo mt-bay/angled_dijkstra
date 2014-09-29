@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\JMC\t_layer.cs" />
+    <Compile Include="src\JMC\t_line_item.cs" />
+    <Compile Include="src\JMC\t_mesh.cs" />
     <Compile Include="src\t_graph.cs" />
     <Compile Include="src\main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
