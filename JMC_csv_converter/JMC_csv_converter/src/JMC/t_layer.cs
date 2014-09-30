@@ -37,7 +37,7 @@ namespace JMC_csv_converter.src.JMC
             e_recode_type recode_type;
 
             //get header type
-            elm = _line.Substring(0, 2);
+            elm = util.str_byte_substring(_line,  0,  2, t_JMC.m_s_encode);
             switch (elm)
             {
                 case "H1":
@@ -52,7 +52,7 @@ namespace JMC_csv_converter.src.JMC
             }
 
             //get layer code
-            elm = _line.Substring(2, 2);
+            elm = util.str_byte_substring(_line,  2,  2, t_JMC.m_s_encode);
             switch (elm)
             {
                 case " 1":
@@ -70,32 +70,36 @@ namespace JMC_csv_converter.src.JMC
                 case " 5":
                     result.m_code = 5;
                     break;
+                case " 7":
+                    result.m_code = 7;
+                    break;
                 default:
                     throw new FormatException
-                        ("");
+                        ("invalid layer code");
             }
 
             //get num of node
-            elm = _line.Substring(4, 5);
+            elm = util.str_byte_substring(_line,  4,  5, t_JMC.m_s_encode);
             result.m_num_node = (recode_type == e_recode_type.H1) ?
                                                   0 :
                                     Int32.Parse(elm);
 
             //get num of line
-            elm = _line.Substring(9, 5);
+            elm = util.str_byte_substring(_line,  9,  5, t_JMC.m_s_encode);
             result.m_num_line = Int32.Parse(elm);
 
             //get num of area
-            elm = _line.Substring(14, 5);
+            elm = util.str_byte_substring(_line, 14,  5, t_JMC.m_s_encode);
             result.m_num_area = (recode_type == e_recode_type.H1) ?
                                                   0 :
                                     Int32.Parse(elm);
 
             //get num of point
-            elm = _line.Substring(19, 5);
+            elm = util.str_byte_substring(_line, 19,  5, t_JMC.m_s_encode);
+            result.m_num_point = Int32.Parse(elm);
 
             //get num of recode
-            elm = _line.Substring(24, 5);
+            elm = util.str_byte_substring(_line, 24,  5, t_JMC.m_s_encode);
             result.m_num_record = Int32.Parse(elm);
 
             return result;

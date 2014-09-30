@@ -35,7 +35,7 @@ namespace JMC_csv_converter.src.JMC
             string elm;
 
             //recode type check
-            elm = _line.Substring( 0,  2);
+            elm = util.str_byte_substring(_line,  0,  2, t_JMC.m_s_encode);
             if(! m_recode_type.IsMatch(elm))
             {
                 throw new FormatException
@@ -43,7 +43,7 @@ namespace JMC_csv_converter.src.JMC
             }
 
             //secondary mesh code to padding
-            elm = _line.Substring( 2,  6);
+            elm = util.str_byte_substring(_line,  2,  6, t_JMC.m_s_encode);
             int mesh_code = Int32.Parse(elm);
             result.m_padding = new t_xy<long>
                             ((Int32.Parse(elm.Substring(0, 2))
@@ -56,11 +56,11 @@ namespace JMC_csv_converter.src.JMC
                              * MESH_LOCATION_MAX_Y             ));
 
             //get number or layer
-            elm = _line.Substring(28,  3);
+            elm = util.str_byte_substring(_line, 28,  3, t_JMC.m_s_encode);
             result.m_num_layer = Int32.Parse(elm);
 
             //get number of recode
-            elm = _line.Substring(51,  5);
+            elm = util.str_byte_substring(_line, 51,  5, t_JMC.m_s_encode);
             result.m_num_record = Int32.Parse(elm);
 
             return result;

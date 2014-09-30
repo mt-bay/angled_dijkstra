@@ -26,7 +26,7 @@ namespace JMC_csv_converter.src
                 }
 
                 //make log file
-                string  date_format = "yymmdd_hhmm";
+                string  date_format = "yyMMdd_HHmm";
                 DateTime now = DateTime.Now;
                 m_path = M_LOG_DIR + now.ToString(date_format) + @".log";
                 m_writer = new StreamWriter(m_path                           ,
@@ -69,7 +69,7 @@ namespace JMC_csv_converter.src
         /// <param name="e">throwed exception</param>
         public void write_exception(Exception e)
         {
-            m_writer.WriteLine(e.StackTrace);
+            m_writer.WriteLine(e.ToString());
             m_writer.Flush();
         }
 

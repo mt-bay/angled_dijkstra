@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=x-sjis">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>ＪＭＣマップ  ファイル構造</TITLE>
+<META NAME="Template" CONTENT="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080">
+
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">３．ファイルフォーマット</P>
+<P ALIGN="JUSTIFY">・１次メッシュ単位にファイルになっています。</P>
+<P ALIGN="JUSTIFY">・ファイル内のデータは、２次メッシュ番号順に並んでいます。</P><DIR>
+
+<P ALIGN="JUSTIFY">・２次メッシュ内のデータは、メッシュ･ヘッダー･レコードに続き、必要に応じてノードレコード、ラインレコード、エリアレコード、ポイントレコード、注記テキストレコードが続きます。なお、ラインレコードには座標値レコード、エリアレコードにはのエリア構成レコードが続きます。</P>
+<P ALIGN="JUSTIFY">・２次メッシュ内の各座標値は、左下を</FONT><FONT FACE="Century">(0,0)</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">、右上を</FONT><FONT FACE="Century">(10000,10000)</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">とする正規化座標で記録されています。なお、ｘ座標は右（東）方向、ｙ座標は上（北）方向となります。</P></DIR>
+
+<P ALIGN="JUSTIFY">・各レコードは、復帰･改行コードで区切られています。</P>
+<P ALIGN="JUSTIFY">・文字コードは、シフト</FONT><FONT FACE="Century">JIS</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">コードを使用しています。</P>
+<P ALIGN="JUSTIFY">　</P>
+<P ALIGN="JUSTIFY">　</P>
+<P ALIGN="JUSTIFY">データファイルは１次メッシュ単位になっており、以下のような構造になっています。</P>
+<P ALIGN="JUSTIFY">　</P>
+<P ALIGN="JUSTIFY">データファイル（１次メッシュ単位）</P>
+<P ALIGN="JUSTIFY">&#9;</FONT><A HREF="readme41.htm"><FONT FACE="ＭＳ 明朝" LANG="JA">メッュ・ヘッダー･レコード（２次メッシュ単位）</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　<A HREF="readme42.htm">レイヤー･ヘッダー･レコード（行政界･海岸線）</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　　<A HREF="readme43.htm">ノードレコード</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　　<A HREF="readme45.htm">ラインレコード</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　　　<A HREF="readme48.htm">座標値レコード</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　　<A HREF="readme49.htm">エリアレコード</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　　　<A HREF="readme4a.htm">エリア構成ライン番号レコード</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">　</P>
+<P ALIGN="JUSTIFY">&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　<A HREF="readme42.htm">レイヤー・ヘッダー・レコード（道路）</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　　<A HREF="readme45.htm">ラインレコード</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　　　<A HREF="readme48.htm">座標値レコード</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">　</P>
+<P ALIGN="JUSTIFY">&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　<A HREF="readme42.htm">レイヤー･ヘッダー･レコード（鉄道）</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　　<A HREF="readme45.htm">ラインレコード</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　　　<A HREF="readme48.htm">座標値レコード</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">　</P>
+<P ALIGN="JUSTIFY">&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　<A HREF="readme42.htm">レイヤー･ヘッダー･レコード（河川･湖沼）</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　　<A HREF="readme45.htm">ラインレコード</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　　　<A HREF="readme48.htm">座標値レコード</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">　</P>
+<P ALIGN="JUSTIFY">&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　<A HREF="readme42.htm">レイヤー･ヘッダー･レコード（記号･注記）</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　　<A HREF="readme4b.htm">ポイントレコード</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　　　<A HREF="readme48.htm">座標値レコード</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">&#9;&#9;&#9;&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　　　<A HREF="readme4d.htm">注記テキストレコード</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">　</P>
+<P ALIGN="JUSTIFY">&#9;</FONT><FONT FACE="ＭＳ 明朝" LANG="JA">　<A HREF="readme41.htm">メッシュ･ヘッダー･レコード（２次メッシュ単位）</FONT></A></P>
+<FONT FACE="ＭＳ 明朝" LANG="JA"><P ALIGN="JUSTIFY">　</P>
+<P ALIGN="JUSTIFY">以下、同様に続く</P>
+<P ALIGN="JUSTIFY">　</P>
+<P ALIGN="JUSTIFY">　</P>
+<HR>
+<CENTER><B><H3><A HREF="readme1.htm">最初に戻る</A></H3></B></CENTER>
+<HR>
+</FONT></BODY>
+</HTML>
