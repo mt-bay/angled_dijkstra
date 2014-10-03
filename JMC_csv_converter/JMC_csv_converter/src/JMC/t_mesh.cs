@@ -15,6 +15,8 @@ namespace JMC_csv_converter.src.JMC
         /// </summary>
         public t_mesh()
         {
+            m_layer   = new List<t_layer>();
+
             m_padding = new t_xy<long>();
         }
 
@@ -80,8 +82,12 @@ namespace JMC_csv_converter.src.JMC
 
 
         /* member variable and instance */
-        public int        m_num_record;
-        public t_xy<long> m_padding;
-        public int        m_num_layer;
+        //layer
+        public List<t_layer> m_layer;
+
+        //other
+        public int           m_num_record;
+        public t_xy<long>    m_padding;
+        public int           m_num_layer;
     }
 }

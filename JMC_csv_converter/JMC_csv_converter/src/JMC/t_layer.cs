@@ -16,7 +16,11 @@ namespace JMC_csv_converter.src.JMC
         /// </summary>
         public t_layer()
         {
-            //nothing to do
+            m_node  = new List<t_node> ();
+
+            m_line  = new List<t_line> ();
+            m_area  = new List<t_area> ();
+            m_point = new List<t_point>();
         }
 
 
@@ -125,6 +129,19 @@ namespace JMC_csv_converter.src.JMC
 
 
         /* member variable and instance */
+        //node
+        public List<t_node>  m_node;
+
+        //line
+        public List<t_line>  m_line;
+
+        //area
+        public List<t_area>  m_area;
+
+        //point
+        public List<t_point> m_point;
+
+        //others
         public int m_code;
         public int m_num_node;
         public int m_num_line;

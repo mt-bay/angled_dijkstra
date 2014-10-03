@@ -282,11 +282,15 @@ namespace JMC_csv_converter.src.JMC
 
             //get left administrative code
             elm = util.str_byte_substring(_line, 29,  5, t_JMC.m_s_encode);
-            result.m_left_administrative_code = Int32.Parse(elm);
+            result.m_left_administrative_code
+                = (result.m_src_adjacency_info == 0)?               0 :
+                                                      Int32.Parse(elm);
 
             //get right administrative code
             elm = util.str_byte_substring(_line, 34,  5, t_JMC.m_s_encode);
-            result.m_right_administrative_code = Int32.Parse(elm);
+            result.m_right_administrative_code
+                = (result.m_dst_adjacency_info == 0)?               0 :
+                                                      Int32.Parse(elm);
 
             //get num. of coordinate point and number of coordinate recode
             elm = util.str_byte_substring(_line, 39,  6, t_JMC.m_s_encode);
@@ -308,7 +312,7 @@ namespace JMC_csv_converter.src.JMC
             {
                 elm[0] = util.str_byte_substring
                                 (_line, i * 10    ,  5, t_JMC.m_s_encode);
-                elm[0] = util.str_byte_substring
+                elm[1] = util.str_byte_substring
                                 (_line, i * 10 + 5,  5, t_JMC.m_s_encode);
 
                 if(elm[0] == "     " &&

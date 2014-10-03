@@ -10,6 +10,14 @@ namespace JMC_csv_converter.src.JMC
 {
     class t_area
     {
+        /* constructor */
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public t_area()
+        {
+
+        }
 
         /* static variable and instance */
         public static Regex m_recode_type

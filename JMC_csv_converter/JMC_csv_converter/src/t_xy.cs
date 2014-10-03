@@ -37,22 +37,44 @@ namespace JMC_csv_converter.src
         }
 
         /* operator overload */
-        public static t_xy<T> operator+ (t_xy<T> _lhs, t_xy<T> _rhs)
+        public static t_xy<T> operator + (t_xy<T> _lhs, t_xy<T> _rhs)
         {
             return new t_xy<T>((dynamic)_lhs.x + (dynamic)_rhs.x, 
                                (dynamic)_lhs.y + (dynamic)_rhs.y);
         }
         
-        public static t_xy<T> operator- (t_xy<T> _lhs, t_xy<T> _rhs)
+        public static t_xy<T> operator - (t_xy<T> _lhs, t_xy<T> _rhs)
         {
             return new t_xy<T>((dynamic)_lhs.x - (dynamic)_rhs.x,
                                (dynamic)_lhs.x - (dynamic)_rhs.y);
         }
 
-        public static t_xy<T> operator* (t_xy<T> _lhs, double _rhs)
+        public static t_xy<T> operator * (t_xy<T> _lhs, double _rhs)
         {
             return new t_xy<T>((dynamic)_lhs.x * _rhs,
                                (dynamic)_lhs.y * _rhs);
+        }
+
+        public static bool    operator ==(t_xy<T> _lhs, t_xy<T> _rhs)
+        {
+            if(_lhs == null || _rhs == null)
+            {
+                return false;
+            }
+
+            return (((dynamic)_lhs.x == (dynamic)_rhs.x) &&
+                    ((dynamic)_lhs.y == (dynamic)_rhs.y));
+        }
+
+        public static bool    operator !=(t_xy<T> _lhs, t_xy<T> _rhs)
+        {
+            if(_lhs == null || _rhs == null)
+            {
+                return false;
+            }
+
+            return (((dynamic)_lhs.x != (dynamic)_rhs.x) ||
+                    ((dynamic)_lhs.y != (dynamic)_rhs.y));
         }
 
 
@@ -62,6 +84,15 @@ namespace JMC_csv_converter.src
             return "(" + x.ToString() + ", " + y.ToString() + ")";
         }
 
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
 
         /* static method */
 

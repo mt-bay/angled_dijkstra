@@ -45,7 +45,9 @@ namespace JMC_csv_converter.src
         /// add location data
         /// </summary>
         /// <param name="_data">adding data</param>
-        public void add_location(t_xy<long> _data)
+        /// <param name="_prev_is_adjacency">prev node is adjacency</param>
+        public void add_location(t_xy<long> _data,
+                                 bool       _prev_is_adjacency = false)
         {
             m_adjacency_matrix.Add(new List<bool>(m_location.Count));
             for(int i = 0; i < m_adjacency_matrix.Count; ++i)
@@ -55,9 +57,49 @@ namespace JMC_csv_converter.src
 
             m_location.Add(new t_xy<long>(_data));
 
+            if (m_location.Count >= 2)
+            {
+                set_adjacency(m_location.Count - 1,
+                              m_location.Count - 2,
+                              _prev_is_adjacency);
+
+                set_adjacency(m_location.Count - 2,
+                              m_location.Count - 1,
+                              _prev_is_adjacency);
+            }
+
             return;
         }
 
+        public void add_stickey_location(t_xy<long> _data,
+                                         bool       _prev_is_adjancecy = false)
+        {
+            for (int i = 0; i < m_location.Count; ++i)
+            {
+                if (m_location[i] == _data)
+                {
+                    set_adjacency(i                   ,
+                                  m_location.Count - 1,
+                                  _prev_is_adjancecy  );
+
+                    set_adjacency(m_location.Count - 1,
+                                  i                   ,
+                                  _prev_is_adjancecy  );
+
+                    return;
+                }
+            }
+
+            add_location(_data, _prev_is_adjancecy);
+            return;
+        }
+
+        /// <summary>
+        /// set adjacency data
+        /// </summary>
+        /// <param name="_src_node_number">src. node number</param>
+        /// <param name="_dst_node_number">dst. node number</param>
+        /// <param name="_is_adjacency">src. to dst. is adjacency</param>
         public void set_adjacency(int  _src_node_number,
                                   int  _dst_node_number,
                                   bool _is_adjacency   )
