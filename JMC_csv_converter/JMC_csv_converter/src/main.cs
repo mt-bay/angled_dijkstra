@@ -12,20 +12,23 @@ namespace JMC_csv_converter.src
         {
             try
             {
-
-                t_JMC jmc = new t_JMC();
-                jmc.jmc_dat_directory_to_graph(@"JMCマップ\DATA\");
-
+                t_JMC   jmc   = new t_JMC(@"JMCマップ\DATA\");
+                t_graph graph = jmc.to_graph();
+                graph.to_csv(@"location.csv", @"adj.csv");
             }
             catch(Exception e)
             {
+                t_logger.get_instance().write_exception(e);
                 Console.WriteLine("catch in Main");
                 Console.WriteLine("please look log file");
-                t_logger.get_instance().write_exception(e);
+            }
+            finally
+            {
                 Console.WriteLine();
                 Console.WriteLine("wait key.");
                 Console.ReadKey();
             }
+            
         }
     }
 }

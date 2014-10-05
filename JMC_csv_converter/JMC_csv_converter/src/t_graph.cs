@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace JMC_csv_converter.src
 
 
         /* static method */
-        
+
 
         /* method */
         /// <summary>
@@ -49,10 +50,14 @@ namespace JMC_csv_converter.src
         public void add_location(t_xy<long> _data,
                                  bool       _prev_is_adjacency = false)
         {
-            m_adjacency_matrix.Add(new List<bool>(m_location.Count));
             for(int i = 0; i < m_adjacency_matrix.Count; ++i)
             {
                 m_adjacency_matrix[i].Add(false);
+            }
+            m_adjacency_matrix.Add(new List<bool>());
+            for (int i = 0; i < m_adjacency_matrix.Count; ++i)
+            {
+                m_adjacency_matrix[m_adjacency_matrix.Count - 1].Add(false);
             }
 
             m_location.Add(new t_xy<long>(_data));
@@ -71,6 +76,13 @@ namespace JMC_csv_converter.src
             return;
         }
 
+
+        /// <summary>
+        /// add location data
+        /// stick adjancecy data if adding data is not unique
+        /// </summary>
+        /// <param name="_data">adding data</param>
+        /// <param name="_prev_is_adjancecy">prev node is adjacency</param>
         public void add_stickey_location(t_xy<long> _data,
                                          bool       _prev_is_adjancecy = false)
         {
@@ -93,6 +105,7 @@ namespace JMC_csv_converter.src
             add_location(_data, _prev_is_adjancecy);
             return;
         }
+
 
         /// <summary>
         /// set adjacency data
@@ -124,6 +137,7 @@ namespace JMC_csv_converter.src
 
         }
 
+
         /// <summary>
         /// set location data
         /// </summary>
@@ -144,6 +158,42 @@ namespace JMC_csv_converter.src
             m_location[_index] = new t_xy<long>(_data);
 
             return;
+        }
+
+
+        public void to_csv(string _location_file_path ,
+                            string _adjacency_file_path)
+        {
+            t_logger.get_instance().write_info("convert graph to csv");
+
+            StreamWriter location_csv
+                            = new StreamWriter(_location_file_path);
+            for (int i = 0; i < m_location.Count; ++i)
+            {
+                location_csv.Write(m_location[i].x.ToString());
+                location_csv.Write(",");
+                location_csv.Write(m_location[i].y.ToString());
+
+                location_csv.WriteLine();
+            }
+            location_csv.Close();
+
+            StreamWriter adjacency_csv
+                            = new StreamWriter(_adjacency_file_path);
+            for (int i = 0; i < m_adjacency_matrix.Count; ++i)
+            {
+                for (int j = 0; j < m_adjacency_matrix[i].Count; ++j)
+                {
+                    adjacency_csv.Write((m_adjacency_matrix[i][j])? "1" : "0");
+                    if (j < m_adjacency_matrix[i].Count - 1)
+                    {
+                        adjacency_csv.Write(",");
+                    }
+                }
+
+                location_csv.WriteLine();
+            }
+
         }
 
         /// <summary>
@@ -170,6 +220,7 @@ namespace JMC_csv_converter.src
 
             return;
         }
+
 
         /// <summary>
         /// set size of graph

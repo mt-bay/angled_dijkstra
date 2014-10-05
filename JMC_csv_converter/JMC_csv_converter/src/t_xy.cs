@@ -57,24 +57,13 @@ namespace JMC_csv_converter.src
 
         public static bool    operator ==(t_xy<T> _lhs, t_xy<T> _rhs)
         {
-            if(_lhs == null || _rhs == null)
-            {
-                return false;
-            }
-
             return (((dynamic)_lhs.x == (dynamic)_rhs.x) &&
                     ((dynamic)_lhs.y == (dynamic)_rhs.y));
         }
 
         public static bool    operator !=(t_xy<T> _lhs, t_xy<T> _rhs)
         {
-            if(_lhs == null || _rhs == null)
-            {
-                return false;
-            }
-
-            return (((dynamic)_lhs.x != (dynamic)_rhs.x) ||
-                    ((dynamic)_lhs.y != (dynamic)_rhs.y));
+            return !(_lhs == _rhs);
         }
 
 
@@ -86,7 +75,15 @@ namespace JMC_csv_converter.src
 
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            if (obj == null)
+            {
+                return false;
+            }
+
+            t_xy<T> target = (t_xy<T>)obj;
+            
+            return ((dynamic)this.x == (dynamic)target.x &&
+                    (dynamic)this.y == (dynamic)target.y);
         }
 
         public override int GetHashCode()

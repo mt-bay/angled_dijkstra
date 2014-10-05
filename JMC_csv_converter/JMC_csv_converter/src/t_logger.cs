@@ -59,6 +59,7 @@ namespace JMC_csv_converter.src
         /// <param name="_content">writeing contents</param>
         public void write(string _content)
         {
+            Console.WriteLine(_content);
             m_writer.WriteLine(_content);
             m_writer.Flush();
         }
@@ -69,6 +70,7 @@ namespace JMC_csv_converter.src
         /// <param name="e">throwed exception</param>
         public void write_exception(Exception e)
         {
+            Console.WriteLine(e.ToString());
             m_writer.WriteLine(e.ToString());
             m_writer.Flush();
         }
@@ -117,14 +119,17 @@ namespace JMC_csv_converter.src
                 lines[i].Replace(Environment.NewLine, @"");
             }
 
+            Console.WriteLine (_status + @" : " + lines[0]);
             m_writer.WriteLine(_status + @" : " + lines[0]);
             for (int i = 1; i < lines.Length; ++i)
             {
                 
                 for (int j = 0; j < _status.Length + 3; ++j)
                 {
+                    Console.Write (@" ");
                     m_writer.Write(@" ");
                 }
+                Console.WriteLine (lines[i]);
                 m_writer.WriteLine(lines[i]);
             }
             m_writer.Flush();

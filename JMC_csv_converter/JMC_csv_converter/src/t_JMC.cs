@@ -25,8 +25,7 @@ namespace JMC_csv_converter.src
         /// </summary>
         public t_JMC()
         {
-            m_mesh  = new List<t_mesh>();
-            m_prev_analysis = e_analysis_type.NONE;
+            init();
         }
 
         /* method */
@@ -35,10 +34,9 @@ namespace JMC_csv_converter.src
         /// </summary>
         /// <param name="_jmc_dir">jmc-data directory path</param>
         /// <returns>created graph</returns>
-        public t_graph jmc_dat_directory_to_graph(string _jmc_dir)
+        public t_JMC(string _jmc_dir)
         {
-            t_xy<long> margin = new t_xy<long>(0, 0);
-            t_graph    result = new t_graph();
+            init();
 
             string jmc_dir_path = (Path.IsPathRooted(_jmc_dir))? 
                                     _jmc_dir :
@@ -59,7 +57,6 @@ namespace JMC_csv_converter.src
                      Encoding.GetEncoding("Shift_JIS"));
                 line_num = 0;
 
-                Console.WriteLine(@"read " + jmc_files[i]);
                 t_logger.get_instance().write(@"read : " + jmc_files[i]);
 
                 while(file.Peek() >= 0)
@@ -79,9 +76,20 @@ namespace JMC_csv_converter.src
                     }
                 }
             }
-            Console.WriteLine(@"read successful");
+            t_logger.get_instance().write(@"read successful");
+        }
 
-            StreamWriter res_out = new StreamWriter(@"log\result.txt");
+
+        /// <summary>
+        /// this instance to graph data
+        /// </summary>
+        /// <returns>generated graph</returns>
+        public t_graph to_graph()
+        {
+            t_logger.get_instance().write_info("convert JMC to graph");
+
+            t_graph result = new t_graph();
+
             for (int i = 0; i < m_mesh.Count; ++i)
             {
                 for (int j = 0;
@@ -106,7 +114,6 @@ namespace JMC_csv_converter.src
                     }
                 }
             }
-            res_out.Close();
             return result;
         }
 
@@ -206,7 +213,16 @@ namespace JMC_csv_converter.src
             
             throw new FormatException(@"unknown string : " + _line);
         }
-        
+
+
+        /// <summary>
+        /// init instance
+        /// </summary>
+        private void init()
+        {
+            m_mesh  = new List<t_mesh>();
+            m_prev_analysis = e_analysis_type.NONE;
+        }
 
         /* member enum */
         private enum e_analysis_type
