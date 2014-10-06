@@ -17,7 +17,7 @@ namespace JMC_csv_converter.src.JMC
         {
             m_layer   = new List<t_layer>();
 
-            m_padding = new t_xy<long>();
+            m_padding = new t_xy<int>();
         }
 
 
@@ -47,7 +47,7 @@ namespace JMC_csv_converter.src.JMC
             //secondary mesh code to padding
             elm = util.str_byte_substring(_line,  2,  6, t_JMC.m_s_encode);
             int mesh_code = Int32.Parse(elm);
-            result.m_padding = new t_xy<long>
+            result.m_padding = new t_xy<int>
                             ((Int32.Parse(elm.Substring(0, 2))
                              * (SECONDARY_MESH_MAX + 1)
                              + Int32.Parse(elm.Substring(4, 1)))
@@ -70,9 +70,9 @@ namespace JMC_csv_converter.src.JMC
 
 
         /* const value */
-        private const long SECONDARY_MESH_MAX  = 7;
-        private const long MESH_LOCATION_MAX_X = 10000;
-        private const long MESH_LOCATION_MAX_Y = 10000;
+        private const int SECONDARY_MESH_MAX  = 7;
+        private const int MESH_LOCATION_MAX_X = 10000;
+        private const int MESH_LOCATION_MAX_Y = 10000;
 
 
         /* static variable and instance */
@@ -87,7 +87,7 @@ namespace JMC_csv_converter.src.JMC
 
         //other
         public int           m_num_record;
-        public t_xy<long>    m_padding;
+        public t_xy<int>     m_padding;
         public int           m_num_layer;
     }
 }

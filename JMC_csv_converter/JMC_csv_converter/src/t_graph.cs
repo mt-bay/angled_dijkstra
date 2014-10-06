@@ -47,7 +47,7 @@ namespace JMC_csv_converter.src
         /// </summary>
         /// <param name="_data">adding data</param>
         /// <param name="_prev_is_adjacency">prev node is adjacency</param>
-        public void add_location(t_xy<long> _data,
+        public void add_location(t_xy<int> _data,
                                  bool       _prev_is_adjacency = false)
         {
             for(int i = 0; i < m_adjacency_matrix.Count; ++i)
@@ -60,7 +60,7 @@ namespace JMC_csv_converter.src
                 m_adjacency_matrix[m_adjacency_matrix.Count - 1].Add(false);
             }
 
-            m_location.Add(new t_xy<long>(_data));
+            m_location.Add(new t_xy<int>(_data));
 
             if (m_location.Count >= 2)
             {
@@ -83,7 +83,7 @@ namespace JMC_csv_converter.src
         /// </summary>
         /// <param name="_data">adding data</param>
         /// <param name="_prev_is_adjancecy">prev node is adjacency</param>
-        public void add_stickey_location(t_xy<long> _data,
+        public void add_stickey_location(t_xy<int> _data,
                                          bool       _prev_is_adjancecy = false)
         {
             for (int i = 0; i < m_location.Count; ++i)
@@ -143,7 +143,7 @@ namespace JMC_csv_converter.src
         /// </summary>
         /// <param name="_index">index</param>
         /// <param name="_data">set data</param>
-        public void set_location(int _index, t_xy<long> _data)
+        public void set_location(int _index, t_xy<int> _data)
         {
             if(_index < 0)
             {
@@ -155,7 +155,7 @@ namespace JMC_csv_converter.src
                 add_graph_size(_index - (m_location.Count - 1));
             }
 
-            m_location[_index] = new t_xy<long>(_data);
+            m_location[_index] = new t_xy<int>(_data);
 
             return;
         }
@@ -191,7 +191,7 @@ namespace JMC_csv_converter.src
                     }
                 }
 
-                location_csv.WriteLine();
+                adjacency_csv.WriteLine();
             }
 
         }
@@ -215,7 +215,7 @@ namespace JMC_csv_converter.src
                     m_adjacency_matrix[i].Add(false);
                 }
 
-                m_location.Add(new t_xy<long>());
+                m_location.Add(new t_xy<int>());
             }
 
             return;
@@ -231,7 +231,7 @@ namespace JMC_csv_converter.src
             if(_size < 0)
                 return;
 
-            m_location = new List<t_xy<long> >((int)_size);
+            m_location = new List<t_xy<int> >((int)_size);
             m_adjacency_matrix = new List< List<bool> >((int)_size);
 
             add_graph_size(_size);
@@ -241,7 +241,7 @@ namespace JMC_csv_converter.src
 
 
         /* member value and instance */
-        public List< t_xy<long> > m_location;
+        public List< t_xy<int > > m_location;
         public List< List<bool> > m_adjacency_matrix;
 
     }

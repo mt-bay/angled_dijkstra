@@ -16,7 +16,7 @@ namespace JMC_csv_converter.src.JMC
         /// </summary>
         public t_line()
         {
-            m_coordinate = new List<t_xy<long> >();
+            m_coordinate = new List<t_xy<int> >();
         }
 
 
@@ -321,13 +321,13 @@ namespace JMC_csv_converter.src.JMC
                     return;
                 }
 
-                m_coordinate.Add(new t_xy<long>
+                m_coordinate.Add(new t_xy<int>
                                         (((elm[0] == "     ")?
                                                             0 :
-                                            Int64.Parse(elm[0])),
+                                            Int32.Parse(elm[0])),
                                          ((elm[1] == "     ")?
                                                             0 :
-                                            Int64.Parse(elm[1]))));
+                                            Int32.Parse(elm[1]))));
             }
         }
 
@@ -351,6 +351,6 @@ namespace JMC_csv_converter.src.JMC
         public int m_right_administrative_code;
         public int m_num_coordinate;
         public int m_num_coordinate_recode;
-        public List<t_xy<long> > m_coordinate;
+        public List<t_xy<int> > m_coordinate;
     }
 }

@@ -106,8 +106,8 @@ namespace JMC_csv_converter.src
                             ++l)
                         {
                             out_file.WriteLine
-                                ((m_mesh[i].m_padding +
-                                  m_mesh[i].m_layer[j].m_line[k]
+                                ((m_mesh[i].m_padding
+                                + m_mesh[i].m_layer[j].m_line[k]
                                  .m_coordinate[l]               ).ToString());
                         }
                     }
@@ -142,9 +142,10 @@ namespace JMC_csv_converter.src
         }
 
 
-        public t_xy<long> get_coordinate_max()
+        public t_xy<int> get_coordinate_max()
         {
-            t_xy<long> result = new t_xy<long>(0, 0);
+            t_xy<int> result = new t_xy<int>(0, 0);
+            t_xy<int> target = new t_xy<int>(0, 0);
             for (int i = 0; i < m_mesh.Count; ++i)
             {
                 for (int j = 0;
@@ -160,7 +161,17 @@ namespace JMC_csv_converter.src
                                .m_coordinate.Count;
                             ++l)
                         {
-                            ++result;
+                            target = m_mesh[i].m_padding
+                                   + m_mesh[i].m_layer[j].m_line[k]
+                                    .m_coordinate[l]               ;
+                            if (result.x < target.x)
+                            {
+                                result.x = target.x;
+                            }
+                            if (result.y < target.y)
+                            {
+                                result.y = target.y;
+                            }
                         }
                     }
                 }

@@ -12,15 +12,17 @@ namespace JMC_csv_converter.src
         {
             try
             {
-                t_JMC   jmc   = new t_JMC(@"JMCマップ\DATA\");
+                t_JMC   jmc   = new t_JMC(@"DATA\");
 
                 t_logger.get_instance().write_info
                     ("jmc coordinate num = " + jmc.get_coordinate_num());
-
+                t_logger.get_instance().write_info
+                    ("jmc coordinate max = "
+                   + jmc.get_coordinate_max().ToString());
                 jmc.out_coordinate_list(@"coordinate list.txt");
 
-                //t_graph graph = jmc.to_graph();
-                //graph.to_csv(@"location.csv", @"adj.csv");
+                t_graph graph = jmc.to_graph();
+                graph.to_csv(@"location.csv", @"adj.csv");
             }
             catch(Exception e)
             {
