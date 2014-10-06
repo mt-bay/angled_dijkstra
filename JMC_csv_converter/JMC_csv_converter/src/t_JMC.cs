@@ -28,7 +28,6 @@ namespace JMC_csv_converter.src
             init();
         }
 
-        /* method */
         /// <summary>
         /// jmc-data directory to graph
         /// </summary>
@@ -79,6 +78,95 @@ namespace JMC_csv_converter.src
             t_logger.get_instance().write(@"read successful");
         }
 
+
+        /* method */
+        /// <summary>
+        /// output coordinate list
+        /// </summary>
+        /// <param name="_output_file_path">output file path</param>
+        public void out_coordinate_list(string _output_file_path)
+        {
+            t_logger.get_instance().write("output jmc coordinate list");
+
+            StreamWriter out_file = new StreamWriter(_output_file_path);
+
+            for (int i = 0; i < m_mesh.Count; ++i)
+            {
+                for (int j = 0;
+                     j < m_mesh[i].m_layer.Count;
+                     ++j)
+                {
+                    for (int k = 0;
+                         k < m_mesh[i].m_layer[j].m_line.Count;
+                         ++k)
+                    {
+                        for(int l = 0;
+                            l < m_mesh[i].m_layer[j].m_line[k]
+                               .m_coordinate.Count;
+                            ++l)
+                        {
+                            out_file.WriteLine
+                                ((m_mesh[i].m_padding +
+                                  m_mesh[i].m_layer[j].m_line[k]
+                                 .m_coordinate[l]               ).ToString());
+                        }
+                    }
+                }
+            }
+        }
+
+        public int get_coordinate_num()
+        {
+            int result = 0;
+            for (int i = 0; i < m_mesh.Count; ++i)
+            {
+                for (int j = 0;
+                     j < m_mesh[i].m_layer.Count;
+                     ++j)
+                {
+                    for (int k = 0;
+                         k < m_mesh[i].m_layer[j].m_line.Count;
+                         ++k)
+                    {
+                        for(int l = 0;
+                            l < m_mesh[i].m_layer[j].m_line[k]
+                               .m_coordinate.Count;
+                            ++l)
+                        {
+                            ++result;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+
+        public t_xy<long> get_coordinate_max()
+        {
+            t_xy<long> result = new t_xy<long>(0, 0);
+            for (int i = 0; i < m_mesh.Count; ++i)
+            {
+                for (int j = 0;
+                     j < m_mesh[i].m_layer.Count;
+                     ++j)
+                {
+                    for (int k = 0;
+                         k < m_mesh[i].m_layer[j].m_line.Count;
+                         ++k)
+                    {
+                        for(int l = 0;
+                            l < m_mesh[i].m_layer[j].m_line[k]
+                               .m_coordinate.Count;
+                            ++l)
+                        {
+                            ++result;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
 
         /// <summary>
         /// this instance to graph data

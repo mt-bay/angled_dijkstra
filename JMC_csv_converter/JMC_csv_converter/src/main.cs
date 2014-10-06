@@ -13,8 +13,14 @@ namespace JMC_csv_converter.src
             try
             {
                 t_JMC   jmc   = new t_JMC(@"JMCマップ\DATA\");
-                t_graph graph = jmc.to_graph();
-                graph.to_csv(@"location.csv", @"adj.csv");
+
+                t_logger.get_instance().write_info
+                    ("jmc coordinate num = " + jmc.get_coordinate_num());
+
+                jmc.out_coordinate_list(@"coordinate list.txt");
+
+                //t_graph graph = jmc.to_graph();
+                //graph.to_csv(@"location.csv", @"adj.csv");
             }
             catch(Exception e)
             {
