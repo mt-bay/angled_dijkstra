@@ -49,7 +49,7 @@ public    :
 
     /* 
      * setter constructor
-     * parameter : V's location,Å@adjacency matrix
+     * parameter : V's location,¬Å@adjacency matrix
      * build     : network by parameter
      * exception : none
      */
@@ -156,9 +156,9 @@ protected :
      * exception    : out_of_range
      */
     inline virtual void set_node_location(const unsigned int   _node_number  ,
-                                          const t_xy<long int> _node_location) 
+                                          const t_xy<int> _node_location) 
                                              throw(::std::out_of_range);
-    inline virtual void set_node_location(const std::vector<t_xy<long int> >
+    inline virtual void set_node_location(const std::vector<t_xy<int> >
                                                     _node_location_array    ,
                                           const std::vector<unsigned char  >
                                                     _do_write               )
@@ -174,7 +174,7 @@ protected :
     /* member variable and instance */
 public    :
     //V
-    std::vector< t_xy<long int>* >*            m_node_location;
+    std::vector< t_xy<int>* >*                 m_node_location;
 
 protected :
     //E
