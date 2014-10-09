@@ -60,7 +60,7 @@ t_dijkstra t_dijkstra::gen_dijkstra(const cd::t_graph  _graph          ,
     if(_use_dst                                  &&
        (_dst_node_number <                   0 ||
         _dst_node_number >= _graph.get_V_size()))
-        throw;
+       throw;
 
     t_dijkstra result = t_dijkstra(_graph, _src_node_number);
     
@@ -69,7 +69,7 @@ t_dijkstra t_dijkstra::gen_dijkstra(const cd::t_graph  _graph          ,
 #endif //_DEBUG
 
     //body of process
-    unsigned int last_confirmed = _src_node_number;
+    unsigned int last_confirmed = result.m_src_node_number;
     while(!result.satisfy_end_condition(_use_dst, _dst_node_number))
     {
         for(unsigned int i = 0; i < _graph.get_V_size(); ++i)

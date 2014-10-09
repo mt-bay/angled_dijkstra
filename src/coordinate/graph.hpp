@@ -53,7 +53,7 @@ public    :
      * build     : network by parameter
      * exception : none
      */
-    t_graph(const std::vector< t_xy<long int> >             _node_location   ,
+    t_graph(const std::vector< t_xy<int> >                  _node_location   ,
             const std::vector< std::vector<unsigned char> > _adjacency_matrix);
 
     /* 
@@ -156,12 +156,12 @@ protected :
      * exception    : out_of_range
      */
     inline virtual void set_node_location(const unsigned int   _node_number  ,
-                                          const t_xy<int> _node_location) 
+                                          const t_xy<int>      _node_location) 
                                              throw(::std::out_of_range);
     inline virtual void set_node_location(const std::vector<t_xy<int> >
-                                                    _node_location_array    ,
-                                          const std::vector<unsigned char  >
-                                                    _do_write               )
+                                                    _node_location_array  ,
+                                          const std::vector<unsigned char>
+                                                    _do_write             )
                                               throw(std::out_of_range);
 
 

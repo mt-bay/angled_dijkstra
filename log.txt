@@ -1,1 +1,1 @@
-csv to graph(location, adj.)(location file : bin\test_location.csv, adj. file : bin\test_adj.csv)
+csv to graph(location, adj.)(location file : bin\test_loc.csv, adj. file : bin\test_adj.csv)

@@ -51,7 +51,7 @@ t_graph::t_graph
 }
 
 t_graph::t_graph
-    (const std::vector< cd::t_xy<long int> >         _node_location   ,
+    (const std::vector< cd::t_xy<int> >              _node_location   ,
      const std::vector< std::vector<unsigned char> > _adjacency_matrix)
 {
     set_graph_size(_node_location.size());
@@ -199,13 +199,13 @@ t_graph t_graph::csv_location_and_csv_adj_to_graph
     std::vector<std::string> elm;
 
     //get location data
-    std::vector< cd::t_xy<long int> > location
-        = std::vector< cd::t_xy<long int> >();
+    std::vector< cd::t_xy<int> > location
+        = std::vector< cd::t_xy<int> >();
     while(std::getline(csv_location, line))
     {
         elm = mt::split_v(line, ",");
-        location.push_back(t_xy<long int>(std::stoi(elm[0]),
-                                          std::stoi(elm[1])));
+        location.push_back(t_xy<int>(std::stoi(elm[0]),
+                                     std::stoi(elm[1])));
     }
     csv_location.close();
 
@@ -218,6 +218,7 @@ t_graph t_graph::csv_location_and_csv_adj_to_graph
     for(unsigned int i = 0;std::getline(csv_adj, line); ++i)
     {
         elm = mt::split_v(line, ",");
+
         for(unsigned int j = 0; j < elm.size(); ++j)
         {
             adj.at(i).at(j) = (unsigned char)std::stoi(elm.at(j));
@@ -332,7 +333,7 @@ void t_graph::add_graph_size(unsigned int _add_graph_size)
 #endif //_DEBUG
     for(unsigned int i = 0; i < _add_graph_size; ++i)
     {
-        m_node_location->push_back(new cd::t_xy<long int>(0, 0));
+        m_node_location->push_back(new cd::t_xy<int>(0, 0));
         m_adjacency_matrix->push_back
             (std::vector<unsigned char>(m_adjacency_matrix->size(), false));
 
@@ -354,10 +355,10 @@ void t_graph::set_graph_size(unsigned int _graph_size)
     io::t_log::get_instance().write_line("graph size set");
 #endif //_DEBUG
 
-    m_node_location    = new std::vector< cd::t_xy<long int>* >(0);
+    m_node_location    = new std::vector< cd::t_xy<int>* >(0);
     for(unsigned int i = 0; i < _graph_size; ++i)
     {
-        m_node_location->push_back(new cd::t_xy<long int>(0, 0));
+        m_node_location->push_back(new cd::t_xy<int>(0, 0));
     }
 
     m_adjacency_matrix = new std::vector< std::vector<unsigned char> >
@@ -381,8 +382,8 @@ void t_graph::set_graph_size(unsigned int _graph_size)
 
 
 
-inline void t_graph::set_node_location(const unsigned int  _node_number  ,
-                                       const t_xy<long int> _node_location)
+inline void t_graph::set_node_location(const unsigned int _node_number  ,
+                                       const t_xy<int>    _node_location)
                                            throw(std::out_of_range)
 {
     if(_node_number >= m_node_location->size())
@@ -390,19 +391,19 @@ inline void t_graph::set_node_location(const unsigned int  _node_number  ,
     if(&_node_location == nullptr)
         return;
 
-    m_node_location->at(_node_number) = &cd::t_xy<long int>(_node_location);
+    m_node_location->at(_node_number) = new cd::t_xy<int>(_node_location);
 
 }
-inline void t_graph::set_node_location(const std::vector<t_xy<long int> >
-                                                 _node_location_array    ,
-                                       const std::vector<unsigned char  >
-                                                  _do_write               )
+inline void t_graph::set_node_location(const std::vector<t_xy<int> >
+                                                 _node_location_array  ,
+                                       const std::vector<unsigned char>
+                                                  _do_write            )
                                           throw(std::out_of_range)
 {
     for(unsigned int i = 0; i < _node_location_array.size(); i++)
     {
         if(_do_write.at(i))
-            m_node_location->at(i) = &cd::t_xy<long int>
+            m_node_location->at(i) = new cd::t_xy<int>
                                          (_node_location_array.at(i));
     }
     return;

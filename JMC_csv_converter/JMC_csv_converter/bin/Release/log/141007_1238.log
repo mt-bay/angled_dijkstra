@@ -1,0 +1,7 @@
+﻿read : DATA\KS4128.DAT
+read successful
+info : jmc coordinate num = 1032
+info : jmc coordinate max = (3360000, 80224)
+output jmc coordinate list
+info : convert JMC to graph
+info : convert graph to csv

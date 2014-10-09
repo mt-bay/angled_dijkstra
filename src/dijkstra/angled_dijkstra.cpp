@@ -41,7 +41,7 @@ t_angled_dijkstra t_angled_dijkstra::gen_dijkstra
     if(_use_dst                                  &&
        (_dst_node_number <                   0 ||
         _dst_node_number >= _graph.get_V_size()))
-        throw;
+       throw;
 
     t_angled_dijkstra result = t_angled_dijkstra(_graph, _src_node_number);
     
@@ -124,23 +124,23 @@ double t_angled_dijkstra::path_to_angle
     }
     else
     {
-        cd::t_xy<long int> p0 
-                           = *m_graph->
-                             m_node_location->
-                             at(m_path->at(_src_node_number).
-                                 at(m_path->at(_src_node_number).size() - 2));
+        cd::t_xy<int> p0 
+                    = *m_graph
+                    -> m_node_location
+                    -> at(m_path->at(_src_node_number)
+                    .  at(m_path->at(_src_node_number).size() - 2));
 
-        cd::t_xy<long int> p1
-                           = *m_graph->
-                             m_node_location->
-                             at(m_path->at(_src_node_number).
-                                 at(m_path->at(_src_node_number).size() - 1));
+        cd::t_xy<int> p1
+                    = *m_graph
+                    -> m_node_location
+                    -> at(m_path->at(_src_node_number)
+                    .  at(m_path->at(_src_node_number).size() - 1));
 
-        cd::t_xy<long int> p2
-                           = *m_graph->
-                             m_node_location->at(_dst_node_number);
+        cd::t_xy<int> p2
+                    = *m_graph
+                    -> m_node_location->at(_dst_node_number);
 
-        return cd::t_xy<long int>::get_angle(p0, p1, p2);
+        return cd::t_xy<int>::get_angle(p0, p1, p2);
     }
 }
 

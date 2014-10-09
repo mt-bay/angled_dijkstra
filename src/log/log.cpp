@@ -1,5 +1,6 @@
 #include "log.hpp"
 
+#include <iostream>
 #include <fstream>
 
 namespace io
@@ -29,6 +30,7 @@ t_log& t_log::operator= (const t_log& _rhs)
 
 void t_log::write(const std::string _contents)
 {
+    std::cout << _contents <<std::flush;
     *m_writer << _contents << std::flush;
 
     return;
@@ -36,6 +38,7 @@ void t_log::write(const std::string _contents)
 
 void t_log::write_line(const std::string _contents)
 {
+    std::cout << _contents << std::endl;
     *m_writer << _contents << std::endl;
 
     return;

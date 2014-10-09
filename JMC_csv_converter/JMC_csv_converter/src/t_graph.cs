@@ -38,6 +38,9 @@ namespace JMC_csv_converter.src
         /* operator overload */
 
 
+        /* override method */
+
+
         /* static method */
 
 
@@ -160,7 +163,11 @@ namespace JMC_csv_converter.src
             return;
         }
 
-
+        /// <summary>
+        /// this instance to csv file
+        /// </summary>
+        /// <param name="_location_file_path">location file path</param>
+        /// <param name="_adjacency_file_path">adj. file path</param>
         public void to_csv(string _location_file_path ,
                             string _adjacency_file_path)
         {
@@ -193,7 +200,7 @@ namespace JMC_csv_converter.src
 
                 adjacency_csv.WriteLine();
             }
-
+            adjacency_csv.Close();
         }
 
         /// <summary>

@@ -19,9 +19,17 @@ namespace JMC_csv_converter.src
                 t_logger.get_instance().write_info
                     ("jmc coordinate max = "
                    + jmc.get_coordinate_max().ToString());
+
                 jmc.out_coordinate_list(@"coordinate list.txt");
 
                 t_graph graph = jmc.to_graph();
+
+                for (int i = 0; i < graph.m_adjacency_matrix.Count; ++i)
+                {
+                    t_logger.get_instance().write
+                        ("line[" + i + "].count = "
+                        + graph.m_adjacency_matrix[i].Count);
+                }
                 graph.to_csv(@"location.csv", @"adj.csv");
             }
             catch(Exception e)
