@@ -1,9 +1,6 @@
-﻿2014/10/09 12:56:14 にビルドを開始しました。
-     1>ノード 2 上のプロジェクト "C:\Users\Yamaura\Documents\Products\angled_dijkstra\angled_dijkstra.vcxproj" (Build ターゲット)。
-     1>Link:
-         angled_dijkstra.vcxproj -> C:\Users\Yamaura\Documents\Products\angled_dijkstra\Release\angled_dijkstra.exe
-     1>プロジェクト "C:\Users\Yamaura\Documents\Products\angled_dijkstra\angled_dijkstra.vcxproj" (Build ターゲット) のビルドが完了しました。
-
-ビルドに成功しました。
-
-経過時間 00:00:00.04
+﻿  main.cpp
+  コード生成しています。
+  コード生成が終了しました。
+log.obj : warning LNK4204: 'C:\Users\Poncho\Documents\DIY Products\C++\練習\angled_dijkstra\Release\vc120.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+tools.obj : warning LNK4204: 'C:\Users\Poncho\Documents\DIY Products\C++\練習\angled_dijkstra\Release\vc120.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+  angled_dijkstra.vcxproj -> C:\Users\Poncho\Documents\DIY Products\C++\練習\angled_dijkstra\Release\angled_dijkstra.exe

@@ -51,7 +51,7 @@ namespace JMC_csv_converter.src
         /// <param name="_data">adding data</param>
         /// <param name="_prev_is_adjacency">prev node is adjacency</param>
         public void add_location(t_xy<int> _data,
-                                 bool       _prev_is_adjacency = false)
+                                 bool      _prev_is_adjacency = false)
         {
             for(int i = 0; i < m_adjacency_matrix.Count; ++i)
             {
@@ -169,9 +169,27 @@ namespace JMC_csv_converter.src
         /// <param name="_location_file_path">location file path</param>
         /// <param name="_adjacency_file_path">adj. file path</param>
         public void to_csv(string _location_file_path ,
-                            string _adjacency_file_path)
+                           string _adjacency_file_path)
         {
             t_logger.get_instance().write_info("convert graph to csv");
+            int dir_sep = _location_file_path.LastIndexOf(@"\");
+            if (dir_sep != -1)
+            {
+                string dir = _location_file_path.Substring(0, dir_sep);
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+            }
+            dir_sep = _adjacency_file_path.LastIndexOf(@"\");
+            if (dir_sep != -1)
+            {
+                string dir = _adjacency_file_path.Substring(0, dir_sep);
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+            }
 
             StreamWriter location_csv
                             = new StreamWriter(_location_file_path);

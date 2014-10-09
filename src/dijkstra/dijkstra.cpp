@@ -55,7 +55,7 @@ t_dijkstra t_dijkstra::gen_dijkstra(const cd::t_graph  _graph          ,
 {
     //preprcessing
     if(_src_node_number <                   0 ||
-       _src_node_number >= _graph.get_V_size())
+       _src_node_number > _graph.get_V_size() - 1)
        throw;
     if(_use_dst                                  &&
        (_dst_node_number <                   0 ||
@@ -63,13 +63,14 @@ t_dijkstra t_dijkstra::gen_dijkstra(const cd::t_graph  _graph          ,
        throw;
 
     t_dijkstra result = t_dijkstra(_graph, _src_node_number);
-    
+
 #ifdef  _DEBUG
     io::t_log::get_instance().write_line("dijkstra start");
 #endif //_DEBUG
 
     //body of process
     unsigned int last_confirmed = result.m_src_node_number;
+
     while(!result.satisfy_end_condition(_use_dst, _dst_node_number))
     {
         for(unsigned int i = 0; i < _graph.get_V_size(); ++i)
@@ -150,12 +151,14 @@ bool t_dijkstra::to_csv(const std::string _file_path) const
                 return ss.str();
             };
     
-    csv << "index" << csv_separator;
-    csv << "path"  << csv_separator;
-    csv << "cost"  << std::endl;
+    csv << "index"       << csv_separator;
+    csv << "path.length" << csv_separator;
+    csv << "path"        << csv_separator;
+    csv << "cost"        << std::endl;
     for(unsigned int i = 0; i < m_path->size(); ++i)
     {
         csv << i << csv_separator;
+        csv << m_path->at(i).size() << csv_separator;
         csv << path_to_string(m_path->at(i)  ,
                               path_separator ,
                               node_num_length) << csv_separator;
@@ -204,14 +207,15 @@ inline void t_dijkstra::deep_copy(const t_dijkstra& _origin)
 
 
 
-unsigned int t_dijkstra::get_confirm_node_number()
+unsigned int t_dijkstra::get_confirm_node_number() const
 {
-    unsigned int candidature     = 0;
+    unsigned int candidature     = -1;
     long double  candidature_val = (long double)INFINITY;
     for(unsigned int i = 0; i < m_route_cost->size(); ++i)
     {
-        if(!m_is_confirmed->at(i) &&
-           m_route_cost->at(i) < candidature_val)
+        if(!m_is_confirmed->at(i)             &&
+           (m_route_cost->at(i) < candidature_val ||
+            candidature == -1))
         {
             candidature = i;
             candidature_val = m_route_cost->at(i);

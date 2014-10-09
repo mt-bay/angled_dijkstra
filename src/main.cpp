@@ -11,28 +11,32 @@
 #include "dijkstra/dijkstra.hpp"
 #include "dijkstra/angled_dijkstra.hpp"
 
+#include "log/log.hpp"
+
 int main(int argc, char** argv)
 {
     try
     {
+        const unsigned int src = 30;
+
         cd::t_graph test
             = cd::t_graph::csv_location_and_csv_adj_to_graph
-                ("bin\\test_loc.csv",
-                 "bin\\test_adj.csv"     );
+                ("bin\\location.csv",
+                 "bin\\adj.csv"     );
 
         test.to_csv("test graph.csv", false);
 
-        di::t_dijkstra::gen_dijkstra(test, 0U, false, 0)
+        di::t_dijkstra::gen_dijkstra(test, src, false, 0)
             .to_csv("test(cost0).csv");
 
-        di::t_angled_dijkstra::gen_dijkstra(test, 50.0, 0)
+        di::t_angled_dijkstra::gen_dijkstra(test, 50.0, src)
             .to_csv("test(cost50).csv");
     }
     catch(std::exception e)
     {
-        std::cout << "catch" << std::endl;
-        std::cout << e.what() << std::endl;
-        std::getchar();
+        io::t_log::get_instance().write_line("catch");
+        io::t_log::get_instance().write_line(e.what());
+        return 1;
     }
 
     return 0;

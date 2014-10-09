@@ -134,57 +134,11 @@ t_graph t_graph::csv_link_cost_to_graph(std::string _file_path)
 }
 
 
-t_graph t_graph::jmc_to_graph(std::string _jmc_data_dir)
-{
-    std::list<std::string> file_list = mt::get_file_path_list
-                                           (_jmc_data_dir, "*.dat");
-
-    t_graph result = t_graph();
-
-    std::ifstream jmc;
-    std::string line;
-
-    std::regex regex_header("^H2");
-    std::regex regex_road("^L\\s");
-    std::regex regex_node("^[\\d\\s][\\d\\s]");
-
-    bool is_road_layer = false;
-    std::string recode_type;
-
-    for(std::list<std::string>::iterator it = file_list.begin();
-        it != file_list.end()                                  ;
-        it++                                                   )
-    {
-        jmc = std::ifstream(*it);
-        while(std::getline(jmc, line))
-        {
-            if(line.length() > 2)
-            {
-                if(std::regex_search(line.begin(),
-                                     line.end(),
-                                     regex_header))
-                {
-
-                }
-            }
-        }
-    }
-    return result;
-
-}
-
-
 t_graph t_graph::csv_location_and_csv_adj_to_graph
                      (std::string _file_path_location,
                       std::string _file_path_adj     )
 {
     t_graph result = t_graph();
-
-    io::t_log::get_instance().write("csv to graph(location, adj.)");
-    io::t_log::get_instance().write("(location file : " 
-                                  + _file_path_location);
-    io::t_log::get_instance().write(", adj. file : " + _file_path_adj);
-    io::t_log::get_instance().write_line(")");
 
     std::ifstream csv_location = std::ifstream(_file_path_location);
     std::ifstream csv_adj      = std::ifstream(_file_path_adj);
@@ -192,7 +146,7 @@ t_graph t_graph::csv_location_and_csv_adj_to_graph
     if(csv_location.fail() || csv_adj.fail())
     {
         io::t_log::get_instance().write_line("csv read failed");
-        return result;
+        throw std::exception("csv read failed");
     }
 
     std::string line;

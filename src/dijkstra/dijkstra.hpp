@@ -120,7 +120,7 @@ protected :
      * return value : confirm node number
      * exception    : none
      */
-    virtual unsigned int get_confirm_node_number();
+    virtual unsigned int get_confirm_node_number() const;
 
     /* 
      * initilize instance

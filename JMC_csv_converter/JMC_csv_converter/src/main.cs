@@ -10,39 +10,36 @@ namespace JMC_csv_converter.src
     {
         static void Main(string[] args)
         {
+            string jmc_dir       = (args.Length >= 1)?
+                                        args[0] : @"DATA\";
+            string location_file = (args.Length >= 2)?
+                                        args[1] : @"result\location.csv";
+            string adj_file      = (args.Length >= 1)?
+                                        args[2] : @"result\adj.csv";
+
             try
             {
-                t_JMC   jmc   = new t_JMC(@"DATA\");
-
-                t_logger.get_instance().write_info
-                    ("jmc coordinate num = " + jmc.get_coordinate_num());
-                t_logger.get_instance().write_info
-                    ("jmc coordinate max = "
-                   + jmc.get_coordinate_max().ToString());
-
-                jmc.out_coordinate_list(@"coordinate list.txt");
+                t_JMC   jmc   = new t_JMC(jmc_dir);
 
                 t_graph graph = jmc.to_graph();
 
-                for (int i = 0; i < graph.m_adjacency_matrix.Count; ++i)
-                {
-                    t_logger.get_instance().write
-                        ("line[" + i + "].count = "
-                        + graph.m_adjacency_matrix[i].Count);
-                }
-                graph.to_csv(@"location.csv", @"adj.csv");
+                graph.to_csv(location_file, adj_file);
+
+                t_logger.get_instance().write(@"convert successful");
             }
             catch(Exception e)
             {
                 t_logger.get_instance().write_exception(e);
-                Console.WriteLine("catch in Main");
-                Console.WriteLine("please look log file");
+                Console.WriteLine(@"catch in Main");
+                Console.WriteLine(@"please look log file");
             }
             finally
             {
+#if DEBUG
                 Console.WriteLine();
                 Console.WriteLine("wait key.");
                 Console.ReadKey();
+#endif
             }
             
         }

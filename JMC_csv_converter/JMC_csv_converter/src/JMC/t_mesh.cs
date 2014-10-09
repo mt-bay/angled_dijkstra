@@ -52,10 +52,10 @@ namespace JMC_csv_converter.src.JMC
                              * (SECONDARY_MESH_MAX + 1)
                              + Int32.Parse(elm.Substring(4, 1)))
                              * MESH_LOCATION_MAX_X              ,
-                            (Int32.Parse(elm.Substring(2, 2))
+                             (Int32.Parse(elm.Substring(2, 2))
                              * (SECONDARY_MESH_MAX + 1)
-                             + Int32.Parse(elm.Substring(5, 1))
-                             * MESH_LOCATION_MAX_Y             ));
+                             + Int32.Parse(elm.Substring(5, 1)))
+                             * MESH_LOCATION_MAX_Y              );
 
             //get number or layer
             elm = util.str_byte_substring(_line, 28,  3, t_JMC.m_s_encode);

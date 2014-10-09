@@ -115,6 +115,10 @@ namespace JMC_csv_converter.src
             }
         }
 
+        /// <summary>
+        /// get number of coordinate
+        /// </summary>
+        /// <returns>number of coordinate</returns>
         public int get_coordinate_num()
         {
             int result = 0;
@@ -142,7 +146,11 @@ namespace JMC_csv_converter.src
         }
 
 
-        public t_xy<int> get_coordinate_max()
+        /// <summary>
+        /// get upper-right of coordinate
+        /// </summary>
+        /// <returns></returns>
+        public t_xy<int> get_coordinate_upper_right()
         {
             t_xy<int> result = new t_xy<int>(0, 0);
             t_xy<int> target = new t_xy<int>(0, 0);
@@ -179,6 +187,7 @@ namespace JMC_csv_converter.src
             return result;
         }
 
+
         /// <summary>
         /// this instance to graph data
         /// </summary>
@@ -195,6 +204,11 @@ namespace JMC_csv_converter.src
                      j < m_mesh[i].m_layer.Count;
                      ++j)
                 {
+                    if (m_mesh[i].m_layer[j].m_code != 2)
+                    {
+                        continue;
+                    }
+
                     for (int k = 0;
                          k < m_mesh[i].m_layer[j].m_line.Count;
                          ++k)
@@ -208,7 +222,7 @@ namespace JMC_csv_converter.src
                                 (m_mesh[i].m_padding +
                                  m_mesh[i].m_layer[j].m_line[k]
                                 .m_coordinate[l]               ,
-                                 (l == 0));
+                                 (l != 0));
                         }
                     }
                 }
@@ -341,7 +355,6 @@ namespace JMC_csv_converter.src
 
         /* static value and instance */
         public static Encoding m_s_encode = Encoding.GetEncoding("shift_jis");
-        private static t_xy<long> file_margin = new t_xy<long>(10000, 10000);
 
         /* member value and instance */
         //mesh
@@ -352,9 +365,6 @@ namespace JMC_csv_converter.src
         //line item
 
         //other
-        private int             m_counter_mesh_recode;
-        private int             m_counter_layer_recode;
-        private int             m_counter_coordinate;
         private e_analysis_type m_prev_analysis;
     }
 }
