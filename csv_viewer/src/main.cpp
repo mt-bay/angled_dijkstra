@@ -1,4 +1,4 @@
-
+#include "system/graph.hpp"
 
 #include "DxLib.h"
 
@@ -19,9 +19,9 @@ int WINAPI WinMain(HINSTANCE hInstance    ,
         return -1;
     }
     //setting after init
-
+    
     //body of process
-
+    sys::t_graph hoge = sys::t_graph();
     //end
 #ifndef _DEBUG
     DxLib_End();

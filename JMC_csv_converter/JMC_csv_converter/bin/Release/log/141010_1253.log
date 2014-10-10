@@ -1,0 +1,5 @@
+﻿read : DATA\KS5332.DAT
+read successful
+info : convert JMC to graph
+info : convert graph to csv
+convert successful
