@@ -36,8 +36,8 @@ public :
      * build     : graph based on csv
      * exception : none
      */
-    t_graph(std::string location_csv_path ,
-            std::string adjacency_csv_path);
+    t_graph(std::string _location_csv_path ,
+            std::string _adjacency_csv_path);
 private:
 
 
@@ -51,11 +51,25 @@ public :
      */
     void show();
 private:
+    /* 
+     * get graph lower-left
+     * parameter    : void
+     * return value : lower-left
+     * exception    : none
+     */
+    cd::t_xy<int> get_lower_left();
 
+    /* 
+     * get graph upper-right
+     * parameter    : void
+     * return value : upper-right
+     * exception    : none
+     */
+    cd::t_xy<int> get_upper_right();
 
     /* member variable and instance */
 public :
-    std::vector< cd::t_xy<int>* >* m_location;
+    std::vector< cd::t_xy<int>* >*             m_location;
     std::vector< std::vector<unsigned char> >* m_adjacency_matrix;
 
 private:
