@@ -1,8 +1,10 @@
 #include "tools.hpp"
 
-#include <cstdlib>
+//#include <cstdlib>
 #include <exception>
 #include <Windows.h>
+
+#include "../define.hpp"
 
 namespace mt
 {
@@ -113,5 +115,6 @@ std::list<T> vector_to_list(const std::vector<T>& _source)
 
     return result;
 }
+
 
 }

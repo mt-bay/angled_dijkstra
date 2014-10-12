@@ -44,13 +44,37 @@ private:
     /* method */
 public :
     /* 
-     * show this graph
+     * show secondary mesh grid
      * parameter    : void
      * return value : void
      * exception    : none
      */
-    void show();
+    void show_mesh_grid(int _color);
+    /* 
+     * show this graph line
+     * parameter    : void
+     * return value : void
+     * exception    : none
+     */
+    void show_line(int _color);
+
+    /* 
+     * show this graph point
+     * parameter    : void
+     * return value : void
+     * exception    : none
+     */
+    void show_point(int _color);
 private:
+    /* 
+     * get draw point
+     * parameter    : source location
+     * return value : draw point
+     * exception    : none
+     */
+    cd::t_xy<int> get_draw_point(cd::t_xy<int> _src_location);
+
+
     /* 
      * get graph lower-left
      * parameter    : void

@@ -48,13 +48,13 @@ namespace JMC_csv_converter.src.JMC
             elm = util.str_byte_substring(_line,  2,  6, t_JMC.m_s_encode);
             int mesh_code = Int32.Parse(elm);
             result.m_padding = new t_xy<int>
-                            ((Int32.Parse(elm.Substring(0, 2))
-                             * (SECONDARY_MESH_MAX + 1)
-                             + Int32.Parse(elm.Substring(4, 1)))
-                             * MESH_LOCATION_MAX_X              ,
-                             (Int32.Parse(elm.Substring(2, 2))
+                            ((Int32.Parse(elm.Substring(2, 2))
                              * (SECONDARY_MESH_MAX + 1)
                              + Int32.Parse(elm.Substring(5, 1)))
+                             * MESH_LOCATION_MAX_X              ,
+                             (Int32.Parse(elm.Substring(0, 2))
+                             * (SECONDARY_MESH_MAX + 1)
+                             + Int32.Parse(elm.Substring(4, 1)))
                              * MESH_LOCATION_MAX_Y              );
 
             //get number or layer

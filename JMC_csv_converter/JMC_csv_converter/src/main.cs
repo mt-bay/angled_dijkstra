@@ -20,6 +20,8 @@ namespace JMC_csv_converter.src
             try
             {
                 t_JMC   jmc   = new t_JMC(jmc_dir);
+                t_logger.get_instance().write_info
+                    ("number of coordinate : " + jmc.get_coordinate_num());
 
                 t_graph graph = jmc.to_graph();
 
