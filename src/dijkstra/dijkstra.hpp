@@ -95,6 +95,14 @@ public    :
     virtual unsigned int get_V_size() const;
 
     /* 
+     * this instance to JMC file(s)
+     * parameter    : directorty name
+     * return value : write successful
+     * exception    : none
+     */
+    virtual bool to_jmc(const std::string _directory_path) const;
+
+    /* 
      * this instance to csv file
      * parameter    : file name
      * return value : write successful
@@ -112,7 +120,14 @@ protected :
      */
     virtual inline void deep_copy(const t_dijkstra& _origin);
 
-
+    /* 
+     * find secondary mesh is
+     * parameter    : search file path
+     * return value : to add line number(if found)
+     *                -1(if not fund)
+     * exception    : none
+     */
+    virtual int find_secondary_mesh_is(std::ofstream* _search_file_ofs) const;
     
     /* 
      * get confirm node number
@@ -132,9 +147,6 @@ protected :
                              const unsigned int _src_node_number)
                                 throw(std::out_of_range);
 
-
-
-
     /* 
      * check to satisfy end condition
      * parameter    : use destination node, destination node number
@@ -143,7 +155,6 @@ protected :
      */
     bool satisfy_end_condition(const bool         _use_dst = false    ,
                                const unsigned int _dst_node_number = 0);
-
     
     /* 
      * seting size of graph

@@ -1,5 +1,6 @@
 #include <fstream>
 #include <sstream>
+#include <map>
 #include <iomanip>
 
 #include "dijkstra.hpp"
@@ -7,6 +8,8 @@
 #include "../coordinate/coordinate.hpp"
 
 #include "../log/log.hpp"
+
+#include "../define.hpp"
 
 namespace di
 {
@@ -118,6 +121,64 @@ unsigned int t_dijkstra::get_V_size() const
 }
 
 
+bool t_dijkstra::to_jmc(const std::string _directory_path) const
+{
+#ifdef _DEBUG
+    io::t_log::get_instance().write_info("dijkstra result to JMC file(s)");
+#endif // _DEBUG
+
+    std::map<int, std::ofstream> opened_jmc;
+    std::map<int, unsigned int > line_recode_num;
+    unsigned int  index;
+    cd::t_xy<int> location;
+    int           primary_mesh;
+    int           secondary_mesh;
+
+    auto location_to_primary_mesh
+            = [](cd::t_xy<int> _source)
+            -> int
+            {
+                return ((_source.y / MESH_LOCATION_MAX_Y) / SECONDARY_MESH_MAX)
+                        * 100
+                     + ((_source.x / MESH_LOCATION_MAX_X) / SECONDARY_MESH_MAX)
+                        * 1;
+            };
+    auto location_to_secondary_mesh
+            = [](cd::t_xy<int> _source)
+            -> int
+            {
+                return ((_source.y / MESH_LOCATION_MAX_Y) / SECONDARY_MESH_MAX)
+                        * 10000
+                     + ((_source.x / MESH_LOCATION_MAX_X) / SECONDARY_MESH_MAX)
+                        * 100
+                     + ((_source.y / MESH_LOCATION_MAX_Y) % SECONDARY_MESH_MAX)
+                        * 10
+                     + ((_source.x / MESH_LOCATION_MAX_X) % SECONDARY_MESH_MAX)
+                        * 1;
+            };
+
+    for(unsigned int i = 0; i < m_path->size(); ++i)
+    {
+        for(unsigned int j = 0; j < m_path->at(i).size(); ++j)
+        {
+            index          = m_path->at(i).at(j);
+            location       = *m_graph->m_node_location->at(index);
+            primary_mesh   = location_to_primary_mesh(location);
+            secondary_mesh = location_to_secondary_mesh(location);
+            
+            if(opened_jmc.find(primary_mesh) == opened_jmc.end())
+            {
+                opened_jmc[primary_mesh]
+                    = std::ofstream
+                        (_directory_path 
+                       + "KS" + std::to_string(primary_mesh) + ".DAT");
+            }
+
+        }
+    }
+}
+
+
 bool t_dijkstra::to_csv(const std::string _file_path) const
 {
 
@@ -204,7 +265,10 @@ inline void t_dijkstra::deep_copy(const t_dijkstra& _origin)
 }
 
 
+int t_dijkstra::find_secondary_mesh_is(std::ofstream* _search_file_ofs) const
+{
 
+}
 
 
 unsigned int t_dijkstra::get_confirm_node_number() const
