@@ -198,6 +198,8 @@ namespace JMC_csv_converter.src
 
             t_graph result = new t_graph();
 
+            int prev = 0;
+
             for (int i = 0; i < m_mesh.Count; ++i)
             {
                 for (int j = 0;
@@ -218,10 +220,11 @@ namespace JMC_csv_converter.src
                                .m_coordinate.Count;
                             ++l)
                         {
-                            result.add_stickey_location
+                            prev = result.add_stickey_location
                                 (m_mesh[i].m_padding +
                                  m_mesh[i].m_layer[j].m_line[k]
                                 .m_coordinate[l]               ,
+                                 prev                          ,
                                  (l != 0));
                         }
                     }
@@ -354,7 +357,7 @@ namespace JMC_csv_converter.src
 
 
         /* static value and instance */
-        public static Encoding m_s_encode = Encoding.GetEncoding("shift_jis");
+        public static Encoding ms_encode = Encoding.GetEncoding("shift_jis");
 
         /* member value and instance */
         //mesh

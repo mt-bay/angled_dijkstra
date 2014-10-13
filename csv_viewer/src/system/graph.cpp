@@ -101,7 +101,7 @@ void t_graph::show_line(int _color)
             if(m_adjacency_matrix->at(i).at(j))
             {
                 p_dst = get_draw_point(*m_location->at(j));
-                DrawLine(p_src.x, p_src.y, p_dst.x, p_dst.y, _color);
+                DrawLine(p_src.x, p_src.y, p_dst.x + 2, p_dst.y + 2, _color);
             }
         }
     }

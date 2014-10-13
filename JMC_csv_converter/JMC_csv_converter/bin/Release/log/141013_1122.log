@@ -1,0 +1,6 @@
+﻿read : DATA\KS5036.DAT
+read successful
+info : number of coordinate : 2986
+info : convert JMC to graph
+info : convert graph to csv
+convert successful

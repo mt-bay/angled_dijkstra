@@ -17,7 +17,7 @@ int main(int argc, char** argv)
 {
     try
     {
-        const unsigned int src = 30;
+        const unsigned int src = 0;
 
         cd::t_graph test
             = cd::t_graph::csv_location_and_csv_adj_to_graph

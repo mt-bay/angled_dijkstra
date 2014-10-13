@@ -50,8 +50,10 @@ namespace JMC_csv_converter.src
         /// </summary>
         /// <param name="_data">adding data</param>
         /// <param name="_prev_is_adjacency">prev node is adjacency</param>
-        public void add_location(t_xy<int> _data,
-                                 bool      _prev_is_adjacency = false)
+        /// <returns>added node number</returns>
+        public int add_location(t_xy<int> _data                     ,
+                                int       _prev_node_number = 0     ,
+                                bool      _prev_is_adjacency = false)
         {
             for(int i = 0; i < m_adjacency_matrix.Count; ++i)
             {
@@ -68,15 +70,15 @@ namespace JMC_csv_converter.src
             if (m_location.Count >= 2)
             {
                 set_adjacency(m_location.Count - 1,
-                              m_location.Count - 2,
-                              _prev_is_adjacency);
+                              _prev_node_number   ,
+                              _prev_is_adjacency  );
 
-                set_adjacency(m_location.Count - 2,
+                set_adjacency(_prev_node_number   ,
                               m_location.Count - 1,
-                              _prev_is_adjacency);
+                              _prev_is_adjacency  );
             }
 
-            return;
+            return m_location.Count - 1;
         }
 
 
@@ -86,27 +88,28 @@ namespace JMC_csv_converter.src
         /// </summary>
         /// <param name="_data">adding data</param>
         /// <param name="_prev_is_adjancecy">prev node is adjacency</param>
-        public void add_stickey_location(t_xy<int> _data,
-                                         bool       _prev_is_adjancecy = false)
+        /// <returns>added node number</returns>
+        public int add_stickey_location(t_xy<int> _data                     ,
+                                        int       _prev_node_number = 0     ,
+                                        bool      _prev_is_adjancecy = false)
         {
             for (int i = 0; i < m_location.Count; ++i)
             {
                 if (m_location[i] == _data)
                 {
                     set_adjacency(i                   ,
-                                  m_location.Count - 1,
+                                  _prev_node_number   ,
                                   _prev_is_adjancecy  );
 
-                    set_adjacency(m_location.Count - 1,
+                    set_adjacency(_prev_node_number   ,
                                   i                   ,
                                   _prev_is_adjancecy  );
 
-                    return;
+                    return i;
                 }
             }
 
-            add_location(_data, _prev_is_adjancecy);
-            return;
+            return add_location(_data, _prev_node_number, _prev_is_adjancecy);
         }
 
 

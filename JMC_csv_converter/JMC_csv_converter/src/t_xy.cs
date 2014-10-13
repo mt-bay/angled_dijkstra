@@ -57,13 +57,12 @@ namespace JMC_csv_converter.src
 
         public static bool    operator ==(t_xy<T> _lhs, t_xy<T> _rhs)
         {
-            return (((dynamic)_lhs.x == (dynamic)_rhs.x) &&
-                    ((dynamic)_lhs.y == (dynamic)_rhs.y));
+            return _lhs.Equals(_rhs);
         }
 
         public static bool    operator !=(t_xy<T> _lhs, t_xy<T> _rhs)
         {
-            return !(_lhs == _rhs);
+            return !_lhs.Equals(_rhs);
         }
 
 

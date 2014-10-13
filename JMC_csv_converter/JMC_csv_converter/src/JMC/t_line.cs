@@ -32,7 +32,7 @@ namespace JMC_csv_converter.src.JMC
             string elm;
 
             //recode type check
-            elm = util.str_byte_substring(_line,  0,  2, t_JMC.m_s_encode);
+            elm = util.str_byte_substring(_line,  0,  2, t_JMC.ms_encode);
             if (! m_recode_type.IsMatch(elm))
             {
                 throw new FormatException
@@ -40,7 +40,7 @@ namespace JMC_csv_converter.src.JMC
             }
 
             //get layer code
-            elm = util.str_byte_substring(_line,  2,  2, t_JMC.m_s_encode);
+            elm = util.str_byte_substring(_line,  2,  2, t_JMC.ms_encode);
             switch (Int32.Parse(elm))
             {
                 case 1 :
@@ -65,7 +65,7 @@ namespace JMC_csv_converter.src.JMC
             }
 
             //get data item code
-            elm = util.str_byte_substring(_line,  4,  2, t_JMC.m_s_encode);
+            elm = util.str_byte_substring(_line,  4,  2, t_JMC.ms_encode);
             switch (result.m_layer_code)
             {
                 case 1 :
@@ -176,11 +176,11 @@ namespace JMC_csv_converter.src.JMC
             }
 
             //get line series number
-            elm = util.str_byte_substring(_line,  6,  5, t_JMC.m_s_encode);
+            elm = util.str_byte_substring(_line,  6,  5, t_JMC.ms_encode);
             result.m_series_number = Int32.Parse(elm);
 
             //get line classification code
-            elm = util.str_byte_substring(_line, 11,  6, t_JMC.m_s_encode);
+            elm = util.str_byte_substring(_line, 11,  6, t_JMC.ms_encode);
             switch (result.m_layer_code)
             {
                 case 1 :
@@ -265,35 +265,35 @@ namespace JMC_csv_converter.src.JMC
             }
 
             //get src. node number
-            elm = util.str_byte_substring(_line, 17,  5, t_JMC.m_s_encode);
+            elm = util.str_byte_substring(_line, 17,  5, t_JMC.ms_encode);
             result.m_src_node_number = Int32.Parse(elm);
 
             //get src. adjacency infomation
-            elm = util.str_byte_substring(_line, 22,  1, t_JMC.m_s_encode);
+            elm = util.str_byte_substring(_line, 22,  1, t_JMC.ms_encode);
             result.m_src_adjacency_info = Int32.Parse(elm);
 
             //get dst. node number
-            elm = util.str_byte_substring(_line, 23,  5, t_JMC.m_s_encode);
+            elm = util.str_byte_substring(_line, 23,  5, t_JMC.ms_encode);
             result.m_dst_node_number = Int32.Parse(elm);
 
             //get dst. adjacency infomation
-            elm = util.str_byte_substring(_line, 28,  1, t_JMC.m_s_encode);
+            elm = util.str_byte_substring(_line, 28,  1, t_JMC.ms_encode);
             result.m_dst_adjacency_info = Int32.Parse(elm);
 
             //get left administrative code
-            elm = util.str_byte_substring(_line, 29,  5, t_JMC.m_s_encode);
+            elm = util.str_byte_substring(_line, 29,  5, t_JMC.ms_encode);
             result.m_left_administrative_code
                 = (result.m_src_adjacency_info == 0)?               0 :
                                                       Int32.Parse(elm);
 
             //get right administrative code
-            elm = util.str_byte_substring(_line, 34,  5, t_JMC.m_s_encode);
+            elm = util.str_byte_substring(_line, 34,  5, t_JMC.ms_encode);
             result.m_right_administrative_code
                 = (result.m_dst_adjacency_info == 0)?               0 :
                                                       Int32.Parse(elm);
 
             //get num. of coordinate point and number of coordinate recode
-            elm = util.str_byte_substring(_line, 39,  6, t_JMC.m_s_encode);
+            elm = util.str_byte_substring(_line, 39,  6, t_JMC.ms_encode);
             result.m_num_coordinate = Int32.Parse(elm);
             result.m_num_coordinate_recode
                 = (result.m_num_coordinate / 7) + 1;
@@ -311,9 +311,9 @@ namespace JMC_csv_converter.src.JMC
             for (int i = 0; i < 7; ++i)
             {
                 elm[0] = util.str_byte_substring
-                                (_line, i * 10    ,  5, t_JMC.m_s_encode);
+                                (_line, i * 10    ,  5, t_JMC.ms_encode);
                 elm[1] = util.str_byte_substring
-                                (_line, i * 10 + 5,  5, t_JMC.m_s_encode);
+                                (_line, i * 10 + 5,  5, t_JMC.ms_encode);
 
                 if(elm[0] == "     " &&
                    elm[1] == "     ")

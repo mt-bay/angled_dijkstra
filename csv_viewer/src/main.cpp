@@ -24,13 +24,18 @@ int WINAPI WinMain(HINSTANCE hInstance    ,
     //setting after init
     
     //body of process
-    sys::t_graph graph = sys::t_graph("bin\\location.csv", "bin\\adj.csv");
+    sys::t_graph graph = sys::t_graph("..\\bin\\location.csv", "..\\bin\\adj.csv");
 
-    graph.show_mesh_grid(0x787878);
+    graph.show_mesh_grid(0xffffff);
     graph.show_line(0x0000ff);
-    //graph.show_point(0xff0000);
+    graph.show_point(0xffffff);
     
-    WaitKey();
+    while(ProcessMessage() != -1)
+    {
+
+    }
+
+    //WaitKey();
     //end
 #ifdef _DEBUG
     DxLib_End();
