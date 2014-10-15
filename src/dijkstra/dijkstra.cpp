@@ -9,7 +9,7 @@
 
 #include "../log/log.hpp"
 
-#include "../define.hpp"
+#include "../tools/define.hpp"
 
 namespace di
 {
@@ -127,13 +127,18 @@ bool t_dijkstra::to_jmc(const std::string _directory_path) const
     io::t_log::get_instance().write_info("dijkstra result to JMC file(s)");
 #endif // _DEBUG
 
-    std::map<int, std::ofstream> opened_jmc;
-    std::map<int, unsigned int > line_recode_num;
-    unsigned int  index;
-    cd::t_xy<int> location;
-    int           primary_mesh;
-    int           secondary_mesh;
+    //local variable and instance
+    std::map<int, std::vector<std::string> > jmc_content;
 
+    std::map<int, unsigned int>              mesh_recode_index;
+    std::map<int, unsigned int>              line_recode_index;
+
+    unsigned int  buf_index;
+    cd::t_xy<int> buf_location;
+    int           buf_primary_mesh;
+    int           buf_secondary_mesh;
+
+    //lambda fomura
     auto location_to_primary_mesh
             = [](cd::t_xy<int> _source)
             -> int
@@ -157,23 +162,26 @@ bool t_dijkstra::to_jmc(const std::string _directory_path) const
                         * 1;
             };
 
+    //body of process
     for(unsigned int i = 0; i < m_path->size(); ++i)
     {
         for(unsigned int j = 0; j < m_path->at(i).size(); ++j)
         {
-            index          = m_path->at(i).at(j);
-            location       = *m_graph->m_node_location->at(index);
-            primary_mesh   = location_to_primary_mesh(location);
-            secondary_mesh = location_to_secondary_mesh(location);
-            
-            if(opened_jmc.find(primary_mesh) == opened_jmc.end())
+            buf_index          = m_path->at(i).at(j);
+            buf_location       = *m_graph->m_node_location->at(buf_index);
+            buf_primary_mesh   = location_to_primary_mesh(buf_location);
+            buf_secondary_mesh = location_to_secondary_mesh(buf_location);
+
+            if(jmc_content.count(buf_primary_mesh) == 0)
             {
-                opened_jmc[primary_mesh]
-                    = std::ofstream
-                        (_directory_path 
-                       + "KS" + std::to_string(primary_mesh) + ".DAT");
+                jmc_content[buf_primary_mesh] = std::vector<std::string>();
             }
 
+            if(mesh_recode_index.count(buf_secondary_mesh) == 0)
+            {
+                
+            }
+            
         }
     }
 }

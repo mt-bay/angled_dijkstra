@@ -25,5 +25,6 @@
     <ClInclude Include="src\tools\tools.hpp" />
     <ClInclude Include="src\JMCmap\JMC.hpp" />
     <ClInclude Include="src\dijkstra\angled_dijkstra.hpp" />
+    <ClInclude Include="src\tools\define.hpp" />
   </ItemGroup>
 </Project>

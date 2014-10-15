@@ -123,6 +123,7 @@
     <ClCompile Include="src\tools\tools.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\tools\define.hpp" />
     <ClInclude Include="src\dijkstra\angled_dijkstra.hpp" />
     <ClInclude Include="src\dijkstra\dijkstra.hpp" />
     <ClInclude Include="src\JMCmap\JMC.hpp" />

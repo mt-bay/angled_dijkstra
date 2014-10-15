@@ -19,8 +19,8 @@ t_angled_dijkstra::t_angled_dijkstra(const t_angled_dijkstra& _origin)
 
 
 t_angled_dijkstra::t_angled_dijkstra(const cd::t_graph  _graph          ,
-                       const unsigned int _src_node_number)
-                          throw(std::out_of_range)
+                                     const unsigned int _src_node_number)
+                                        throw(std::out_of_range)
 {
     init(_graph, _src_node_number);
 }

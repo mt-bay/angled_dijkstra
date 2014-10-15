@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <map>
+
 
 namespace mt
 {
@@ -16,6 +18,15 @@ namespace mt
  */
 std::list<std::string> get_file_path_list(const std::string _directory     ,
                                           const std::string _filter = "*.*");
+
+/* 
+ * get map key(s)
+ * parameter    : map
+ * return value : map's key(s)
+ * exception    : none
+ */
+template<typename K, typename T>
+std::list<K> get_keys<K, T>(const std::map<K, T>& _source);
 
 /* 
  * std::list to std::vector

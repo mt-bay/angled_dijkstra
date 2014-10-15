@@ -1,8 +1,10 @@
-#include "tools.hpp"
-
 #include <cstdlib>
 #include <exception>
+#include <iomanip>
 #include <Windows.h>
+
+#include "tools.hpp"
+
 
 namespace mt
 {
@@ -56,6 +58,21 @@ std::vector<T> list_to_vector(const std::list<T>& _source)
         ++it)
     {
         result.push_back(*it);
+    }
+
+    return result;
+}
+
+
+template<typename K, typename T>
+std::list<K> get_keys<K, T>(const std::map<K, T>& _source)
+{
+    std::list<K>   result;
+    std::map<K, V>::const_iterator it;
+
+    for(it = _source.begin(); it != _source.end(); ++it)
+    {
+        result.push_back(it->first);
     }
 
     return result;
