@@ -95,14 +95,6 @@ public    :
     virtual unsigned int get_V_size() const;
 
     /* 
-     * this instance to JMC file(s)
-     * parameter    : directorty name
-     * return value : write successful
-     * exception    : none
-     */
-    virtual bool to_jmc(const std::string _directory_path) const;
-
-    /* 
      * this instance to csv file
      * parameter    : file name
      * return value : write successful

@@ -101,7 +101,15 @@ void t_graph::show_line(int _color)
             if(m_adjacency_matrix->at(i).at(j))
             {
                 p_dst = get_draw_point(*m_location->at(j));
-                DrawLine(p_src.x, p_src.y, p_dst.x + 2, p_dst.y + 2, _color);
+                if(p_src == p_dst)
+                {
+                    DrawPixel(p_src.x, p_src.y, _color);
+                }
+                else
+                {
+                    
+                    DrawLine(p_src.x, p_src.y, p_dst.x, p_dst.y, _color);
+                }
             }
         }
     }
@@ -117,7 +125,7 @@ void t_graph::show_point(int _color)
     for(unsigned int i = 0; i < m_adjacency_matrix->size(); ++i)
     {
         p_src = get_draw_point(*m_location->at(i));
-        DrawBox(p_src.x - 1, p_src.y - 1, p_src.x + 2, p_src.y + 2, _color, TRUE);
+        DrawBox(p_src.x, p_src.y, p_src.x + 1, p_src.y + 1, _color, TRUE);
     }
 }
 

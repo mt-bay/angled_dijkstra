@@ -1,9 +1,62 @@
-﻿2014/10/13 15:41:03 にビルドを開始しました。
-     1>ノード 2 上のプロジェクト "C:\Users\Yamaura\Documents\Products\angled_dijkstra\angled_dijkstra.vcxproj" (Build ターゲット)。
-     1>Link:
-         angled_dijkstra.vcxproj -> C:\Users\Yamaura\Documents\Products\angled_dijkstra\Release\angled_dijkstra.exe
-     1>プロジェクト "C:\Users\Yamaura\Documents\Products\angled_dijkstra\angled_dijkstra.vcxproj" (Build ターゲット) のビルドが完了しました。
-
-ビルドに成功しました。
-
-経過時間 00:00:00.04
+﻿  angled_dijkstra.cpp
+  dijkstra.cpp
+  JMC.cpp
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\jmc\JMC.hpp(11): error C2143: 構文エラー : ';' が '<' の前にありません。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\jmc\JMC.hpp(11): error C2059: 構文エラー : '<'
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\jmc\JMC.hpp(77): error C2628: 'std::map' の後に 'unsigned' を続けて記述できません(セミコロン ';' で区切ってあるか確認してください)。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\jmc\JMC.hpp(77): error C2628: 'std::map' の後に 'int' を続けて記述できません(セミコロン ';' で区切ってあるか確認してください)。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\jmc\JMC.hpp(77): error C2146: 構文エラー : ',' が、識別子 'buf_index' の前に必要です。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\jmc\JMC.hpp(77): error C2065: 'buf_index' : 定義されていない識別子です。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\jmc\JMC.hpp(77): error C2143: 構文エラー : '>' が ';' の前にありません。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\jmc\JMC.hpp(77): error C3203: 'map' : 非特殊 クラス テンプレート は、テンプレート 引数として テンプレート パラメーター '_Ty' に使用できません。実際の型を指定してください
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\jmc\JMC.hpp(77): error C2923: 'std::map' : 'buf_index' は、有効な テンプレート 型引数 (パラメーター '_Pr') ではありません。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\jmc\JMC.hpp(77): error C2208: 'std::map<int,std::map<int,int,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>,std::less<_Ty>,std::allocator<std::pair<const _Kty,std::map<_Kty,_Ty,std::less<_Ty>,std::allocator<std::pair<const _Kty,_Ty>>>>>>' : メンバーのない列挙型、構造体、共用体が定義されました。
+          with
+          [
+              _Kty=int
+  ,            _Ty=int
+          ]
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\jmc\JMC.hpp(77): fatal error C1903: 直前のエラーを修復できません。コンパイルを中止します。
+  log.cpp
+  main.cpp
+  graph.cpp
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\coordinate\../tools/tools.hpp(29): error C2143: 構文エラー : ';' が '<' の前にありません。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\coordinate\../tools/tools.hpp(29): error C2988: 認識できないテンプレートの宣言または定義です。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\coordinate\../tools/tools.hpp(29): error C2059: 構文エラー : '<'
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\coordinate\../tools/tools.hpp(29): error C2065: 'K' : 定義されていない識別子です。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\coordinate\../tools/tools.hpp(29): error C2065: 'T' : 定義されていない識別子です。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\coordinate\../tools/tools.hpp(29): error C2923: 'std::map' : 'K' は、有効な テンプレート 型引数 (パラメーター '_Kty') ではありません。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\coordinate\../tools/tools.hpp(29): error C2923: 'std::map' : 'T' は、有効な テンプレート 型引数 (パラメーター '_Ty') ではありません。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\coordinate\../tools/tools.hpp(38): error C2065: 'T' : 定義されていない識別子です。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\coordinate\../tools/tools.hpp(38): error C2923: 'std::vector' : 'T' は、有効な テンプレート 型引数 (パラメーター '_Ty') ではありません。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\coordinate\../tools/tools.hpp(38): error C2923: 'std::list' : 'T' は、有効な テンプレート 型引数 (パラメーター '_Ty') ではありません。
+src\coordinate\graph.cpp(101): error C2039: 'split_l' : 'mt' のメンバーではありません。
+src\coordinate\graph.cpp(101): error C3861: 'split_l': 識別子が見つかりませんでした
+src\coordinate\graph.cpp(160): error C2039: 'split_v' : 'mt' のメンバーではありません。
+src\coordinate\graph.cpp(160): error C3861: 'split_v': 識別子が見つかりませんでした
+src\coordinate\graph.cpp(174): error C2039: 'split_v' : 'mt' のメンバーではありません。
+src\coordinate\graph.cpp(174): error C3861: 'split_v': 識別子が見つかりませんでした
+  tools.cpp
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\tools\tools.hpp(29): error C2143: 構文エラー : ';' が '<' の前にありません。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\tools\tools.hpp(29): error C2988: 認識できないテンプレートの宣言または定義です。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\tools\tools.hpp(29): error C2059: 構文エラー : '<'
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\tools\tools.hpp(29): error C2065: 'K' : 定義されていない識別子です。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\tools\tools.hpp(29): error C2065: 'T' : 定義されていない識別子です。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\tools\tools.hpp(29): error C2923: 'std::map' : 'K' は、有効な テンプレート 型引数 (パラメーター '_Kty') ではありません。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\tools\tools.hpp(29): error C2923: 'std::map' : 'T' は、有効な テンプレート 型引数 (パラメーター '_Ty') ではありません。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\tools\tools.hpp(38): error C2065: 'T' : 定義されていない識別子です。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\tools\tools.hpp(38): error C2923: 'std::vector' : 'T' は、有効な テンプレート 型引数 (パラメーター '_Ty') ではありません。
+c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\tools\tools.hpp(38): error C2923: 'std::list' : 'T' は、有効な テンプレート 型引数 (パラメーター '_Ty') ではありません。
+src\tools\tools.cpp(68): error C2143: 構文エラー : ';' が '<' の前にありません。
+src\tools\tools.cpp(68): error C2374: 'mt::get_keys' : 再定義されています。2 回以上初期化されています。
+          c:\users\poncho\documents\diy products\c++\練習\angled_dijkstra\src\tools\tools.hpp(29) : 'mt::get_keys' の宣言を確認してください。
+src\tools\tools.cpp(68): error C2988: 認識できないテンプレートの宣言または定義です。
+src\tools\tools.cpp(68): error C2059: 構文エラー : '<'
+src\tools\tools.cpp(68): error C2065: 'K' : 定義されていない識別子です。
+src\tools\tools.cpp(68): error C2065: 'T' : 定義されていない識別子です。
+src\tools\tools.cpp(68): error C2923: 'std::map' : 'K' は、有効な テンプレート 型引数 (パラメーター '_Kty') ではありません。
+src\tools\tools.cpp(68): error C2923: 'std::map' : 'T' は、有効な テンプレート 型引数 (パラメーター '_Ty') ではありません。
+src\tools\tools.cpp(83): error C2143: 構文エラー : ';' が '{' の前にありません。
+src\tools\tools.cpp(83): error C2447: '{' : 対応する関数ヘッダーがありません (旧形式の仮引数リスト?)
+src\tools\tools.cpp(92): error C2065: 'found' : 定義されていない識別子です。
+src\tools\tools.cpp(92): fatal error C1903: 直前のエラーを修復できません。コンパイルを中止します。
