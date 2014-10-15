@@ -128,17 +128,25 @@ bool t_dijkstra::to_jmc(const std::string _directory_path) const
 #endif // _DEBUG
 
     //local variable and instance
-    std::map<int, std::vector<std::string> > jmc_content;
+    
 
-    std::map<int, unsigned int>              mesh_recode_index;
-    std::map<int, unsigned int>              line_recode_index;
-
-    unsigned int  buf_index;
-    cd::t_xy<int> buf_location;
-    int           buf_primary_mesh;
-    int           buf_secondary_mesh;
-
-    //lambda fomura
+    //lambda formula
+    auto insert_new_mesh
+            = [](int                          _source_mesh,
+                 std::vector<std::string>&    _target_jmc ,
+                 std::map<int, unsigned int>& _target_map )
+            -> void
+            {
+                std::map<int, unsigned int>::iterator it;
+                for(it = _target_map.begin(); it != _target_map.end(); it++)
+                {
+                    if(_source_mesh < it->first)
+                    {
+                        _target_jmc.insert(it->second, )
+                    }
+                }
+                return;
+            };
     auto location_to_primary_mesh
             = [](cd::t_xy<int> _source)
             -> int
@@ -179,7 +187,17 @@ bool t_dijkstra::to_jmc(const std::string _directory_path) const
 
             if(mesh_recode_index.count(buf_secondary_mesh) == 0)
             {
-                
+                found_secondary_mesh = false;
+                for(unsigned int k = 0;
+                    k < mesh_recode_index.at(buf_primary_mesh).size();
+                    ++k)
+                {
+                    if(buf_secondary_mesh 
+                     < mesh_recode_index[buf_primary_mesh][k])
+                    {
+
+                    }
+                }
             }
             
         }

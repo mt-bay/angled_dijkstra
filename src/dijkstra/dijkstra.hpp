@@ -176,11 +176,11 @@ private   :
     /* member valiable and instance */
 public    :
     cd::t_graph*                              m_graph;
-protected :
     unsigned int                              m_src_node_number;
     std::vector<long double>*                 m_route_cost;
     std::vector<unsigned char>*               m_is_confirmed;
     std::vector< std::vector<unsigned int> >* m_path;
+protected :
 private   :
 };
 

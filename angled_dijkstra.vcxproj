@@ -117,12 +117,14 @@
   <ItemGroup>
     <ClCompile Include="src\dijkstra\angled_dijkstra.cpp" />
     <ClCompile Include="src\dijkstra\dijkstra.cpp" />
+    <ClCompile Include="src\JMC\JMC.cpp" />
     <ClCompile Include="src\log\log.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\coordinate\graph.cpp" />
     <ClCompile Include="src\tools\tools.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\JMC\JMC.hpp" />
     <ClInclude Include="src\tools\define.hpp" />
     <ClInclude Include="src\dijkstra\angled_dijkstra.hpp" />
     <ClInclude Include="src\dijkstra\dijkstra.hpp" />
