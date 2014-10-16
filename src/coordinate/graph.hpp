@@ -134,21 +134,23 @@ public    :
                            throw(std::out_of_range);
 
     /* 
-     * this instance to csv
-     * parameter    : file path, write index
-     * return value : write successful
-     * exception    : none
-     */
-    bool to_csv(std::string _file_path, bool _write_index = true);
-
-    /* 
      * this instance to location and adj.matrix
      * parameter    : location file path, adj.file path
      * return value : write successful
      * exception    : none
      */
     bool to_adj_and_loc_csv(const std::string _location_file_path,
-                            const std::string _adjacency_file_path);
+                            const std::string _adjacency_file_path)
+                                const;
+
+
+    /* 
+     * this instance to csv
+     * parameter    : file path, write index
+     * return value : write successful
+     * exception    : none
+     */
+    bool to_csv(std::string _file_path, bool _write_index = true);
 
 protected :
     /* 

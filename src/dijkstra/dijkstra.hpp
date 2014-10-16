@@ -110,6 +110,9 @@ public    :
      */
     virtual cd::t_graph to_graph() const;
 
+    virtual cd::t_graph to_graph_part_of(const std::vector<unsigned int>& _dst)
+                                            const;
+
 protected :
     /* 
      * copy constractor

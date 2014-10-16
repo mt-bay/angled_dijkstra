@@ -322,16 +322,46 @@ bool t_graph::to_csv(std::string _file_path, bool _write_index)
 
 bool t_graph::to_adj_and_loc_csv(const std::string _location_file_path,
                                  const std::string _adjacency_file_path)
+    const
 {
-    mt::mkdir(_location_file_path);
-    std::ofstream location_csv = std::ofstream(_location_file_path);
-
-    for(unsigned int i = 0; i < m_node_location->size(); ++i)
+    try
     {
-        location_csv << m_node_location->at(i)->x << ","
-                     << m_node_location->at(i)->y << std::endl;
+        mt::mkdir(_location_file_path);
+        std::ofstream location_csv = std::ofstream(_location_file_path);
+
+        for(unsigned int i = 0; i < m_node_location->size(); ++i)
+        {
+            location_csv << m_node_location->at(i)->x << ","
+                         << m_node_location->at(i)->y << std::endl;
+        }
+        location_csv.close();
+
+        mt::mkdir(_adjacency_file_path);
+        std::ofstream adjacency_csv = std::ofstream(_adjacency_file_path);
+        for(unsigned int i = 0; i < m_adjacency_matrix->size(); ++i)
+        {
+            for(unsigned int j = 0; j < m_adjacency_matrix->at(i).size(); ++j)
+            {
+                adjacency_csv << ((m_adjacency_matrix->at(i).at(j))?
+                                    "1" : "0");
+                
+                if(j < m_adjacency_matrix->at(i).size() - 1)
+                {
+                    adjacency_csv << ",";
+                }
+            }
+            adjacency_csv << std::endl;
+        }
+        adjacency_csv.close();
+        
+        return true;
+    }
+    catch(std::exception e)
+    {
+        return false;
     }
 }
+
 
 void t_graph::add_graph_size(unsigned int _add_graph_size)
 {

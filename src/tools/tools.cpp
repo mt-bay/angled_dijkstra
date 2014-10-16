@@ -68,7 +68,7 @@ std::vector<T> list_to_vector(const std::list<T>& _source)
 
 
 template<typename K, typename T>
-std::list<K> get_keys<K, T>(const std::map<K, T>& _source)
+std::list<K> get_keys(const std::map<K, T>& _source)
 {
     std::list<K>   result;
     std::map<K, V>::const_iterator it;
@@ -84,17 +84,18 @@ std::list<K> get_keys<K, T>(const std::map<K, T>& _source)
 void mkdir(const std::string& _file_path)
 {
     std::string path_last = _file_path;
-    int found;
-    std::string dir;
+    int found             = 0;
+    std::string dir       = "";
 
-    int buf_int;
+    int buf_int           = 0;
     struct stat buf_stat;
 
     while((found = path_last.find_first_of("\\")) != std::string::npos)
     {
-        dir       = path_last.substr(0, found);
-        path_last = (found + 1 < path_last.size())?
+        dir       += ((dir == "")? "" : "\\") + path_last.substr(0, found);
+        path_last  = (found + 1 < (int)path_last.size())?
                         path_last.substr(found + 1) : "";
+
         buf_int   = stat(dir.c_str(), &buf_stat);
         if(buf_int != 0)
         {

@@ -53,6 +53,8 @@ private:
 
     void add_mesh_header
         (const unsigned int _line_number, const int _secondary_mesh_number);
+    void add_coordinate
+        (const unsigned int _line_recode_index, const cd::t_xy<int> _content);
     void add_line
         (const unsigned int _line_number, const std::string& _content);
 

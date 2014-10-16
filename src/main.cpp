@@ -26,15 +26,24 @@ int main(int argc, char** argv)
 
         test.to_csv("test graph.csv", false);
 
+        std::vector<unsigned int> write_dst;
+        write_dst.push_back(100); write_dst.push_back(1000);
+
         di::t_dijkstra dij_cost0  =
             di::t_dijkstra::gen_dijkstra(test, src, false, 0);
         dij_cost0.to_csv("result\\dij_cost0.csv");
-        dij_cost0.to_graph().to_csv("result\\graph_cost0.csv");
+        dij_cost0.to_graph_part_of(write_dst)
+            .to_adj_and_loc_csv
+            ("result\\cost0\\location.csv",
+             "result\\cost0\\adj.csv");
 
         di::t_dijkstra dij_cost50 =
         di::t_angled_dijkstra::gen_dijkstra(test, 50.0, src);
         dij_cost50.to_csv("result\\dij_cost50.csv");
-        dij_cost50.to_graph().to_csv("result\\graph_cost50.csv");
+        dij_cost50.to_graph_part_of(write_dst)
+            .to_adj_and_loc_csv
+            ("result\\cost50\\location.csv",
+             "result\\cost50\\adj.csv");
 
     }
     catch(std::exception e)

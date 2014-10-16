@@ -72,6 +72,24 @@ void t_JMC::make_jmc_content(const int _primary_mesh_number)
 {
     if(jmc_content.count(_primary_mesh_number) != 0)
     {
+        jmc_content[_primary_mesh_number]
+            = std::vector<std::string>();
+
+        mesh_recode_index
+            = std::map<int,
+                std::map<int, unsigned int> >();
+
+        line_recode_index
+            = std::map<int, 
+                std::map<int,
+                    std::map<unsigned int, unsigned int> > >();
+
+        num_of_coordinate
+            = std::map<int,
+                std::map<int,
+                    std::map<unsigned int,
+                        std::map<unsigned int, unsigned int> > > >();
+
         return;
     }
 }
@@ -91,7 +109,10 @@ void t_JMC::add_mesh_header
         it != mesh_recode_index[primary_mesh_number].end();
         ++it)
     {
-        
+        if(_secondary_mesh_number > it->first)
+        {
+            
+        }
     }
 }
 

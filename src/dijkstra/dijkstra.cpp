@@ -174,20 +174,65 @@ bool t_dijkstra::to_csv(const std::string _file_path) const
     return true;
 }
 
+
 cd::t_graph t_dijkstra::to_graph() const
 {
     cd::t_graph result = cd::t_graph(m_graph->get_V_size());
+    std::vector<unsigned int>::iterator it_path;
+
     for(unsigned int i = 0; i < result.get_V_size(); ++i)
     {
         result.m_node_location->at(i)
             = new cd::t_xy<int>(*m_graph->m_node_location->at(i));
 
-        for(unsigned int j = 0; j < result.get_V_size(); ++j)
+        for(it_path = m_path->at(i).begin();
+            it_path != m_path->at(i).end();
+            ++it_path)
         {
-            if(m_graph->get_adjacency(i, j))
+            result.set_link_cost(m_graph->get_link_cost(i, *it_path),
+                                 i,
+                                 *it_path);
+        }
+    }
+
+    return result;
+}
+
+
+cd::t_graph t_dijkstra::to_graph_part_of(const std::vector<unsigned int>& _dst)
+                                            const
+{
+    cd::t_graph result = cd::t_graph(m_graph->get_V_size());
+    std::vector<unsigned int> dst(_dst);
+
+    std::vector<unsigned int>::iterator it_dst;
+    std::vector<unsigned int>::iterator it_path;
+
+    unsigned int buf_uint_a[2];
+
+    for(unsigned int i = 0; i < result.get_V_size(); ++i)
+    {
+        result.m_node_location->at(i)
+            = new cd::t_xy<int>(*m_graph->m_node_location->at(i));
+    }
+    for(it_dst =  dst.begin();
+        it_dst != dst.end();
+        ++it_dst)
+    {
+        for(it_path = m_path->at(*it_dst).begin();
+            it_path != m_path->at(*it_dst).end() - 1;
+            )
+        {
+            buf_uint_a[0] = *it_path;
+            buf_uint_a[1] = *(++it_path);
+            if(it_path == m_path->at(*it_dst).end())
             {
-                result.set_link_cost(m_graph->get_link_cost(i, j), i, j);
+                break;
             }
+
+            result.set_link_cost(m_graph->get_link_cost(*it_path, *it_dst),
+                                 buf_uint_a[0],
+                                 buf_uint_a[1]);
         }
     }
 
