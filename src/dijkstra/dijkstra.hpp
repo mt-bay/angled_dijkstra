@@ -102,6 +102,14 @@ public    :
      */
     virtual bool to_csv(const std::string _file_path) const;
 
+    /* 
+     * this instance to graph
+     * parameter    : void
+     * return value : converted graph
+     * exception    : none
+     */
+    virtual cd::t_graph to_graph() const;
+
 protected :
     /* 
      * copy constractor

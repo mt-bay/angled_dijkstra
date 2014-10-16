@@ -26,7 +26,7 @@ std::list<std::string> get_file_path_list(const std::string _directory     ,
  * exception    : none
  */
 template<typename K, typename T>
-std::list<K> get_keys<K, T>(const std::map<K, T>& _source);
+std::list<K> get_keys(const std::map<K, T>& _source);
 
 /* 
  * std::list to std::vector
@@ -36,6 +36,14 @@ std::list<K> get_keys<K, T>(const std::map<K, T>& _source);
  */
 template<typename T>
 std::vector<T> list_to_vector(const std::list<T>& _source);
+
+/* 
+ * make directory which file path needs
+ * parameter    : file path
+ * return value : void
+ * exception    : none
+ */
+void mkdir(const std::string& _file_path);
 
 /* 
  * file path to file name

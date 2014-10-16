@@ -15,6 +15,14 @@ t_graph::t_graph()
 {
     set_graph_size(1);
 }
+
+
+t_graph::t_graph(const unsigned int _size)
+{
+    set_graph_size(_size);
+}
+
+
 t_graph::t_graph(const t_graph& _origin)
 {
     set_graph_size(_origin.get_V_size());
@@ -32,6 +40,8 @@ t_graph::t_graph(const t_graph& _origin)
     }
 
 }
+
+
 t_graph::t_graph
     (const std::vector< std::vector<long double  > > _link_cost       ,
      const std::vector< std::vector<unsigned char> > _adjacency_matrix)
@@ -49,6 +59,7 @@ t_graph::t_graph
     }
 
 }
+
 
 t_graph::t_graph
     (const std::vector< cd::t_xy<int> >              _node_location   ,
@@ -82,6 +93,7 @@ t_graph::~t_graph()
 {
 
 }
+
 
 /* method */
 t_graph t_graph::csv_link_cost_to_graph(std::string _file_path)
@@ -140,7 +152,10 @@ t_graph t_graph::csv_location_and_csv_adj_to_graph
 {
     t_graph result = t_graph();
 
+    mt::mkdir(_file_path_location);
     std::ifstream csv_location = std::ifstream(_file_path_location);
+
+    mt::mkdir(_file_path_adj);
     std::ifstream csv_adj      = std::ifstream(_file_path_adj);
 
     if(csv_location.fail() || csv_adj.fail())
@@ -206,21 +221,40 @@ unsigned int t_graph::get_V_size() const
     return m_adjacency_matrix->size();
 }
 
-long double t_graph::get_link_cost(unsigned int _src_node_num, 
-                                   unsigned int _dst_node_num) const
+
+long double t_graph::get_link_cost(const unsigned int _src_node_num, 
+                                   const unsigned int _dst_node_num) const
 {
     try
     {
-        if(m_adjacency_matrix->at(_src_node_num).at(_dst_node_num) == false)
-            return static_cast<long double>(INFINITY);
-
-        return m_link_cost->at(_src_node_num).at(_dst_node_num);
+        if(m_adjacency_matrix->at(_src_node_num).at(_dst_node_num))
+        {
+            return m_link_cost->at(_src_node_num).at(_dst_node_num);
+        }
     }
-    catch(std::out_of_range e)
+    catch(std::out_of_range ignored)
     {
-        return static_cast<long double>(INFINITY);
     }
+    return static_cast<long double>(INFINITY);
 }
+
+
+unsigned char t_graph::get_adjacency(const unsigned int _src_node_num,
+                                     const unsigned int _dst_node_num) const
+{
+    try
+    {
+        if(m_adjacency_matrix->at(_src_node_num).at(_dst_node_num))
+        {
+            return static_cast<unsigned char>(1);
+        }
+    }
+    catch(std::out_of_range ignored)
+    {
+    }
+    return static_cast<unsigned char>(0);
+}
+
 
 void t_graph::set_link_cost(long     double  _link_cost   ,
                             unsigned int     _src_node_num,
@@ -237,7 +271,12 @@ void t_graph::set_link_cost(long     double  _link_cost   ,
         return;
     }
 
+    m_adjacency_matrix->at(_src_node_num).at(_dst_node_num)
+            = true;
+    m_link_cost->at(_src_node_num).at(_dst_node_num)
+            = _link_cost;
 }
+
 
 bool t_graph::to_csv(std::string _file_path, bool _write_index)
 {
@@ -245,6 +284,7 @@ bool t_graph::to_csv(std::string _file_path, bool _write_index)
     io::t_log::get_instance().write_line("graph to csv");
 #endif //_DEBUG
 
+    mt::mkdir(_file_path);
     std::ofstream csv = std::ofstream(_file_path, std::ios::trunc);
     if(csv.fail())
         return false;
@@ -280,6 +320,19 @@ bool t_graph::to_csv(std::string _file_path, bool _write_index)
     return true;
 }
 
+bool t_graph::to_adj_and_loc_csv(const std::string _location_file_path,
+                                 const std::string _adjacency_file_path)
+{
+    mt::mkdir(_location_file_path);
+    std::ofstream location_csv = std::ofstream(_location_file_path);
+
+    for(unsigned int i = 0; i < m_node_location->size(); ++i)
+    {
+        location_csv << m_node_location->at(i)->x << ","
+                     << m_node_location->at(i)->y << std::endl;
+    }
+}
+
 void t_graph::add_graph_size(unsigned int _add_graph_size)
 {
 #ifdef _DEBUG
@@ -302,6 +355,7 @@ void t_graph::add_graph_size(unsigned int _add_graph_size)
     }
 
 }
+
 
 void t_graph::set_graph_size(unsigned int _graph_size)
 {
@@ -335,7 +389,6 @@ void t_graph::set_graph_size(unsigned int _graph_size)
 }
 
 
-
 inline void t_graph::set_node_location(const unsigned int _node_number  ,
                                        const t_xy<int>    _node_location)
                                            throw(std::out_of_range)
@@ -348,6 +401,8 @@ inline void t_graph::set_node_location(const unsigned int _node_number  ,
     m_node_location->at(_node_number) = new cd::t_xy<int>(_node_location);
 
 }
+
+
 inline void t_graph::set_node_location(const std::vector<t_xy<int> >
                                                  _node_location_array  ,
                                        const std::vector<unsigned char>

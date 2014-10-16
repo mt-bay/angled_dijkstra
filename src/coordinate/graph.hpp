@@ -31,6 +31,14 @@ public    :
     t_graph();
 
     /* 
+     * size setter constructor
+     * parameter : size of graph
+     * build     : sizd empty network
+     * exception : none
+     */
+    t_graph(const unsigned int _size);
+
+    /* 
      * copy constructor
      * parameter : original
      * build     : deep copy
@@ -102,8 +110,17 @@ public    :
      * return value : link cost
      * exception    : none
      */
-    long double get_link_cost(unsigned int _src_node_num, 
-                              unsigned int _dst_node_num) const;
+    long double get_link_cost(const unsigned int _src_node_num, 
+                              const unsigned int _dst_node_num) const;
+
+    /* 
+     * get adjacency
+     * parameter    : source node number, destination node number
+     * return value : adjacency
+     * exception    : none
+     */
+    unsigned char get_adjacency(const unsigned int _src_node_num,
+                                const unsigned int _dst_node_num) const;
 
     /* 
      * set link cost
@@ -123,6 +140,15 @@ public    :
      * exception    : none
      */
     bool to_csv(std::string _file_path, bool _write_index = true);
+
+    /* 
+     * this instance to location and adj.matrix
+     * parameter    : location file path, adj.file path
+     * return value : write successful
+     * exception    : none
+     */
+    bool to_adj_and_loc_csv(const std::string _location_file_path,
+                            const std::string _adjacency_file_path);
 
 protected :
     /* 

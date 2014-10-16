@@ -1,7 +1,12 @@
-#include "log.hpp"
+#include <direct.h>
 
+#include <ctime>
 #include <iostream>
 #include <fstream>
+
+#include "log.hpp"
+
+#include "../tools/tools.hpp"
 
 namespace io
 {
@@ -13,7 +18,8 @@ t_log::~t_log()
 
 t_log::t_log()
 {
-    m_writer = new std::ofstream(C_FILE_PATH);
+    mt::mkdir(M_FILE_PATH);
+    m_writer = new std::ofstream(M_FILE_PATH);
 }
 
 t_log::t_log(const t_log& _origin)

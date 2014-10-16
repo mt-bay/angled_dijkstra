@@ -74,12 +74,12 @@ private:
     /* member const value and instance */
 public    :
 private   :
-    const std::string C_FILE_PATH = "log.txt";
+    const std::string M_FILE_PATH = "log\\log.txt";
 
 
     /* static variable and instance */
 public    :
-
+    static std::string ms_file_path;
 
     /* member variable and instance */
 public    :

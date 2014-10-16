@@ -26,11 +26,16 @@ int main(int argc, char** argv)
 
         test.to_csv("test graph.csv", false);
 
-        di::t_dijkstra::gen_dijkstra(test, src, false, 0)
-            .to_csv("test(cost0).csv");
+        di::t_dijkstra dij_cost0  =
+            di::t_dijkstra::gen_dijkstra(test, src, false, 0);
+        dij_cost0.to_csv("result\\dij_cost0.csv");
+        dij_cost0.to_graph().to_csv("result\\graph_cost0.csv");
 
-        di::t_angled_dijkstra::gen_dijkstra(test, 50.0, src)
-            .to_csv("test(cost50).csv");
+        di::t_dijkstra dij_cost50 =
+        di::t_angled_dijkstra::gen_dijkstra(test, 50.0, src);
+        dij_cost50.to_csv("result\\dij_cost50.csv");
+        dij_cost50.to_graph().to_csv("result\\graph_cost50.csv");
+
     }
     catch(std::exception e)
     {

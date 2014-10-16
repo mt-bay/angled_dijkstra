@@ -1,3 +1,6 @@
+#include <direct.h>
+#include <sys/stat.h>
+
 #include <cstdlib>
 #include <exception>
 #include <iomanip>
@@ -78,10 +81,43 @@ std::list<K> get_keys<K, T>(const std::map<K, T>& _source)
     return result;
 }
 
+void mkdir(const std::string& _file_path)
+{
+    std::string path_last = _file_path;
+    int found;
+    std::string dir;
+
+    int buf_int;
+    struct stat buf_stat;
+
+    while((found = path_last.find_first_of("\\")) != std::string::npos)
+    {
+        dir       = path_last.substr(0, found);
+        path_last = (found + 1 < path_last.size())?
+                        path_last.substr(found + 1) : "";
+        buf_int   = stat(dir.c_str(), &buf_stat);
+        if(buf_int != 0)
+        {
+            _mkdir(dir.c_str());
+        }
+    }
+
+    return;
+}
 
 std::string file_path_to_file_name(const std::string _file_path)
 {
-    return "";
+    int found = _file_path.find_last_of("\\");
+    if(found == std::string::npos)
+    {
+        return _file_path;
+    }
+    if(found + 1 == _file_path.size())
+    {
+        return "";
+    }
+
+    return _file_path.substr(found + 1);
 }
 
 std::list<std::string> split_l(const std::string _source,

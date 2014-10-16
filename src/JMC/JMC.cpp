@@ -7,6 +7,8 @@
 #include "../dijkstra/dijkstra.hpp"
 #include "../coordinate/graph.hpp"
 
+#include "../log/log.hpp"
+
 #include "../tools/define.hpp"
 
 namespace jmc
@@ -24,7 +26,7 @@ t_JMC::t_JMC()
 t_JMC::t_JMC(const di::t_dijkstra& _dijkstra) : t_JMC::t_JMC()
 {
 #ifdef _DEBUG
-    io::t_log::get_instance().write_info("dijkstra result to JMC file(s)");
+    io::t_log::get_instance().write_line("dijkstra result to JMC file(s)");
 #endif // _DEBUG
 
     //body of process
@@ -72,10 +74,6 @@ void t_JMC::make_jmc_content(const int _primary_mesh_number)
     {
         return;
     }
-
-    jmc_content[_primary_mesh_number]       = std::vector<std::string>();
-    mesh_recode_index[_primary_mesh_number] = std::map<int, unsigned int>();
-    line_recode_index[_primary_mesh_number] = std::map<int, unsigned int>();
 }
 
 

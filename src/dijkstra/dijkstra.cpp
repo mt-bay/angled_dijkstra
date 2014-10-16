@@ -9,6 +9,7 @@
 
 #include "../log/log.hpp"
 
+#include "../tools/tools.hpp"
 #include "../tools/define.hpp"
 
 namespace di
@@ -128,6 +129,7 @@ bool t_dijkstra::to_csv(const std::string _file_path) const
     io::t_log::get_instance().write_line("dijkstra result to csv");
 #endif //_DEBUG
 
+    mt::mkdir(_file_path);
     std::ofstream csv = std::ofstream(_file_path, std::ios::trunc);
     if(csv.fail())
         return false;
@@ -172,6 +174,26 @@ bool t_dijkstra::to_csv(const std::string _file_path) const
     return true;
 }
 
+cd::t_graph t_dijkstra::to_graph() const
+{
+    cd::t_graph result = cd::t_graph(m_graph->get_V_size());
+    for(unsigned int i = 0; i < result.get_V_size(); ++i)
+    {
+        result.m_node_location->at(i)
+            = new cd::t_xy<int>(*m_graph->m_node_location->at(i));
+
+        for(unsigned int j = 0; j < result.get_V_size(); ++j)
+        {
+            if(m_graph->get_adjacency(i, j))
+            {
+                result.set_link_cost(m_graph->get_link_cost(i, j), i, j);
+            }
+        }
+    }
+
+    return result;
+}
+
 
 inline void t_dijkstra::deep_copy(const t_dijkstra& _origin)
 {
@@ -209,7 +231,7 @@ inline void t_dijkstra::deep_copy(const t_dijkstra& _origin)
 
 int t_dijkstra::find_secondary_mesh_is(std::ofstream* _search_file_ofs) const
 {
-
+    return 0;
 }
 
 

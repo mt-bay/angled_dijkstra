@@ -8,7 +8,7 @@
 namespace cd
 {
 template<typename T>
-class t_xy<T>;
+class t_xy;
 }
 namespace di
 {
@@ -72,7 +72,10 @@ public :
     std::map<int, std::map<int, std::map<unsigned int, unsigned int> > >
         line_recode_index;
     /// num_of_coordinate = std::map[primary][secondary][mesh][line]
-    std::map<int, std::map<int, std::map<unsigned int, std::map
+    std::map<int, 
+        std::map<int, 
+            std::map<unsigned int,
+                std::map<unsigned int, unsigned int> > > > num_of_coordinate;
 
     unsigned int   buf_index;
     cd::t_xy<int>* buf_location;
