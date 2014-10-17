@@ -230,7 +230,7 @@ cd::t_graph t_dijkstra::to_graph_part_of(const std::vector<unsigned int>& _dst)
                 break;
             }
 
-            result.set_link_cost(m_graph->get_link_cost(*it_path, *it_dst),
+            result.set_link_cost(m_graph->get_link_cost(buf_uint_a[0], buf_uint_a[1]),
                                  buf_uint_a[0],
                                  buf_uint_a[1]);
         }

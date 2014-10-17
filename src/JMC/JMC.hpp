@@ -2,6 +2,7 @@
 
 
 #include <vector>
+#include <list>
 #include <map>
 
 
@@ -18,6 +19,12 @@ class t_dijkstra;
 
 namespace jmc
 {
+class t_primary_mesh;
+class t_secondary_mesh;
+class t_layer;
+
+class t_line;
+
 
 /* class to output JMC file(s) */
 class t_JMC
@@ -49,45 +56,82 @@ private:
     /* method */
 public :
 private:
-    void make_jmc_content(const int _primary_mesh_number);
-
-    void add_mesh_header
-        (const unsigned int _line_number, const int _secondary_mesh_number);
-    void add_coordinate
-        (const unsigned int _line_recode_index, const cd::t_xy<int> _content);
-    void add_line
-        (const unsigned int _line_number, const std::string& _content);
-
-    void correct_mesh_header();
-
-    volatile int location_to_primary_mesh(const cd::t_xy<int>   _source) const;
-    volatile int location_to_secondary_mesh(const cd::t_xy<int> _source) const;
+    void add_path(const std::list<cd::t_xy<int> >& _path);
 
 
     /* member variable and instance */
 public :
-    std::map<int, std::vector<std::string> > jmc_content;
-    /// mesh_line = std::map[primary][secondary]
-    std::map<int, std::map<int, unsigned int> >
-        mesh_recode_index;
-    /// index_line = std::map[primary][secondary][mesh_index]
-    std::map<int, std::map<int, std::map<unsigned int, unsigned int> > >
-        line_recode_index;
-    /// num_of_coordinate = std::map[primary][secondary][mesh][line]
-    std::map<int, 
-        std::map<int, 
-            std::map<unsigned int,
-                std::map<unsigned int, unsigned int> > > > num_of_coordinate;
-
-    unsigned int   buf_index;
-    cd::t_xy<int>* buf_location;
-    int            buf_primary_mesh;
-    int            buf_secondary_mesh;
-
-    bool           found_secondary_mesh;
+    std::map<int, t_primary_mesh* > m_primary_mesh;
 
 private:
 
 };
 
+/* primary mesh class */
+class t_primary_mesh
+{
+    /* constructor and destructor */
+public :
+    /* 
+     * default constructor
+     * parameter : void
+     */
+    t_primary_mesh();
+
+    /* 
+     * copy constructor
+     * parameter : origin
+     */
+    t_primary_mesh(const t_primary_mesh& _origin);
+private:
+
+    /* method */
+public :
+    /* 
+     * add road path
+     * parameter    : path
+     * return value : void
+     * exception    : none
+     */
+    void add_road_path(const std::list< cd::t_xy<int> > _road);
+
+private:
+
+    /* member variable and instance */
+public:
+    int m_mesh_number;
+    std::map<int, t_secondary_mesh*> m_secondary_mesh;
+};
+
+/* secondary mesh recode class */
+class t_secondary_mesh
+{
+    /* constructor and destructor */
+
+
+    /* member variable and instance */
+public:
+    int m_mesh_number;
+    std::vector< t_layer* > m_layer;
+};
+
+/* layer recode class */
+class t_layer
+{
+    /* member variable and instance */
+public:
+    std::vector< t_line* > m_line;
+};
+
+/* line recode class */
+class t_line
+{
+    /* member variable and instance */
+public:
+    std::vector< cd::t_xy<int>* > m_coordinate;
+};
+
+/* function */
+volatile int location_to_primary_mesh(const cd::t_xy<int>   _source);
+volatile int location_to_secondary_mesh(const cd::t_xy<int> _source);
 }
