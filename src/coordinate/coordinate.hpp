@@ -50,10 +50,10 @@ public:
      * exception : std::bad_typeid
      */
     t_xy<T>(const t_xy<T>& _origin) throw(std::bad_typeid)
+        : x(_origin.x), y(_origin.y)
     {
         if (!std::is_arithmetic<T>::value)
             throw;
-        x = _origin.x; y = _origin.y;
     }
 
     /* 
@@ -63,11 +63,10 @@ public:
      * exception : std::bad_typeid
      */
     t_xy<T>(const T _x, const T _y) throw(std::bad_typeid)
+        : x(_x), y(_y)
     {
         if (!std::is_arithmetic<T>::value)
             throw;
-
-        x = _x; y = _y;
     }
 
     ~t_xy()

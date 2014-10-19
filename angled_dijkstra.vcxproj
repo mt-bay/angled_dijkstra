@@ -118,6 +118,11 @@
     <ClCompile Include="src\dijkstra\angled_dijkstra.cpp" />
     <ClCompile Include="src\dijkstra\dijkstra.cpp" />
     <ClCompile Include="src\JMC\JMC.cpp" />
+    <ClCompile Include="src\JMC\JMC_function.cpp" />
+    <ClCompile Include="src\JMC\JMC_layer.cpp" />
+    <ClCompile Include="src\JMC\JMC_line.cpp" />
+    <ClCompile Include="src\JMC\JMC_primary_mesh.cpp" />
+    <ClCompile Include="src\JMC\JMC_secondary_mesh.cpp" />
     <ClCompile Include="src\log\log.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\coordinate\graph.cpp" />

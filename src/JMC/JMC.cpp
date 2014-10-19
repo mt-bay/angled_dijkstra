@@ -30,7 +30,7 @@ t_JMC::t_JMC(const di::t_dijkstra& _dijkstra) : t_JMC::t_JMC()
     std::vector<unsigned int>::iterator it_path;
     std::list< cd::t_xy<int> > buf_path;
 
-    for(int i = 0; i < _dijkstra.m_path->size(); ++i)
+    for(unsigned int i = 0; i < _dijkstra.m_path->size(); ++i)
     {
         buf_path.clear();
         for(it_path =  _dijkstra.m_path->at(i).begin();
@@ -49,7 +49,10 @@ t_JMC::t_JMC(const di::t_dijkstra& _dijkstra) : t_JMC::t_JMC()
 
 t_JMC::~t_JMC()
 {
+
 }
+
+
 
 
 void t_JMC::add_path(const std::list<cd::t_xy<int> >& _path)
@@ -65,27 +68,6 @@ void t_JMC::add_path(const std::list<cd::t_xy<int> >& _path)
         buf_primary_mesh = location_to_primary_mesh(*it_path);
         buf_secondary_mesh = location_to_secondary_mesh(*it_path);
     }
-}
-
-volatile
-int t_JMC::location_to_primary_mesh(const cd::t_xy<int> _source) const
-{
-    return ((_source.y / MESH_LOCATION_MAX_Y) / SECONDARY_MESH_MAX)
-            * 100
-         + ((_source.x / MESH_LOCATION_MAX_X) / SECONDARY_MESH_MAX)
-            * 1;
-}
-volatile
-int t_JMC::location_to_secondary_mesh(const cd::t_xy<int> _source) const
-{
-    return ((_source.y / MESH_LOCATION_MAX_Y) / SECONDARY_MESH_MAX)
-            * 10000
-         + ((_source.x / MESH_LOCATION_MAX_X) / SECONDARY_MESH_MAX)
-            * 100
-         + ((_source.y / MESH_LOCATION_MAX_Y) % SECONDARY_MESH_MAX)
-            * 10
-        + ((_source.x / MESH_LOCATION_MAX_X) % SECONDARY_MESH_MAX)
-            * 1;
 }
 
 
