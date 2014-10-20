@@ -8,6 +8,8 @@
 #include "coordinate/coordinate.hpp"
 #include "coordinate/graph.hpp"
 
+#include "JMC/JMC.hpp"
+
 #include "dijkstra/dijkstra.hpp"
 #include "dijkstra/angled_dijkstra.hpp"
 
@@ -44,6 +46,9 @@ int main(int argc, char** argv)
             .to_adj_and_loc_csv
             ("result\\cost50\\location.csv",
              "result\\cost50\\adj.csv");
+
+        jmc::t_JMC jmc_cost50 = jmc::t_JMC(dij_cost50);
+        jmc_cost50.output("result\\cost50\\JMC\\");
 
     }
     catch(std::exception e)

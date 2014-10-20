@@ -55,7 +55,21 @@ private:
 
     /* method */
 public :
+    /* 
+     * output jmc
+     * parameter    : output directory
+     * return value : write successful
+     * exception    : none
+     */
+    bool output(const std::string _output_directory) const;
+
 private:
+    /* 
+     * add path
+     * parameter    : adding path
+     * return value : void
+     * exception    : none
+     */
     void add_path(const std::list<cd::t_xy<int> >& _path);
 
 
@@ -85,6 +99,9 @@ public :
     t_primary_mesh(const t_primary_mesh& _origin);
 
     /* 
+     */
+
+    /* 
      * destructor
      */
     virtual ~t_primary_mesh();
@@ -111,7 +128,16 @@ public :
      * return value : void
      * exception    : none
      */
-    void add_road_path(const std::list< cd::t_xy<int> > _road);
+    void add_path(const std::list< cd::t_xy<int> >& _path);
+
+    /* 
+     * this instance to string
+     * parameter    : void
+     * return value : this instance to string
+     * exception    : none
+     */
+    std::string to_string() const;
+
 
 private:
 
@@ -120,6 +146,7 @@ public:
     int m_mesh_number;
     std::map<int, t_secondary_mesh*> m_secondary_mesh;
 };
+
 
 /* secondary mesh recode class */
 class t_secondary_mesh
@@ -166,12 +193,45 @@ public:
 
     /* method */
     /* 
+     * add path
+     * parameter    : adding path
+     * return value : void
+     * exception    : none
+     */
+    void add_path(const std::list< cd::t_xy<int> >& _path);
+
+    /* 
      * add layer recode
      * parameter    : adding layer recode
      * return value : void
      * exception    : none
      */
     void add_layer_recode(const t_layer _target);
+
+    /* 
+     * get num. of line
+     * parameter    : void
+     * return value : num. of line
+     * exception    : none
+     */
+    unsigned int get_num_of_line() const;
+
+    /* 
+     * get num. of recode
+     * parameter    : void
+     * return value : num. of recode
+     * exception    : none
+     */
+    unsigned int get_num_of_recode() const;
+
+    /* 
+     * this instance to string
+     * parameter    : void
+     * return value : this instance to string
+     * exception    : none
+     */
+    std::string to_string() const;
+
 
     /* member variable and instance */
 public:
@@ -180,6 +240,7 @@ public:
 private:
     int m_mesh_number;
 };
+
 
 /* layer recode class */
 class t_layer
@@ -217,12 +278,37 @@ public:
 
     /* method */
     /* 
+     * add path
+     * parameter    : adding path
+     * return value : void
+     * exception    : none
+     */
+    void add_path(const std::list< cd::t_xy<int> >& _path);
+
+    /* 
      * add line record
      * parameter    : adding line record
      * return value : void
      * exception    : none
      */
     void add_line_record(const t_line _target);
+
+    /* 
+     * get num of recode
+     * parameter    : void
+     * return value : num. of recode
+     * exception    : none
+     */
+    unsigned int get_num_of_recode() const;
+
+    /* 
+     * this instance to string
+     * parameter    : void
+     * return value : this instance to string
+     * exception    : none
+     */
+    std::string to_string() const;
+
 
     /* member variable and instance */
 public:
@@ -250,7 +336,8 @@ public :
      * coordinate setter constructor
      * parameter : coordinate list
      */
-    t_line(const std::list< cd::t_xy<int> > _coordinate_list);
+    t_line(const unsigned int               _series_number  ,
+           const std::list< cd::t_xy<int> > _coordinate_list);
 
     /* 
      * destructor
@@ -285,11 +372,37 @@ public :
      * return value : void
      * exception    : none
      */
-    void add_coordinate_list(const std::list< cd::t_xy<int> > _coordinate_list);
+    void add_coordinate_list
+            (const std::list< cd::t_xy<int> > _coordinate_list);
+
+    /* 
+     * get num. of line
+     * parameter    : void
+     * return value : num. of coordinate
+     * exception    : none
+     */
+    unsigned int get_num_of_coordinate() const;
+
+    /* 
+     * get num. of recode
+     * parameter    : void
+     * return value : num. of recode
+     * exception    : none
+     */
+    unsigned int get_num_of_recode() const;
+
+    /* 
+     * this instance to string
+     * parameter    : void
+     * return value : this instance to string
+     * exception    : none
+     */
+    std::string to_string() const;
 
 
     /* member variable and instance */
 public:
+    unsigned int                  m_series_number;
     std::vector< cd::t_xy<int>* > m_coordinate;
 };
 

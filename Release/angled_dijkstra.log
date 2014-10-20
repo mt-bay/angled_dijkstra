@@ -1,10 +1,32 @@
-﻿  JMC.cpp
-src\JMC\JMC.cpp(33): warning C4018: '<' : signed と unsigned の数値を比較しようとしました。
-  JMC_function.cpp
-  JMC_layer.cpp
-  JMC_line.cpp
-  JMC_primary_mesh.cpp
-  JMC_secondary_mesh.cpp
-  コード生成しています。
-  コード生成が終了しました。
-  angled_dijkstra.vcxproj -> C:\Users\Poncho\Documents\DIY Products\C++\練習\angled_dijkstra\Release\angled_dijkstra.exe
+﻿2014/10/20 18:50:44 にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "C:\Users\Yamaura\Documents\Products\angled_dijkstra\angled_dijkstra.vcxproj" (Build ターゲット)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\JMC\JMC.cpp src\JMC\JMC_function.cpp src\JMC\JMC_layer.cpp src\JMC\JMC_line.cpp src\JMC\JMC_primary_mesh.cpp src\JMC\JMC_secondary_mesh.cpp src\main.cpp
+         JMC.cpp
+         JMC_function.cpp
+         JMC_layer.cpp
+         JMC_line.cpp
+         JMC_primary_mesh.cpp
+         JMC_secondary_mesh.cpp
+         main.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Yamaura\Documents\Products\angled_dijkstra\Release\angled_dijkstra.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Yamaura\Documents\Products\angled_dijkstra\Release\angled_dijkstra.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Yamaura\Documents\Products\angled_dijkstra\Release\angled_dijkstra.lib" /MACHINE:X86 /SAFESEH Release\angled_dijkstra.obj
+         Release\dijkstra.obj
+         Release\JMC.obj
+         Release\JMC_function.obj
+         Release\JMC_layer.obj
+         Release\JMC_line.obj
+         Release\JMC_primary_mesh.obj
+         Release\JMC_secondary_mesh.obj
+         Release\log.obj
+         Release\main.obj
+         Release\graph.obj
+         Release\tools.obj
+         コード生成しています。
+         コード生成が終了しました。
+         angled_dijkstra.vcxproj -> C:\Users\Yamaura\Documents\Products\angled_dijkstra\Release\angled_dijkstra.exe
+     1>プロジェクト "C:\Users\Yamaura\Documents\Products\angled_dijkstra\angled_dijkstra.vcxproj" (Build ターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+
+経過時間 00:00:04.54

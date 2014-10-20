@@ -23,7 +23,7 @@ int location_to_secondary_mesh(const cd::t_xy<int> _source)
             * 100
          + ((_source.y / MESH_LOCATION_MAX_Y) % SECONDARY_MESH_MAX)
             * 10
-        + ((_source.x / MESH_LOCATION_MAX_X) % SECONDARY_MESH_MAX)
+        + ((_source.x  / MESH_LOCATION_MAX_X) % SECONDARY_MESH_MAX)
             * 1;
 }
 }
