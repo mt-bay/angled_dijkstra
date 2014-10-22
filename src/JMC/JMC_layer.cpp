@@ -84,7 +84,8 @@ void t_layer::add_path(const std::list< cd::t_xy<int> >& _path)
         }
         if((*it)->is_intentioned_coordinate(_path))
         {
-            //À‘•‚ª‚ñ‚Î‚Á‚Ä‚Ë!
+            (*it)->renewal_coordinate_list(_path);
+            return;
         }
     }
     m_line.push_back(new t_line(this, m_line.size() + 1, _path));

@@ -96,6 +96,11 @@ void t_JMC::add_path(const std::list<cd::t_xy<int> >& _path)
 {
     std::vector<int> buf_primary_mesh;
 
+    if(_path.size() < 2)
+    {
+        return;
+    }
+
     std::map<int, std::list< cd::t_xy<int> > > buf_path;
 
     for(std::list< cd::t_xy<int> >::const_iterator it =  _path.begin();
@@ -103,7 +108,7 @@ void t_JMC::add_path(const std::list<cd::t_xy<int> >& _path)
         ++it)
     {
         buf_primary_mesh = location_to_primary_mesh(*it);
-        for(int i = 0; i < buf_primary_mesh.size(); ++i)
+        for(unsigned int i = 0; i < buf_primary_mesh.size(); ++i)
         {
             if(buf_path.count(buf_primary_mesh.at(i)) == 0)
             {
@@ -119,11 +124,14 @@ void t_JMC::add_path(const std::list<cd::t_xy<int> >& _path)
         it != buf_path.end();
         ++it)
     {
-        if(m_primary_mesh.count(it->first) == 0)
+        if(it->second.size() >= 2)
         {
-            m_primary_mesh[it->first] = new t_primary_mesh();
+            if(m_primary_mesh.count(it->first) == 0)
+            {
+                m_primary_mesh[it->first] = new t_primary_mesh();
+            }
+            m_primary_mesh[it->first]->add_path(it->second);
         }
-        m_primary_mesh[it->first]->add_path(it->second);
     }
 }
 

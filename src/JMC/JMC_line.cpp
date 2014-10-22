@@ -95,17 +95,32 @@ t_line& t_line::operator=(const t_line& _rhs)
 
 void t_line::add_coordinate(const cd::t_xy<int> _coordinate)
 {
-    m_coordinate.push_back(new cd::t_xy<int>(_coordinate));
+    cd::t_xy<int> buf_xy_int;
+    buf_xy_int = encode_coordinate(_coordinate,
+                                   m_invoker->m_invoker->m_mesh_number);
+    m_coordinate.push_back(new cd::t_xy<int>(buf_xy_int));
 }
 
 
-void t_line::add_coordinate_list(const std::list< cd::t_xy<int> > _coordinate)
+void t_line::renewal_coordinate_list(const std::list< cd::t_xy<int> > _coordinate)
 {
+    for(std::vector< cd::t_xy<int>* >::iterator it = m_coordinate.begin();
+        it != m_coordinate.end();
+        ++it)
+    {
+        delete *it;
+    }
+    m_coordinate.clear();
+
+    cd::t_xy<int> buf_xy_int;
+
     for(std::list< cd::t_xy<int> >::const_iterator it = _coordinate.begin();
         it != _coordinate.end();
         ++it)
     {
-        m_coordinate.push_back(new cd::t_xy<int>(*it));
+        buf_xy_int = encode_coordinate(*it,
+                                       m_invoker->m_invoker->m_mesh_number);
+        m_coordinate.push_back(new cd::t_xy<int>(buf_xy_int));
     }
 }
 
@@ -137,7 +152,7 @@ bool t_line::do_intention_coordinate(const std::list< cd::t_xy<int> > _target)
         ++recode_it;
     }
 
-    while(target_it == _target.end())
+    while(target_it != _target.end())
     {
         if(recode_it == m_coordinate.end())
         {
@@ -189,7 +204,7 @@ bool t_line::is_intentioned_coordinate
         ++target_it;
     }
 
-    while(recode_it == m_coordinate.end())
+    while(recode_it != m_coordinate.end())
     {
         if(target_it == _target.end())
         {

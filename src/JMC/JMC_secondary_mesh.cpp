@@ -123,6 +123,7 @@ unsigned int t_secondary_mesh::get_num_of_recode() const
 
 std::string t_secondary_mesh::to_string() const
 {
+
     std::string result = "";
     char buf_line[RECODE_LENGTH + 1];
     memset(buf_line, ' ', RECODE_LENGTH);

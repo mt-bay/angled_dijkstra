@@ -143,7 +143,6 @@ private:
 
     /* member variable and instance */
 public:
-    int m_mesh_number;
     std::map<int, t_secondary_mesh*> m_secondary_mesh;
 };
 
@@ -383,7 +382,7 @@ public :
      * return value : void
      * exception    : none
      */
-    void add_coordinate_list
+    void renewal_coordinate_list
             (const std::list< cd::t_xy<int> > _coordinate_list);
 
     /* 
