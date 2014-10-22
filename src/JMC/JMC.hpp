@@ -168,9 +168,10 @@ public :
 
     /* 
      * setter constructor
-     * parameter : secondary mesh number
+     * parameter : invoker, secondary mesh number
      */
-    t_secondary_mesh(const int _secondary_mesh_number);
+    t_secondary_mesh(t_primary_mesh* _invoker,
+                     const int _secondary_mesh_number);
 
 
     /* 
@@ -236,9 +237,10 @@ public:
     /* member variable and instance */
 public:
     std::vector< t_layer* > m_layer;
+    t_primary_mesh* m_invoker;
+    int m_mesh_number;
 
 private:
-    int m_mesh_number;
 };
 
 
@@ -258,6 +260,12 @@ public :
      * parameter : origin
      */
     t_layer(const t_layer& _origin);
+
+    /* 
+     * invoker setter constructor
+     * parameter : invoker
+     */
+    t_layer(t_secondary_mesh* _invoker);
 
     /* 
      * destructor
@@ -313,7 +321,9 @@ public:
     /* member variable and instance */
 public:
     std::vector< t_line* > m_line;
+    t_secondary_mesh* m_invoker;
 };
+
 
 /* line recode class */
 class t_line
@@ -336,7 +346,8 @@ public :
      * coordinate setter constructor
      * parameter : coordinate list
      */
-    t_line(const unsigned int               _series_number  ,
+    t_line(t_layer*                         _invoker        ,
+           const unsigned int               _series_number  ,
            const std::list< cd::t_xy<int> > _coordinate_list);
 
     /* 
@@ -376,6 +387,24 @@ public :
             (const std::list< cd::t_xy<int> > _coordinate_list);
 
     /* 
+     * do this coordinate recode intention argv?
+     * parameter    : coordinate list
+     * return value : is this coordinate recode intention argv?
+     * exception    : none
+     */
+    bool do_intention_coordinate(const std::list< cd::t_xy<int> > _target) 
+        const;
+
+    /* 
+     * is argv intention this coordinate recode?
+     * parameter    : coordinate list
+     * return value : is argv intention coordinate recode?
+     * exception    : none
+     */
+    bool is_intentioned_coordinate(const std::list< cd::t_xy<int> > _target)
+        const;
+
+    /* 
      * get num. of line
      * parameter    : void
      * return value : num. of coordinate
@@ -392,6 +421,22 @@ public :
     unsigned int get_num_of_recode() const;
 
     /* 
+     * get src. node number
+     * parameter    : void
+     * return value : src. node number
+     * exception    : none
+     */
+    unsigned int get_src_node_number() const;
+
+    /* 
+     * get dst. node nuber
+     * parameter    : void
+     * return value : dst. node number
+     * exception    : none
+     */
+    unsigned int get_dst_node_number() const;
+
+    /* 
      * this instance to string
      * parameter    : void
      * return value : this instance to string
@@ -399,14 +444,24 @@ public :
      */
     std::string to_string() const;
 
-
     /* member variable and instance */
 public:
     unsigned int                  m_series_number;
     std::vector< cd::t_xy<int>* > m_coordinate;
+    t_layer* m_invoker;
+private:
 };
 
 /* function */
-volatile int location_to_primary_mesh(const cd::t_xy<int>   _source);
-volatile int location_to_secondary_mesh(const cd::t_xy<int> _source);
+std::vector<int> location_to_primary_mesh
+                    (const cd::t_xy<int> _source);
+std::vector<int> location_to_secondary_mesh
+                    (const cd::t_xy<int> _source);
+
+cd::t_xy<int> encode_coordinate(const cd::t_xy<int> _source        ,
+                                const int           _secondary_mesh);
+
+/* constant */
+const int RECODE_LENGTH = 72;
+
 }

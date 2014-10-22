@@ -94,29 +94,32 @@ bool t_JMC::output(const std::string _output_directory) const
 
 void t_JMC::add_path(const std::list<cd::t_xy<int> >& _path)
 {
-    int buf_primary_mesh;
+    std::vector<int> buf_primary_mesh;
 
-    std::map<int, std::list< cd::t_xy<int> > > buf_road;
+    std::map<int, std::list< cd::t_xy<int> > > buf_path;
 
-    
     for(std::list< cd::t_xy<int> >::const_iterator it =  _path.begin();
         it != _path.end();
         ++it)
     {
         buf_primary_mesh = location_to_primary_mesh(*it);
-
-        if(buf_road.count(buf_primary_mesh) == 0)
+        for(int i = 0; i < buf_primary_mesh.size(); ++i)
         {
-            buf_road[buf_primary_mesh] = std::list< cd::t_xy<int> >();
+            if(buf_path.count(buf_primary_mesh.at(i)) == 0)
+            {
+                buf_path[buf_primary_mesh.at(i)]
+                    = std::list< cd::t_xy<int> >();
+            }
+            buf_path[buf_primary_mesh.at(i)].push_back(cd::t_xy<int>(*it));
         }
-        buf_road[buf_primary_mesh].push_back(cd::t_xy<int>(*it));
     }
 
-    for(std::map<int, std::list< cd::t_xy<int> > >::iterator it = buf_road.begin();
-        it != buf_road.end();
+    for(std::map<int, std::list< cd::t_xy<int> > >::iterator it
+            = buf_path.begin();
+        it != buf_path.end();
         ++it)
     {
-        if(m_primary_mesh.count(it->first))
+        if(m_primary_mesh.count(it->first) == 0)
         {
             m_primary_mesh[it->first] = new t_primary_mesh();
         }

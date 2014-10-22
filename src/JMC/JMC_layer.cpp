@@ -9,7 +9,9 @@ namespace jmc
 
 t_layer::t_layer()
 {
+    m_line = std::vector< t_line* >();
 
+    m_invoker = nullptr;
 }
 
 
@@ -24,6 +26,15 @@ t_layer::t_layer(const t_layer& _origin)
         m_line.push_back(new t_line(**it));
     }
     
+    m_invoker = nullptr;
+}
+
+
+t_layer::t_layer(t_secondary_mesh* _invoker)
+{
+    m_line = std::vector< t_line* >();
+
+    m_invoker = _invoker;
 }
 
 
@@ -55,13 +66,28 @@ t_layer& t_layer::operator=(const t_layer& _rhs)
         m_line.push_back(new t_line(**it));
     }
 
+    m_invoker = _rhs.m_invoker;
+
     return *this;
 }
 
 
 void t_layer::add_path(const std::list< cd::t_xy<int> >& _path)
 {
-    m_line.push_back(new t_line(m_line.size() + 1, _path));
+    for(std::vector< t_line* >::iterator it = m_line.begin();
+        it != m_line.end();
+        ++it)
+    {
+        if((*it)->do_intention_coordinate(_path))
+        {
+            return;
+        }
+        if((*it)->is_intentioned_coordinate(_path))
+        {
+            //ŽÀ‘•‚ª‚ñ‚Î‚Á‚Ä‚Ë!
+        }
+    }
+    m_line.push_back(new t_line(this, m_line.size() + 1, _path));
 }
 
 
@@ -87,16 +113,18 @@ unsigned int t_layer::get_num_of_recode() const
 std::string t_layer::to_string() const
 {
     std::string result = "";
-    char buf_line[72];
+    char buf_line[RECODE_LENGTH + 1] = "";
+    memset(buf_line, ' ', RECODE_LENGTH);
 
     /* sprintf_s(dest, format, recode type, layer code,
      *         num. of node, num. of line, num. of area, num. of point,
      *         num. of recode, first creation date, last updated date, space
      */
-    sprintf_s(buf_line, "%2s%2u%5u%5u%5u%5u%5u %4d %4d %33s",
-            "H1", 2, 0, m_line.size(), 0, get_num_of_recode(),101,  101, " ");
+    sprintf_s(buf_line, "%2s%2u%5u%5u%5u%5u%5u %04u %04u                                 ",
+            "H1", 2, 0, m_line.size(), 0, 0, get_num_of_recode(),101,  101);
 
     result += buf_line;
+    result += "\n";
 
     for(std::vector< t_line* >::const_iterator it = m_line.begin();
         it != m_line.end();

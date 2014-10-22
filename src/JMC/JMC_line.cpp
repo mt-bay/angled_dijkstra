@@ -2,6 +2,8 @@
 
 #include "../coordinate/coordinate.hpp"
 
+#include "../log/log.hpp"
+
 namespace jmc
 {
 
@@ -10,6 +12,8 @@ t_line::t_line()
 {
     m_series_number = 0;
     m_coordinate = std::vector<cd::t_xy<int>* >();
+
+    m_invoker = nullptr;
 }
 
 
@@ -26,21 +30,30 @@ t_line::t_line(const t_line& _origin)
         m_coordinate.push_back(new cd::t_xy<int>(**it));
     }
 
+    m_invoker = nullptr;
 }
 
-t_line::t_line(const unsigned int               _series_number  ,
+t_line::t_line(t_layer*                         _invoker        ,
+               const unsigned int               _series_number  ,
                const std::list< cd::t_xy<int> > _coordinate_list)
 {
     m_series_number = _series_number;
     m_coordinate    = std::vector< cd::t_xy<int>* >();
+    m_invoker = _invoker;
 
+    cd::t_xy<int> buffer_xy_int;
     for(std::list< cd::t_xy<int> >::const_iterator it
-        = _coordinate_list.begin();
+            = _coordinate_list.begin();
         it != _coordinate_list.end();
         ++it)
     {
-        m_coordinate.push_back(new cd::t_xy<int>(*it));
+        buffer_xy_int = encode_coordinate
+                            (*it,
+                             m_invoker->m_invoker->m_mesh_number);
+        m_coordinate.push_back(new cd::t_xy<int>(buffer_xy_int));
     }
+
+    
 }
 
 
@@ -74,6 +87,8 @@ t_line& t_line::operator=(const t_line& _rhs)
         m_coordinate.push_back(new cd::t_xy<int>(**it));
     }
 
+    m_invoker = _rhs.m_invoker;
+
     return *this;
 }
 
@@ -95,6 +110,109 @@ void t_line::add_coordinate_list(const std::list< cd::t_xy<int> > _coordinate)
 }
 
 
+bool t_line::do_intention_coordinate(const std::list< cd::t_xy<int> > _target)
+    const
+{
+    std::list< cd::t_xy<int> >::const_iterator target_it;
+    target_it = _target.begin();
+    std::vector< cd::t_xy<int>* >::const_iterator recode_it;
+    recode_it = m_coordinate.begin();
+
+    cd::t_xy<int> buf_xy_int;
+
+    while(true)
+    {
+        if(target_it == _target.end() || recode_it == m_coordinate.end())
+        {
+            return false;
+        }
+        buf_xy_int = encode_coordinate(*target_it,
+                                       m_invoker->m_invoker->m_mesh_number);
+
+        if(buf_xy_int == **recode_it)
+        {
+            break;
+        }
+
+        ++recode_it;
+    }
+
+    while(target_it == _target.end())
+    {
+        if(recode_it == m_coordinate.end())
+        {
+            return false;
+        }
+
+        buf_xy_int = encode_coordinate(*target_it,
+                                       m_invoker->m_invoker->m_mesh_number);
+
+        if(buf_xy_int != **recode_it)
+        {
+            return false;
+        }
+
+        ++target_it;
+        ++recode_it;
+    }
+
+    return true;
+}
+
+
+bool t_line::is_intentioned_coordinate
+                (const std::list< cd::t_xy<int> > _target)
+    const
+{
+    std::list< cd::t_xy<int> >::const_iterator target_it;
+    target_it = _target.begin();
+    std::vector< cd::t_xy<int>* >::const_iterator recode_it;
+    recode_it = m_coordinate.begin();
+
+    cd::t_xy<int> buf_xy_int;
+
+    while(true)
+    {
+        if(target_it == _target.end() || recode_it == m_coordinate.end())
+        {
+            return false;
+        }
+
+        buf_xy_int = encode_coordinate(*target_it,
+                                       m_invoker->m_invoker->m_mesh_number);
+
+        if(buf_xy_int == **recode_it)
+        {
+            break;
+        }
+
+        ++target_it;
+    }
+
+    while(recode_it == m_coordinate.end())
+    {
+        if(target_it == _target.end())
+        {
+            return false;
+        }
+
+        buf_xy_int = encode_coordinate(*target_it,
+                                       m_invoker->m_invoker->m_mesh_number);
+
+        if(buf_xy_int != **recode_it)
+        {
+            return false;
+        }
+
+        ++target_it;
+        ++recode_it;
+    }
+
+    return true;
+
+}
+
+
 unsigned int t_line::get_num_of_coordinate() const
 {
     return m_coordinate.size();
@@ -112,10 +230,10 @@ unsigned int t_line::get_num_of_recode() const
 
 std::string t_line::to_string() const
 {
-    int counter_writerd_coordinate = 0;
     std::string result = "";
-    char buf_line[72];
-    char buf_coordinate[10];
+    char buf_line[RECODE_LENGTH + 1] = "";
+    
+    memset(buf_line, ' ', RECODE_LENGTH);
 
     /* sprintf_s(dest, format,
      *         layer code, data item code, line series number, line type code, 
@@ -125,9 +243,16 @@ std::string t_line::to_string() const
      *         right-side administratively code,
      *         num. of coordinate, space
      */
-    sprintf_s(buf_line, "L %2d%2d%5u%6u%5u%1u%5u%1u%5u%5u%6u%27s",
-            2, 2, m_series_number, 0, 0, 0, 0, 0, 0, 0,
-            get_num_of_coordinate(), " ");
+    sprintf_s(buf_line,
+              "L %2d%2d%5u%6u%5u%1u%5u%1u          %6u                           ",
+            2, 2, m_series_number, 0, 0, 0, 0, 0, 
+            get_num_of_coordinate());
+
+    result += buf_line;
+    result += "\n";
+
+    int counter_writerd_coordinate = 0;
+    char buf_coordinate[11] = "";
 
     for(unsigned int i = 0; i < m_coordinate.size(); ++i)
     {
@@ -141,7 +266,11 @@ std::string t_line::to_string() const
     }
     if(counter_writerd_coordinate % 7 != 0)
     {
-        result += "\n";
+        for(true; counter_writerd_coordinate < 7; ++counter_writerd_coordinate)
+        {
+            result += "          ";
+        }
+        result += "  \n";
     }
 
     return result;

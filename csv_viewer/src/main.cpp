@@ -36,7 +36,7 @@ int WINAPI WinMain(HINSTANCE hInstance    ,
     sys::t_graph dij_cost50 = sys::t_graph
         ("..\\result\\cost50\\location.csv", "..\\result\\cost50\\adj.csv");
 
-    //graph_base.show_mesh_grid(0x878787);
+    graph_base.show_mesh_grid(0x878787);
     graph_base.show_line(0xff0000);
     //graph_base.show_point(0x00ff00);
     
