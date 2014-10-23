@@ -21,35 +21,33 @@ int main(int argc, char** argv)
     {
         const unsigned int src = 0;
 
+        io::t_log::get_instance().write_line("graph load");
         cd::t_graph test
             = cd::t_graph::csv_location_and_csv_adj_to_graph
                 ("bin\\location.csv",
                  "bin\\adj.csv"     );
-
-        test.to_csv("test graph.csv", false);
-
+        /*
         std::vector<unsigned int> write_dst;
         write_dst.push_back(100); write_dst.push_back(1000);
+        {
+            io::t_log::get_instance().write_line("dijkstra start");
+            di::t_dijkstra dij_cost0  =
+                di::t_dijkstra::gen_dijkstra(test, src, false, 0);
+            
+            io::t_log::get_instance().write_line("dijkstra to JMC");
+            jmc::t_JMC jmc_cost0 = jmc::t_JMC(dij_cost0);
+            jmc_cost0.output("result\\cost100\\JMC\\");
+        }
+        {
+            io::t_log::get_instance().write_line("angled dijkstra start");
+            di::t_dijkstra dij_cost100 =
+                di::t_angled_dijkstra::gen_dijkstra(test, 100.0, src);
 
-        di::t_dijkstra dij_cost0  =
-            di::t_dijkstra::gen_dijkstra(test, src, false, 0);
-        dij_cost0.to_csv("result\\dij_cost0.csv");
-        dij_cost0.to_graph_part_of(write_dst)
-            .to_adj_and_loc_csv
-            ("result\\cost0\\location.csv",
-             "result\\cost0\\adj.csv");
-
-        di::t_dijkstra dij_cost50 =
-        di::t_angled_dijkstra::gen_dijkstra(test, 50.0, src);
-        dij_cost50.to_csv("result\\dij_cost50.csv");
-        dij_cost50.to_graph_part_of(write_dst)
-            .to_adj_and_loc_csv
-            ("result\\cost50\\location.csv",
-             "result\\cost50\\adj.csv");
-
-        jmc::t_JMC jmc_cost50 = jmc::t_JMC(dij_cost50);
-        jmc_cost50.output("result\\cost50\\JMC\\");
-
+            io::t_log::get_instance().write_line("angled dijkstra to JMC");
+            jmc::t_JMC jmc_cost100 = jmc::t_JMC(dij_cost100);
+            jmc_cost100.output("result\\cost100\\JMC\\");
+        }
+        */
     }
     catch(std::exception e)
     {
@@ -57,6 +55,7 @@ int main(int argc, char** argv)
         io::t_log::get_instance().write_line(e.what());
         return 1;
     }
-
+    std::cout << "wait key" <<std::endl;
+    std::getchar();
     return 0;
 }

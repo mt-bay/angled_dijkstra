@@ -108,7 +108,7 @@ void mkdir(const std::string& _file_path)
 
 std::string file_path_to_file_name(const std::string _file_path)
 {
-    int found = _file_path.find_last_of("\\");
+    size_t found = _file_path.find_last_of("\\");
     if(found == std::string::npos)
     {
         return _file_path;

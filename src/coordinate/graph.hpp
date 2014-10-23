@@ -1,6 +1,7 @@
 #pragma once
 
 #pragma warning(disable : 4290) //hide warning C4290
+#pragma warning(disable : 4267) //hide warning C4267
 
 #include <iostream>
 #include <string>

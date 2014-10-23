@@ -8,7 +8,7 @@ namespace di
 {
 t_angled_dijkstra::t_angled_dijkstra()
 {
-    init(cd::t_graph(), 0);
+    init(new cd::t_graph(), 0);
 }
 
 
@@ -18,7 +18,7 @@ t_angled_dijkstra::t_angled_dijkstra(const t_angled_dijkstra& _origin)
 }
 
 
-t_angled_dijkstra::t_angled_dijkstra(const cd::t_graph  _graph          ,
+t_angled_dijkstra::t_angled_dijkstra(cd::t_graph*       _graph          ,
                                      const unsigned int _src_node_number)
                                         throw(std::out_of_range)
 {
@@ -27,7 +27,7 @@ t_angled_dijkstra::t_angled_dijkstra(const cd::t_graph  _graph          ,
 
 
 t_angled_dijkstra t_angled_dijkstra::gen_dijkstra
-                (const cd::t_graph  _graph          ,
+                (cd::t_graph*       _graph          ,
                  const long double  _angle_weight   ,
                  const unsigned int _src_node_number,
                  const bool         _use_dst        ,
@@ -36,11 +36,11 @@ t_angled_dijkstra t_angled_dijkstra::gen_dijkstra
 {
     //preprcessing
     if(_src_node_number <                   0 ||
-       _src_node_number >= _graph.get_V_size())
+       _src_node_number >= _graph->get_V_size())
        throw;
     if(_use_dst                                  &&
        (_dst_node_number <                   0 ||
-        _dst_node_number >= _graph.get_V_size()))
+        _dst_node_number >= _graph->get_V_size()))
        throw;
 
     t_angled_dijkstra result = t_angled_dijkstra(_graph, _src_node_number);
@@ -53,7 +53,7 @@ t_angled_dijkstra t_angled_dijkstra::gen_dijkstra
     unsigned int last_confirmed = _src_node_number;
     while(!result.satisfy_end_condition(_use_dst, _dst_node_number))
     {
-        for(unsigned int i = 0; i < _graph.get_V_size(); ++i)
+        for(unsigned int i = 0; i < _graph->get_V_size(); ++i)
         {
             if(i != last_confirmed                  && 
                result.m_is_confirmed->at(i) == false)

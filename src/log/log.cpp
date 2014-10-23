@@ -19,7 +19,7 @@ t_log::~t_log()
 t_log::t_log()
 {
     mt::mkdir(M_FILE_PATH);
-    m_writer = new std::ofstream(M_FILE_PATH);
+    m_writer = new std::ofstream(M_FILE_PATH, std::ios::trunc);
 }
 
 t_log::t_log(const t_log& _origin)
@@ -36,7 +36,7 @@ t_log& t_log::operator= (const t_log& _rhs)
 
 void t_log::write(const std::string _contents)
 {
-    std::cout << _contents <<std::flush;
+    std::cout << _contents << std::flush;
     *m_writer << _contents << std::flush;
 
     return;

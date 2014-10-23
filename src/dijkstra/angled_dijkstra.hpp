@@ -31,7 +31,7 @@ public    :
      * built     : initialized dijkstra result
      * exception : std::out_of_range
      */
-    t_angled_dijkstra(const cd::t_graph   _graph          ,
+    t_angled_dijkstra(cd::t_graph*        _graph          ,
                       const unsigned int  _src_node_number)
                         throw(::std::out_of_range);
 protected :
@@ -53,7 +53,7 @@ public    :
      * return value : dijkstra result
      * exception    : std::out_of_range
      */
-    static t_angled_dijkstra gen_dijkstra(const cd::t_graph  _graph          ,
+    static t_angled_dijkstra gen_dijkstra(cd::t_graph*       _graph          ,
                                           const long double  _angle_weight   ,
                                           const unsigned int _src_node_number,
                                           const bool         _use_dst

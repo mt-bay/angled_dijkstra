@@ -17,7 +17,7 @@ namespace di
 /* constractor and destractor */
 t_dijkstra::t_dijkstra()
 {
-    init(cd::t_graph(), 0);
+    init(new cd::t_graph(), 0);
 }
 
 
@@ -27,7 +27,7 @@ t_dijkstra::t_dijkstra(const t_dijkstra& _origin)
 }
 
 
-t_dijkstra::t_dijkstra(const cd::t_graph  _graph          ,
+t_dijkstra::t_dijkstra(cd::t_graph*       _graph          ,
                        const unsigned int _src_node_number)
                           throw(std::out_of_range)
 {
@@ -51,7 +51,7 @@ t_dijkstra& t_dijkstra::operator= (t_dijkstra& _rhs)
 }
 
 /* method */
-t_dijkstra t_dijkstra::gen_dijkstra(const cd::t_graph  _graph          , 
+t_dijkstra t_dijkstra::gen_dijkstra(cd::t_graph*       _graph          , 
                                     const unsigned int _src_node_number,
                                     const bool         _use_dst        ,
                                     const unsigned int _dst_node_number)
@@ -59,11 +59,11 @@ t_dijkstra t_dijkstra::gen_dijkstra(const cd::t_graph  _graph          ,
 {
     //preprcessing
     if(_src_node_number <                   0 ||
-       _src_node_number > _graph.get_V_size() - 1)
+       _src_node_number > _graph->get_V_size() - 1)
        throw;
     if(_use_dst                                  &&
        (_dst_node_number <                   0 ||
-        _dst_node_number >= _graph.get_V_size()))
+        _dst_node_number >= _graph->get_V_size()))
        throw;
 
     t_dijkstra result = t_dijkstra(_graph, _src_node_number);
@@ -77,7 +77,7 @@ t_dijkstra t_dijkstra::gen_dijkstra(const cd::t_graph  _graph          ,
 
     while(!result.satisfy_end_condition(_use_dst, _dst_node_number))
     {
-        for(unsigned int i = 0; i < _graph.get_V_size(); ++i)
+        for(unsigned int i = 0; i < _graph->get_V_size(); ++i)
         {
             if(i != last_confirmed                  && 
                result.m_is_confirmed->at(i) == false)
@@ -135,8 +135,8 @@ bool t_dijkstra::to_csv(const std::string _file_path) const
         return false;
 
     const std::string csv_separator = ",";
-    unsigned int   node_num_length
-                  = std::to_string(m_graph->get_V_size() - 1).length();
+    size_t   node_num_length
+                = std::to_string(m_graph->get_V_size() - 1).length();
 
     std::string   path_separator = ";";
 
@@ -299,24 +299,24 @@ unsigned int t_dijkstra::get_confirm_node_number() const
 }
 
 
-inline void t_dijkstra::init(const cd::t_graph  _graph          ,
+inline void t_dijkstra::init(cd::t_graph*       _graph          ,
                              const unsigned int _src_node_number)
                                 throw(std::out_of_range)
 {
-    if(_src_node_number >= _graph.get_V_size())
+    if(_src_node_number >= _graph->get_V_size())
         throw;
 
-    m_graph           = new cd::t_graph(_graph);
+    m_graph           = _graph;
 
     m_src_node_number = _src_node_number;
-    m_route_cost      = new std::vector<long double>  (_graph.get_V_size()  ,
+    m_route_cost      = new std::vector<long double>  (_graph->get_V_size()  ,
                                                        (long double)INFINITY);
 
-    m_is_confirmed    = new std::vector<unsigned char>(_graph.get_V_size(),
+    m_is_confirmed    = new std::vector<unsigned char>(_graph->get_V_size(),
                                                        false              );
 
     m_path            = new std::vector< std::vector<unsigned int> >
-                          (_graph.get_V_size(), std::vector<unsigned int>());
+                          (_graph->get_V_size(), std::vector<unsigned int>());
 
     m_route_cost->at(_src_node_number) = 0.0;
     m_path->at(_src_node_number).push_back(_src_node_number);
