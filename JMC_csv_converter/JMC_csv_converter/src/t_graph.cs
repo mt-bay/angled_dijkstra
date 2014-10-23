@@ -175,24 +175,10 @@ namespace JMC_csv_converter.src
                            string _adjacency_file_path)
         {
             t_logger.get_instance().write_info("convert graph to csv");
-            int dir_sep = _location_file_path.LastIndexOf(@"\");
-            if (dir_sep != -1)
-            {
-                string dir = _location_file_path.Substring(0, dir_sep);
-                if (!Directory.Exists(dir))
-                {
-                    Directory.CreateDirectory(dir);
-                }
-            }
-            dir_sep = _adjacency_file_path.LastIndexOf(@"\");
-            if (dir_sep != -1)
-            {
-                string dir = _adjacency_file_path.Substring(0, dir_sep);
-                if (!Directory.Exists(dir))
-                {
-                    Directory.CreateDirectory(dir);
-                }
-            }
+
+            util.mkdir(_location_file_path);
+
+            util.mkdir(_adjacency_file_path);
 
             StreamWriter location_csv
                             = new StreamWriter(_location_file_path);

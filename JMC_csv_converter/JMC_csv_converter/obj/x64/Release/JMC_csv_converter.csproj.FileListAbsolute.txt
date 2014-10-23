@@ -1,0 +1,6 @@
+C:\Users\Poncho\Documents\DIY Products\C++\練習\angled_dijkstra\JMC_csv_converter\JMC_csv_converter\bin\x64\Release\JMC_csv_converter.exe.config
+C:\Users\Poncho\Documents\DIY Products\C++\練習\angled_dijkstra\JMC_csv_converter\JMC_csv_converter\bin\x64\Release\JMC_csv_converter.exe
+C:\Users\Poncho\Documents\DIY Products\C++\練習\angled_dijkstra\JMC_csv_converter\JMC_csv_converter\bin\x64\Release\JMC_csv_converter.pdb
+C:\Users\Poncho\Documents\DIY Products\C++\練習\angled_dijkstra\JMC_csv_converter\JMC_csv_converter\obj\x64\Release\JMC_csv_converter.csprojResolveAssemblyReference.cache
+C:\Users\Poncho\Documents\DIY Products\C++\練習\angled_dijkstra\JMC_csv_converter\JMC_csv_converter\obj\x64\Release\JMC_csv_converter.exe
+C:\Users\Poncho\Documents\DIY Products\C++\練習\angled_dijkstra\JMC_csv_converter\JMC_csv_converter\obj\x64\Release\JMC_csv_converter.pdb

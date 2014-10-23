@@ -1,5 +1,6 @@
 #include "define.hpp"
 #include "system/graph.hpp"
+#include "system/p_graph.hpp"
 
 #include "DxLib.h"
 
@@ -27,20 +28,21 @@ int WINAPI WinMain(HINSTANCE hInstance    ,
     //setting after init
     
     //body of process
+    
+    sys::t_p_graph p_graph_base = sys::t_p_graph
+        ("bin\\p_graph.csv");
+    p_graph_base.show_mesh_grid(0x878787);
+    p_graph_base.show_line(0xff0000);
+    p_graph_base.show_point(0x00ff00);
+    
+    /*
     sys::t_graph graph_base = sys::t_graph
-        ("..\\bin\\location.csv", "..\\bin\\adj.csv");
-
-    sys::t_graph dij_cost0 = sys::t_graph
-        ("..\\result\\cost0\\location.csv", "..\\result\\cost0\\adj.csv");
-
-    sys::t_graph dij_cost50 = sys::t_graph
-        ("..\\result\\cost50\\location.csv", "..\\result\\cost50\\adj.csv");
+        ("bin\\location.csv", "bin\\adj.csv");
 
     graph_base.show_mesh_grid(0x878787);
-    graph_base.show_line(0xff0000);
-    //graph_base.show_point(0x00ff00);
-    
-    dij_cost0.show_line(0x00ff00);
+    //graph_base.show_line(0xff0000);
+    graph_base.show_point(0x00ff00);
+    */
 
     error_code = SaveDrawScreen
                     (0, 0, window_size.x - 1, window_size.y - 1,

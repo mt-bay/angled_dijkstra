@@ -234,6 +234,48 @@ namespace JMC_csv_converter.src
         }
 
 
+        public t_p_graph to_p_graph()
+        {
+            t_p_graph result = new t_p_graph();
+            int prev = 0;
+
+            t_logger.get_instance().write_info("convert JMC to p_graph");
+
+            for (int i = 0; i < m_mesh.Count; ++i)
+            {
+                for (int j = 0;
+                     j < m_mesh[i].m_layer.Count;
+                     ++j)
+                {
+                    if (m_mesh[i].m_layer[j].m_code != 2)
+                    {
+                        continue;
+                    }
+
+                    for (int k = 0;
+                         k < m_mesh[i].m_layer[j].m_line.Count;
+                         ++k)
+                    {
+                        for(int l = 0;
+                            l < m_mesh[i].m_layer[j].m_line[k]
+                               .m_coordinate.Count;
+                            ++l)
+                        {
+                            prev = result.add_stickey_location
+                                (m_mesh[i].m_padding +
+                                 m_mesh[i].m_layer[j].m_line[k]
+                                .m_coordinate[l]               ,
+                                 (l != 0)                      ,
+                                 prev                          );
+                        }
+                    }
+                }
+            }
+            return result;
+
+        }
+
+
         /// <summary>
         /// analysis line
         /// </summary>

@@ -3,11 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace JMC_csv_converter.src
 {
     class util
     {
+
+        public static void mkdir(string _dir)
+        {
+            int dir_sep = _dir.LastIndexOf(@"\");
+            if (dir_sep != -1)
+            {
+                string dir = _dir.Substring(0, dir_sep);
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+            }
+
+            return;
+        }
         
         public static string str_byte_substring(string   _source,
                                                 int      _src   ,

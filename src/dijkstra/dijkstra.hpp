@@ -11,7 +11,7 @@
 
 namespace cd
 {
-class t_graph;
+class t_p_graph;
 }
 
 namespace di
@@ -46,7 +46,7 @@ public    :
      * built     : initialized dijkstra result
      * exception : std::out_of_range
      */
-    t_dijkstra(cd::t_graph*        _graph          ,
+    t_dijkstra(cd::t_p_graph*        _graph          ,
                const unsigned int  _src_node_number)
                   throw(::std::out_of_range);
 
@@ -72,7 +72,7 @@ public    :
      * return value : dijkstra result
      * exception    : std::out_of_range
      */
-    static t_dijkstra gen_dijkstra(cd::t_graph*       _graph          , 
+    static t_dijkstra gen_dijkstra(cd::t_p_graph*       _graph          , 
                                    const unsigned int _src_node_number,
                                    const bool         _use_dst 
                                                         = false       ,
@@ -108,10 +108,11 @@ public    :
      * return value : converted graph
      * exception    : none
      */
-    virtual cd::t_graph to_graph() const;
+    virtual cd::t_p_graph to_graph() const;
 
-    virtual cd::t_graph to_graph_part_of(const std::vector<unsigned int>& _dst)
-                                            const;
+    virtual cd::t_p_graph to_graph_part_of
+                            (const std::vector<unsigned int>& _dst)
+                                    const;
 
 protected :
     /* 
@@ -146,7 +147,7 @@ protected :
      * return value : void
      * exception    : std::out_of_range
      */
-    virtual inline void init(cd::t_graph*       _graph          ,
+    virtual inline void init(cd::t_p_graph*       _graph          ,
                              const unsigned int _src_node_number)
                                 throw(std::out_of_range);
 
@@ -178,7 +179,7 @@ private   :
 
     /* member valiable and instance */
 public    :
-    cd::t_graph*                              m_graph;
+    cd::t_p_graph*                            m_p_graph;
     unsigned int                              m_src_node_number;
     std::vector<long double>*                 m_route_cost;
     std::vector<unsigned char>*               m_is_confirmed;

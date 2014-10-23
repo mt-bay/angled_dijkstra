@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\coordinate\p_graph.cpp" />
     <ClCompile Include="src\dijkstra\angled_dijkstra.cpp" />
     <ClCompile Include="src\dijkstra\dijkstra.cpp" />
     <ClCompile Include="src\JMC\JMC.cpp" />
@@ -129,6 +130,7 @@
     <ClCompile Include="src\tools\tools.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\coordinate\p_graph.hpp" />
     <ClInclude Include="src\JMC\JMC.hpp" />
     <ClInclude Include="src\tools\define.hpp" />
     <ClInclude Include="src\dijkstra\angled_dijkstra.hpp" />

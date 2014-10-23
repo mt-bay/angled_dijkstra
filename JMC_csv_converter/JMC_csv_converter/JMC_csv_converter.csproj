@@ -78,7 +78,7 @@
     <Compile Include="src\t_JMC.cs" />
     <Compile Include="src\t_logger.cs" />
     <Compile Include="src\t_xy.cs" />
-    <Compile Include="src\t_y_graph.cs" />
+    <Compile Include="src\t_p_graph.cs" />
     <Compile Include="src\util.cs" />
   </ItemGroup>
   <ItemGroup>
