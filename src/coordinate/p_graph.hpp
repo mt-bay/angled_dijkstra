@@ -32,14 +32,6 @@ public    :
     t_p_graph();
 
     /* 
-     * size setter constructor
-     * parameter : size of graph
-     * build     : sizd empty network
-     * exception : none
-     */
-    t_p_graph(const unsigned int _size);
-
-    /* 
      * copy constructor
      * parameter : original
      * build     : deep copy
@@ -71,7 +63,7 @@ public    :
      * return value : graph
      * exception    : none
      */
-    static t_p_graph& csv_link_cost_to_graph(std::string _file);
+    static t_p_graph csv_to_graph(std::string _file);
 
 
     /* method */
@@ -104,20 +96,12 @@ public    :
 
 protected :
     /* 
-     * add size of graph
-     * parameter    : size to add
-     * return value : void
-     * exception    : none
-     */
-    virtual void add_graph_size(unsigned int _add_graph_size);
-
-    /* 
      * init graph
      * parameter    : void
      * return value : void
      * exception    : none
      */
-    inline virtual void init();
+    inline void init();
     
 
     /* const value and instance */
@@ -128,11 +112,11 @@ protected :
 
     /* member variable and instance */
 public    :
-    std::vector< t_xy<int>* >*                m_node_location;
+    std::vector< t_xy<int>* >                m_node_location;
 
 protected :
-    std::vector< std::vector<unsigned int> >* m_adjacency;
-    std::vector< std::vector<long double> >*  m_link_cost;
+    std::vector< std::vector<unsigned int> > m_adjacency;
+    std::vector< std::vector<long double> >  m_link_cost;
 private   :
     
 };

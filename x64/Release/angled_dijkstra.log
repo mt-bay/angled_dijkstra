@@ -1,50 +1,5 @@
-﻿2014/10/23 17:21:57 にビルドを開始しました。
-     1>ノード 2 上のプロジェクト "C:\Users\Yamaura\Documents\Products\angled_dijkstra\angled_dijkstra.vcxproj" (Build ターゲット)。
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Release\\" /Fd"x64\Release\vc120.pdb" /Gd /TP /errorReport:prompt src\dijkstra\angled_dijkstra.cpp src\dijkstra\dijkstra.cpp src\JMC\JMC.cpp src\JMC\JMC_function.cpp src\JMC\JMC_layer.cpp src\JMC\JMC_line.cpp src\JMC\JMC_primary_mesh.cpp src\JMC\JMC_secondary_mesh.cpp src\log\log.cpp src\main.cpp src\coordinate\graph.cpp src\tools\tools.cpp
-         angled_dijkstra.cpp
-         dijkstra.cpp
-     1>src\dijkstra\dijkstra.cpp(121): warning C4267: 'return' : 'size_t' から 'unsigned int' に変換しました。データが失われているかもしれません。
-     1>src\dijkstra\dijkstra.cpp(139): warning C4267: '初期化中' : 'size_t' から 'unsigned int' に変換しました。データが失われているかもしれません。
-         JMC.cpp
-         JMC_function.cpp
-         JMC_layer.cpp
-     1>src\JMC\JMC_layer.cpp(91): warning C4267: '引数' : 'size_t' から 'const unsigned int' に変換しました。データが失われているかもしれません。
-         JMC_line.cpp
-     1>src\JMC\JMC_line.cpp(233): warning C4267: 'return' : 'size_t' から 'unsigned int' に変換しました。データが失われているかもしれません。
-     1>src\JMC\JMC_line.cpp(240): warning C4267: '+=' : 'size_t' から 'unsigned int' に変換しました。データが失われているかもしれません。
-         JMC_primary_mesh.cpp
-         JMC_secondary_mesh.cpp
-     1>src\JMC\JMC_secondary_mesh.cpp(104): warning C4267: '+=' : 'size_t' から 'unsigned int' に変換しました。データが失われているかもしれません。
-         log.cpp
-         main.cpp
-         graph.cpp
-     1>src\coordinate\graph.cpp(49): warning C4267: '引数' : 'size_t' から 'unsigned int' に変換しました。データが失われているかもしれません。
-     1>src\coordinate\graph.cpp(68): warning C4267: '引数' : 'size_t' から 'unsigned int' に変換しました。データが失われているかもしれません。
-     1>src\coordinate\graph.cpp(116): warning C4267: '引数' : 'size_t' から 'unsigned int' に変換しました。データが失われているかもしれません。
-     1>src\coordinate\graph.cpp(198): warning C4267: '引数' : 'size_t' から 'unsigned int' に変換しました。データが失われているかもしれません。
-     1>src\coordinate\graph.cpp(221): warning C4267: 'return' : 'size_t' から 'unsigned int' に変換しました。データが失われているかもしれません。
-         tools.cpp
-     1>src\tools\tools.cpp(93): warning C4267: '=' : 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-     1>src\tools\tools.cpp(111): warning C4267: '初期化中' : 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Yamaura\Documents\Products\angled_dijkstra\x64\Release\angled_dijkstra.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Yamaura\Documents\Products\angled_dijkstra\x64\Release\angled_dijkstra.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Yamaura\Documents\Products\angled_dijkstra\x64\Release\angled_dijkstra.lib" /MACHINE:X64 x64\Release\angled_dijkstra.obj
-         x64\Release\dijkstra.obj
-         x64\Release\JMC.obj
-         x64\Release\JMC_function.obj
-         x64\Release\JMC_layer.obj
-         x64\Release\JMC_line.obj
-         x64\Release\JMC_primary_mesh.obj
-         x64\Release\JMC_secondary_mesh.obj
-         x64\Release\log.obj
-         x64\Release\main.obj
-         x64\Release\graph.obj
-         x64\Release\tools.obj
-         コード生成しています。
-         コード生成が終了しました。
-         angled_dijkstra.vcxproj -> C:\Users\Yamaura\Documents\Products\angled_dijkstra\x64\Release\angled_dijkstra.exe
-     1>プロジェクト "C:\Users\Yamaura\Documents\Products\angled_dijkstra\angled_dijkstra.vcxproj" (Build ターゲット) のビルドが完了しました。
-
-ビルドに成功しました。
-
-経過時間 00:00:08.60
+﻿  angled_dijkstra.cpp
+  dijkstra.cpp
+  コード生成しています。
+  コード生成が終了しました。
+  angled_dijkstra.vcxproj -> C:\Users\Yamaura\Documents\Products\angled_dijkstra\x64\Release\angled_dijkstra.exe

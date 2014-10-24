@@ -1,0 +1,7 @@
+﻿read : DATA\KS3725.DAT
+read successful
+info : number of coordinate : 1558
+info : convert JMC to p_graph
+info : convert JMC to graph
+info : convert graph to csv
+convert successful

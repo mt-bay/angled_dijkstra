@@ -14,12 +14,12 @@ namespace JMC_csv_converter.src
                                         args[0] : @"DATA\";
             string p_graph_file = (args.Length >= 2)?
                                     args[1] : @"result\p_graph.csv";
-            
+            /*
             string location_file = (args.Length >= 2)?
                                         args[1] : @"result\location.csv";
             string adj_file      = (args.Length >= 3)?
                                         args[2] : @"result\adj.csv";
-            
+            */
             try
             {
                 t_JMC   jmc   = new t_JMC(jmc_dir);
@@ -29,11 +29,11 @@ namespace JMC_csv_converter.src
                 t_p_graph p_graph = jmc.to_p_graph();
 
                 p_graph.to_csv(p_graph_file);
-
+                /*
                 t_graph graph = jmc.to_graph();
 
                 graph.to_csv(location_file, adj_file);
-
+                */
 
                 t_logger.get_instance().write(@"convert successful");
             }

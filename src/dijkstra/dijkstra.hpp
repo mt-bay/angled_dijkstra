@@ -8,6 +8,7 @@
 #include <vector>
 #include <exception>
 
+#include "../coordinate/p_graph.hpp"
 
 namespace cd
 {
@@ -46,7 +47,7 @@ public    :
      * built     : initialized dijkstra result
      * exception : std::out_of_range
      */
-    t_dijkstra(cd::t_p_graph*        _graph          ,
+    t_dijkstra(const cd::t_p_graph _graph          ,
                const unsigned int  _src_node_number)
                   throw(::std::out_of_range);
 
@@ -72,13 +73,31 @@ public    :
      * return value : dijkstra result
      * exception    : std::out_of_range
      */
-    static t_dijkstra gen_dijkstra(cd::t_p_graph*       _graph          , 
-                                   const unsigned int _src_node_number,
-                                   const bool         _use_dst 
-                                                        = false       ,
-                                   const unsigned int _dst_node_number
-                                                        = 0           )
+    static t_dijkstra gen_dijkstra(const cd::t_p_graph& _graph          , 
+                                   const unsigned int  _src_node_number,
+                                   const bool          _use_dst 
+                                                        = false        ,
+                                   const unsigned int  _dst_node_number
+                                                        = 0            )
                                     throw(::std::out_of_range);
+
+    /* 
+     * run angled dijkstra
+     * parameter    : network graph, 
+     *                source node number, destination node number,
+     *                angle weight(angle cost : |weight * sin(angle / 2)|),
+     *                use destination node
+     * return value : dijkstra result
+     * exception    : std::out_of_range
+     */
+    static t_dijkstra gen_a_dijkstra(const cd::t_p_graph& _graph          ,
+                                            const long double    _angle_weight   ,
+                                            const unsigned int   _src_node_number,
+                                            const bool           _use_dst
+                                                                   = false       ,
+                                            const unsigned int   _dst_node_number
+                                                                   = 0           )
+                                              throw(std::out_of_range);
 
     
 protected :
@@ -108,9 +127,9 @@ public    :
      * return value : converted graph
      * exception    : none
      */
-    virtual cd::t_p_graph to_graph() const;
+    virtual cd::t_p_graph to_p_graph() const;
 
-    virtual cd::t_p_graph to_graph_part_of
+    virtual cd::t_p_graph to_p_graph_part_of
                             (const std::vector<unsigned int>& _dst)
                                     const;
 
@@ -147,8 +166,8 @@ protected :
      * return value : void
      * exception    : std::out_of_range
      */
-    virtual inline void init(cd::t_p_graph*       _graph          ,
-                             const unsigned int _src_node_number)
+    virtual inline void init(const cd::t_p_graph& _graph          ,
+                             const unsigned int   _src_node_number)
                                 throw(std::out_of_range);
 
     /* 
@@ -166,7 +185,30 @@ protected :
      * return value : void
      * exception    : none
      */
-    virtual inline void set_graph_size(const unsigned int _graph_size);
+    inline void set_graph_size(const unsigned int _graph_size);
+
+    /* 
+     * path to angle
+     * parameter    : source node number, destination node number
+     * return value : angle that path of A to B
+     * exception    : out_of_range
+     */
+    double     path_to_angle(unsigned int _src_node_number,
+                             unsigned int _dst_node_number)
+                                 throw(std::out_of_range);
+
+    /* 
+     * get angle cost
+     * parameter    : angle weight, source node number, destination node number
+     * return value : angle cost
+     * exception    : out_of_range
+     */
+    inline double get_angle_cost(const double       _angle_cost     ,
+                                 const unsigned int _src_node_number,
+                                 const unsigned int _dst_node_number);
+
+
+
 private   :
 
     /* const value and instance */
@@ -179,7 +221,7 @@ private   :
 
     /* member valiable and instance */
 public    :
-    cd::t_p_graph*                            m_p_graph;
+    cd::t_p_graph                             m_p_graph;
     unsigned int                              m_src_node_number;
     std::vector<long double>*                 m_route_cost;
     std::vector<unsigned char>*               m_is_confirmed;

@@ -1,1 +1,5 @@
+graph load
 dijkstra start
+dijkstra to JMC
+angled dijkstra start
+angled dijkstra to JMC

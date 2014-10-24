@@ -1,0 +1,5 @@
+﻿read : DATA\KS5339.DAT
+read successful
+info : number of coordinate : 80454
+info : convert JMC to p_graph
+convert successful

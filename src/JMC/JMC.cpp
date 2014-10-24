@@ -5,7 +5,7 @@
 #include "JMC.hpp"
 
 #include "../coordinate/coordinate.hpp"
-#include "../coordinate/graph.hpp"
+#include "../coordinate/p_graph.hpp"
 
 #include "../dijkstra/dijkstra.hpp"
 
@@ -42,7 +42,7 @@ t_JMC::t_JMC(const di::t_dijkstra& _dijkstra) : t_JMC::t_JMC()
             ++it_path                                  )
         {
             buf_path
-                .push_back(*_dijkstra.m_graph->m_node_location->at(*it_path));
+                .push_back(*_dijkstra.m_p_graph.m_node_location.at(*it_path));
         }
         add_path(buf_path);
     }
