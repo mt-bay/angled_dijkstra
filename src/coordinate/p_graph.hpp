@@ -67,7 +67,25 @@ public    :
 
 
     /* method */
-public    :    
+public    :
+    /* 
+     * add node
+     * parameter    : adding node location
+     * return value : void
+     * exception    : none
+     */
+    void add_node(const t_xy<int> _location);
+
+    /* 
+     * set adjacency
+     * parameter    : src. node number, dst. node number, is adjacency
+     * return value : void
+     * exception    : none
+     */
+    void set_adjacency(unsigned int _src,
+                       unsigned int _dst,
+                       bool         _is_adjacency);
+
     /* 
      * get |V|
      * parameter    : void
@@ -93,6 +111,8 @@ public    :
      */
     unsigned char get_adjacency(const unsigned int _src_node_num,
                                 const unsigned int _dst_node_num) const;
+
+    void to_csv(std::string _file_path);
 
 protected :
     /* 

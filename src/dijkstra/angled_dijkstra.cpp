@@ -39,7 +39,7 @@ t_dijkstra t_dijkstra::gen_a_dijkstra
         for(unsigned int i = 0; i < _graph.get_V_size(); ++i)
         {
             if(i != last_confirmed                  && 
-               result.m_is_confirmed->at(i) == false)
+               !result.m_is_confirmed->at(i))
             {
                 if(result.m_route_cost->at(last_confirmed)          +
                    result.m_p_graph.get_link_cost(last_confirmed, i) +
@@ -55,8 +55,7 @@ t_dijkstra t_dijkstra::gen_a_dijkstra
                                                     last_confirmed,
                                                     i             );
 
-                    result.m_path->at(i) 
-                        = std::vector<unsigned int>();
+                    result.m_path->at(i).clear();
                     for(unsigned int j = 0;
                         j < result.m_path->at(last_confirmed).size();
                         ++j)

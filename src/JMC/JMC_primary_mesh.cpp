@@ -143,7 +143,6 @@ void t_primary_mesh::add_path(const std::list< cd::t_xy<int> >& _path)
 std::string t_primary_mesh::to_string() const
 {
     std::string result = "";
-
     for(std::map<int, t_secondary_mesh* >::const_iterator it
         = m_secondary_mesh.begin();
         it != m_secondary_mesh.end();

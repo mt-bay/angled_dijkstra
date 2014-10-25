@@ -57,6 +57,77 @@ t_p_graph::~t_p_graph()
 }
 
 
+void t_p_graph::add_node(const cd::t_xy<int> _location)
+{
+    m_node_location.push_back(new cd::t_xy<int>(_location));
+    m_adjacency.push_back(std::vector<unsigned int>());
+    m_link_cost.push_back(std::vector<long double>());
+}
+
+
+void t_p_graph::set_adjacency(unsigned int _src,
+                              unsigned int _dst,
+                              bool         _is_adjacency)
+{
+    std::vector<unsigned int>::iterator it_dst  = m_adjacency.at(_src).begin();
+    std::vector<long double>::iterator  it_cost = m_link_cost.at(_src).begin();
+
+    if(!_is_adjacency)
+    {
+        while(it_dst != m_adjacency.at(_src).end())
+        {
+            if(*it_dst == _dst)
+            {
+                m_adjacency.at(_src).erase(it_dst);
+                m_link_cost.at(_src).erase(it_cost);
+
+                return;
+            }
+            ++it_dst;
+            ++it_cost;
+        }
+        return;
+    }
+    else
+    {
+        while(it_dst != m_adjacency.at(_src).end())
+        {
+            if(*it_dst == _dst)
+            {
+                return;
+            }
+            ++it_dst;
+            ++it_cost;
+        }
+
+        m_adjacency.at(_src).push_back(_dst);
+        m_link_cost.at(_src).push_back
+            (cd::t_xy<int>::length(*m_node_location.at(_src),
+                                   *m_node_location.at(_dst)));
+        return;
+    }
+}
+
+
+void t_p_graph::to_csv(std::string _file_path)
+{
+    mt::mkdir(_file_path);
+    std::ofstream csv = std::ofstream(_file_path);
+
+    for(unsigned int i = 0; i < get_V_size(); ++i)
+    {
+        csv << std::to_string(m_node_location.at(i)->x) << ",";
+        csv << std::to_string(m_node_location.at(i)->y);
+        for(unsigned int j = 0; j < m_adjacency.at(i).size(); ++j)
+        {
+            csv << "," << std::to_string(m_adjacency.at(i).at(j));
+        }
+        csv << std::endl;
+    }
+    csv.close();
+}
+
+
 t_p_graph t_p_graph::csv_to_graph(std::string _file)
 {
     t_p_graph result = t_p_graph();

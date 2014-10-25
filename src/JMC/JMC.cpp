@@ -2,6 +2,8 @@
 #include <list>
 #include <iomanip>
 
+#include <algorithm>
+
 #include "JMC.hpp"
 
 #include "../coordinate/coordinate.hpp"
@@ -45,6 +47,32 @@ t_JMC::t_JMC(const di::t_dijkstra& _dijkstra) : t_JMC::t_JMC()
                 .push_back(*_dijkstra.m_p_graph.m_node_location.at(*it_path));
         }
         add_path(buf_path);
+    }
+}
+
+
+t_JMC::t_JMC(const di::t_dijkstra& _dijkstra, std::list<unsigned int> _part)
+{
+    m_primary_mesh = std::map<int, t_primary_mesh* >();
+
+    std::vector<unsigned int>::iterator it_path;
+    std::list< cd::t_xy<int> > buf_path;
+
+    for(unsigned int i = 0; i < _dijkstra.m_path->size(); ++i)
+    {
+        if(mt::find(_part, i))
+        {
+            io::t_log::get_instance().write_line("write line " + std::to_string(i));
+            buf_path.clear();
+         for(it_path =  _dijkstra.m_path->at(i).begin();
+                it_path != _dijkstra.m_path->at(i).end();
+                ++it_path                                  )
+            {
+             buf_path
+                 .push_back(*_dijkstra.m_p_graph.m_node_location.at(*it_path));
+            }
+            add_path(buf_path);
+        }
     }
 }
 

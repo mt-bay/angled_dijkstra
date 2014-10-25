@@ -175,25 +175,25 @@ bool t_dijkstra::to_csv(const std::string _file_path) const
 cd::t_p_graph t_dijkstra::to_p_graph() const
 {
     return cd::t_p_graph();
-    /*
-    cd::t_p_graph result = cd::t_p_graph(m_p_graph->get_V_size());
+    
+    cd::t_p_graph result = cd::t_p_graph();
     std::vector<unsigned int>::iterator it_path;
 
-    for(unsigned int i = 0; i < result.get_V_size(); ++i)
+    for(unsigned int i = 0; i < get_V_size(); ++i)
     {
-        result.m_node_location->at(i)
-            = new cd::t_xy<int>(*m_p_graph->m_node_location->at(i));
-
+        result.add_node(*m_p_graph.m_node_location.at(i));
+    }
+    for(unsigned int i = 0; i < get_V_size(); ++i)
+    {
         for(it_path = m_path->at(i).begin();
             it_path != m_path->at(i).end();
             ++it_path)
         {
-
+            result.set_adjacency(i, *it_path, true);
         }
     }
 
     return result;
-    */
 }
 
 

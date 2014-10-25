@@ -20,6 +20,28 @@ std::list<std::string> get_file_path_list(const std::string _directory     ,
                                           const std::string _filter = "*.*");
 
 /* 
+ * chaecking that argv[2] is contructed in argv[1]
+ * parameter    : list, finding number
+ * return value : finding number is contructed in argv[1]
+ * exception    : none
+ */
+template<typename T>
+bool find(const std::list<T> _list, const T _finding)
+{
+    
+    for(std::list<T>::const_iterator it = _list.begin();
+        it != _list.end();
+        ++it)
+    {
+        if(*it == _finding)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+/* 
  * get map key(s)
  * parameter    : map
  * return value : map's key(s)

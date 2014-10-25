@@ -43,6 +43,12 @@ public :
      */
     t_JMC(const di::t_dijkstra& _dijkstra);
 
+    /* 
+     * part of dijkstra result to JMC instance
+     * parameter : dijkstra result
+     */
+    t_JMC(const di::t_dijkstra& _dijkstra, std::list<unsigned int> _part);
+
 private:
     
     /* destructor */

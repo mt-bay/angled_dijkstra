@@ -1,0 +1,5 @@
+﻿read : DATA\KS5638.DAT
+read successful
+info : number of coordinate : 15029
+info : convert JMC to p_graph
+convert successful
