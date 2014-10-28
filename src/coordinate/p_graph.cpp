@@ -57,7 +57,7 @@ t_p_graph::~t_p_graph()
 }
 
 
-void t_p_graph::add_node(const cd::t_xy<int> _location)
+void t_p_graph::add_node(cd::t_xy<int> _location)
 {
     m_node_location.push_back(new cd::t_xy<int>(_location));
     m_adjacency.push_back(std::vector<unsigned int>());

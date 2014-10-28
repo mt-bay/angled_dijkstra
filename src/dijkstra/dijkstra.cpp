@@ -174,22 +174,20 @@ bool t_dijkstra::to_csv(const std::string _file_path) const
 
 cd::t_p_graph t_dijkstra::to_p_graph() const
 {
-    return cd::t_p_graph();
-    
     cd::t_p_graph result = cd::t_p_graph();
-    std::vector<unsigned int>::iterator it_path;
-
-    for(unsigned int i = 0; i < get_V_size(); ++i)
+    
+    for(unsigned int i = 0; i < m_p_graph.m_node_location.size(); ++i)
     {
         result.add_node(*m_p_graph.m_node_location.at(i));
     }
-    for(unsigned int i = 0; i < get_V_size(); ++i)
+
+    for(unsigned int i = 0; i < m_path->size(); ++i)
     {
-        for(it_path = m_path->at(i).begin();
-            it_path != m_path->at(i).end();
-            ++it_path)
+        for(unsigned int j = 1; j < m_path->at(i).size(); ++j)
         {
-            result.set_adjacency(i, *it_path, true);
+            result.set_adjacency(m_path->at(i).at(j - 1),
+                                 m_path->at(i).at(j    ),
+                                 true);
         }
     }
 
@@ -200,42 +198,31 @@ cd::t_p_graph t_dijkstra::to_p_graph() const
 cd::t_p_graph t_dijkstra::to_p_graph_part_of
                             (const std::vector<unsigned int>& _dst)
                                             const
-{
-    return cd::t_p_graph();
-    /*
-    cd::t_p_graph result = cd::t_p_graph(m_p_graph->get_V_size());
-    std::vector<unsigned int> dst(_dst);
+{    
+    cd::t_p_graph result = cd::t_p_graph();
+    std::vector<unsigned int>::iterator it_before;
+    std::vector<unsigned int>::iterator it;
 
-    std::vector<unsigned int>::iterator it_dst;
-    std::vector<unsigned int>::iterator it_path;
-
-    unsigned int buf_uint_a[2];
-
-    for(unsigned int i = 0; i < result.get_V_size(); ++i)
+    for(unsigned int i = 0; i < m_p_graph.m_node_location.size(); ++i)
     {
-        result.m_node_location->at(i)
-            = new cd::t_xy<int>(*m_p_graph->m_node_location->at(i));
+        result.add_node(*m_p_graph.m_node_location.at(i));
     }
-    for(it_dst =  dst.begin();
-        it_dst != dst.end();
-        ++it_dst)
+    for(unsigned int i = 0; i < get_V_size(); ++i)
     {
-        for(it_path = m_path->at(*it_dst).begin();
-            it_path != m_path->at(*it_dst).end() - 1;
-            )
+        if(mt::find(_dst, i))
         {
-            buf_uint_a[0] = *it_path;
-            buf_uint_a[1] = *(++it_path);
-            if(it_path == m_path->at(*it_dst).end())
+            it_before = m_path->at(i).begin();
+           for(it =  it_before + 1;
+               it != m_path->at(i).end();
+               ++it)
             {
-                break;
+                result.set_adjacency(*it_before, *it, true);
+                it_before = it;
             }
-
         }
     }
 
     return result;
-    */
 }
 
 

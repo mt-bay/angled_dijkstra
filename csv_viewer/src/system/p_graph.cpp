@@ -61,6 +61,11 @@ void t_p_graph::show_mesh_grid(int _color)
     {
         draw_point = get_draw_point(cd::t_xy<int>(i, lowerleft.y));
         DrawLine(draw_point.x, 0, draw_point.x, window_size.y, _color);
+
+        if(draw_point.x > window_size.x || draw_point.y > window_size.y)
+        {
+            ErrorLogAdd(_T(draw_point.toString().c_str()));
+        }
     }
     //draw parallel line
     for(int i = lowerleft.y; i <= upperright.y; i += SECONDARY_MESH_SIZE)
@@ -80,6 +85,11 @@ void t_p_graph::show_line(int _color)
     {
         p_src = get_draw_point(*m_location->at(i));
 
+        if(p_src.x > window_size.x || p_src.y > window_size.y)
+        {
+            ErrorLogAdd(_T(("location error : " + p_src.toString()).c_str()));
+        }
+
         for(unsigned int j = 0; j < m_adjacency->at(i).size(); ++j)
         {
             p_dst = get_draw_point(*m_location->at(m_adjacency->at(i).at(j)));
@@ -90,6 +100,10 @@ void t_p_graph::show_line(int _color)
             else
             {
                 DrawLine(p_src.x, p_src.y, p_dst.x, p_dst.y, _color);
+            }
+            if(p_dst.x > window_size.x || p_dst.y > window_size.y)
+            {
+                ErrorLogAdd(_T(("location error" + p_dst.toString()).c_str()));
             }
         }
     }

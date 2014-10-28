@@ -10,6 +10,7 @@ namespace cd
 {
 template<typename T>
 class t_xy;
+class t_p_graph;
 }
 namespace di
 {
@@ -48,6 +49,8 @@ public :
      * parameter : dijkstra result
      */
     t_JMC(const di::t_dijkstra& _dijkstra, std::list<unsigned int> _part);
+    t_JMC(const di::t_dijkstra& _dijkstra, std::vector<unsigned int> _part);
+    t_JMC(const cd::t_p_graph& _p_graph, unsigned int _src);
 
 private:
     

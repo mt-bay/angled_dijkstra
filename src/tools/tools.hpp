@@ -40,6 +40,21 @@ bool find(const std::list<T> _list, const T _finding)
     }
     return false;
 }
+template<typename T>
+bool find(const std::vector<T> _list, const T _finding)
+{
+    
+    for(std::vector<T>::const_iterator it = _list.begin();
+        it != _list.end();
+        ++it)
+    {
+        if(*it == _finding)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 /* 
  * get map key(s)

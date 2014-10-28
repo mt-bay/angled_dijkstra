@@ -51,7 +51,7 @@ t_JMC::t_JMC(const di::t_dijkstra& _dijkstra) : t_JMC::t_JMC()
 }
 
 
-t_JMC::t_JMC(const di::t_dijkstra& _dijkstra, std::list<unsigned int> _part)
+t_JMC::t_JMC(const di::t_dijkstra& _dijkstra, std::vector<unsigned int> _part)
 {
     m_primary_mesh = std::map<int, t_primary_mesh* >();
 
@@ -74,6 +74,28 @@ t_JMC::t_JMC(const di::t_dijkstra& _dijkstra, std::list<unsigned int> _part)
             add_path(buf_path);
         }
     }
+}
+
+t_JMC::t_JMC(const cd::t_p_graph& _p_graph, unsigned int _src)
+{
+    m_primary_mesh = std::map<int, t_primary_mesh* >();
+
+    std::vector<unsigned int>::const_iterator it_adj;
+    std::list< cd::t_xy<int> > buf_path;
+
+    unsigned int index = _src;
+
+    for(unsigned int i = 0; i < _p_graph.get_V_size(); ++i)
+    {
+        buf_path.push_back(*_p_graph.m_node_location.at(index));
+        if(_p_graph.m_adjacency.at(index).size() <= 0)
+        {
+            break;
+        }
+        index = _p_graph.m_adjacency.at(index).at(0);
+    }
+    add_path(buf_path);
+
 }
 
 
@@ -122,34 +144,76 @@ bool t_JMC::output(const std::string _output_directory) const
 
 void t_JMC::add_path(const std::list<cd::t_xy<int> >& _path)
 {
-    std::vector<int> buf_primary_mesh;
-
     if(_path.size() < 2)
     {
         return;
     }
 
-    std::map<int, std::list< cd::t_xy<int> > > buf_path;
+    std::map<int, std::list< cd::t_xy<int> > > buf_path_map;
+    std::vector< cd::t_xy<int> > buf_path;
 
-    for(std::list< cd::t_xy<int> >::const_iterator it =  _path.begin();
+    std::list< cd::t_xy<int> >::const_iterator it_before =  _path.begin();
+    std::vector<int> buf_primary_mesh_before;
+
+    cd::t_xy<int> buf_xy_int = cd::t_xy<int>();
+
+    std::vector<int> buf_primary_mesh;
+    for(std::list< cd::t_xy<int> >::const_iterator it = ++_path.begin();
         it != _path.end();
-        ++it)
+        true)
+    {
+        buf_primary_mesh_before = location_to_primary_mesh(*it_before);
+        buf_primary_mesh = location_to_primary_mesh(*it);
+
+        buf_path.push_back(*it_before);
+
+        for(int i = 0; i < buf_primary_mesh_before.size(); ++i)
+        {
+            for(int j = 0; i < buf_primary_mesh.size(); ++j)
+            {
+                if(buf_primary_mesh_before.at(i) != buf_primary_mesh.at(j))
+                {
+                    if(   (buf_primary_mesh_before.at(i) / 100)
+                       != (buf_primary_mesh.at(i)        / 100))
+                    {
+                        buf_xy_int.y = (buf_primary_mesh.at(i) / 100)
+                                     * SECONDARY_MESH_MAX * MESH_LOCATION_MAX_Y;
+
+                        buf_xy_int.y = (buf_primary_mesh.at(i) / 100)
+                                     * SECONDARY_MESH_MAX * MESH_LOCATION_MAX_Y;
+                    }
+                }
+            }
+        }
+
+        ++it_before;
+        ++it;
+    }
+    buf_path.push_back(*(--_path.end()));
+
+    std::vector<int> buf_primary_mesh;
+    for(std::list< cd::t_xy<int> >::const_iterator it = ++_path.begin();
+        it != _path.end();
+        true)
     {
         buf_primary_mesh = location_to_primary_mesh(*it);
         for(unsigned int i = 0; i < buf_primary_mesh.size(); ++i)
         {
-            if(buf_path.count(buf_primary_mesh.at(i)) == 0)
+            if(buf_path_map.count(buf_primary_mesh.at(i)) == 0)
             {
-                buf_path[buf_primary_mesh.at(i)]
+                buf_path_map[buf_primary_mesh.at(i)]
                     = std::list< cd::t_xy<int> >();
             }
-            buf_path[buf_primary_mesh.at(i)].push_back(cd::t_xy<int>(*it));
+            buf_path_map[buf_primary_mesh.at(i)].push_back(cd::t_xy<int>(*it));
         }
+
+        ++it_before;
+        ++it;
     }
 
     for(std::map<int, std::list< cd::t_xy<int> > >::iterator it
-            = buf_path.begin();
-        it != buf_path.end();
+            = buf_path_map.begin();
+        it != buf_path_map.end();
         ++it)
     {
         if(it->second.size() >= 2)

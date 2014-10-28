@@ -1,5 +1,8 @@
 graph load
+8984
 dijkstra start
+dijkstra to p_graph
 dijkstra to JMC
 angled dijkstra start
+angled dijkstra to p_graph
 angled dijkstra to JMC

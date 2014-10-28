@@ -35,9 +35,9 @@ int WINAPI WinMain(HINSTANCE hInstance    ,
     p_graph_base.show_line(0xff0000);
     //p_graph_base.show_point(0x00ff00);
     
-    sys::t_p_graph p_graph_dij = sys::t_p_graph
+    sys::t_p_graph p_graph_dij_0 = sys::t_p_graph
         ("bin\\dij_cost0.csv");
-    p_graph_base.show_line(0x00ff00);
+    p_graph_dij_0.show_line(0x00ff00);
 
     /*
     sys::t_graph graph_base = sys::t_graph
