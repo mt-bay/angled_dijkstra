@@ -24,9 +24,12 @@ class t_primary_mesh;
 class t_secondary_mesh;
 class t_layer;
 
+class t_node;
 class t_line;
+class t_area;
+class t_point;
 
-
+/* class */
 /* class to output JMC file(s) */
 class t_JMC
 {
@@ -84,7 +87,7 @@ private:
 
     /* member variable and instance */
 public :
-    std::map<int, t_primary_mesh* > m_primary_mesh;
+    std::map<int, t_primary_mesh > m_primary_mesh;
 
 private:
 
@@ -108,7 +111,10 @@ public :
     t_primary_mesh(const t_primary_mesh& _origin);
 
     /* 
+     * mesh number setter constructor
+     * parameter : mesh number
      */
+    t_primary_mesh(int _mesh_number);
 
     /* 
      * destructor
@@ -152,7 +158,8 @@ private:
 
     /* member variable and instance */
 public:
-    std::map<int, t_secondary_mesh*> m_secondary_mesh;
+    std::map<int, t_secondary_mesh> m_secondary_mesh;
+    int                             m_mesh_number;
 };
 
 
@@ -173,7 +180,6 @@ public :
      */
     t_secondary_mesh(const t_secondary_mesh& _origin);
 
-
     /* 
      * setter constructor
      * parameter : invoker, secondary mesh number
@@ -181,12 +187,10 @@ public :
     t_secondary_mesh(t_primary_mesh* _invoker,
                      const int _secondary_mesh_number);
 
-
     /* 
      * destructor
      */
     ~t_secondary_mesh();
-
 
     /* operator overload */
 public:
@@ -199,8 +203,24 @@ public:
      */
     t_secondary_mesh& operator= (const t_secondary_mesh& _rhs);
 
-
     /* method */
+public:
+    /* 
+     * add layer recode
+     * parameter    : adding layer recode
+     * return value : void
+     * exception    : none
+     */
+    void add_layer_recode(const t_layer _target);
+
+    /* 
+     * add outline
+     * parameter    : none
+     * return value : void
+     * exception    : none
+     */
+    void add_outline();
+
     /* 
      * add path
      * parameter    : adding path
@@ -210,12 +230,13 @@ public:
     void add_path(const std::list< cd::t_xy<int> >& _path);
 
     /* 
-     * add layer recode
-     * parameter    : adding layer recode
-     * return value : void
+     * find last matched layer index
+     * parameter    : layer code
+     * return value : matched index
      * exception    : none
      */
-    void add_layer_recode(const t_layer _target);
+    int find_last_layer_index(short int _layer_code)
+        const;
 
     /* 
      * get num. of line
@@ -241,10 +262,12 @@ public:
      */
     std::string to_string() const;
 
+private:
+    cd::t_xy<int> get_padding();
 
     /* member variable and instance */
 public:
-    std::vector< t_layer* > m_layer;
+    std::vector< t_layer > m_layer;
     t_primary_mesh* m_invoker;
     int m_mesh_number;
 
@@ -255,6 +278,17 @@ private:
 /* layer recode class */
 class t_layer
 {
+    /* member enum */
+public:
+    enum code_type_e : short int
+    {
+        ADMINISTRATIVE = 1,
+        ROAD           = 2,
+        TRAIN          = 3,
+        RIVER          = 5,
+        NOTE           = 7,
+    };
+
     /* constructor and destructor */
 public :
     /* 
@@ -273,7 +307,8 @@ public :
      * invoker setter constructor
      * parameter : invoker
      */
-    t_layer(t_secondary_mesh* _invoker);
+    t_layer(code_type_e        _layer_code,
+            t_secondary_mesh*  _invoker   );
 
     /* 
      * destructor
@@ -299,7 +334,9 @@ public:
      * return value : void
      * exception    : none
      */
-    void add_path(const std::list< cd::t_xy<int> >& _path);
+    void add_path(const short int                   _code,
+                  const short int                   _type,
+                  const std::list< cd::t_xy<int> >& _path);
 
     /* 
      * add line record
@@ -325,13 +362,22 @@ public:
      */
     std::string to_string() const;
 
-
     /* member variable and instance */
 public:
-    std::vector< t_line* > m_line;
-    t_secondary_mesh* m_invoker;
+    code_type_e            m_code;
+
+    std::vector< t_node >  m_node;
+    std::vector< t_line >  m_line;
+    std::vector< t_area >  m_area;
+    std::vector< t_point > m_point;
+
+    t_secondary_mesh*      m_invoker;
 };
 
+/* node recode class */
+class t_node
+{
+};
 
 /* line recode class */
 class t_line
@@ -356,6 +402,8 @@ public :
      */
     t_line(t_layer*                         _invoker        ,
            const unsigned int               _series_number  ,
+           const short int                  _code           ,
+           const short int                  _type           ,
            const std::list< cd::t_xy<int> > _coordinate_list);
 
     /* 
@@ -413,6 +461,22 @@ public :
         const;
 
     /* 
+     * starting-point is outline-connected coordinate?
+     * parameter    : void
+     * return value : starting-point is outline-connected coordinate?
+     * exception    : none
+     */
+    bool starting_point_is_outline_connected() const;
+
+    /* 
+     * end-point is outline-connected coordinate?
+     * parameter    : void
+     * return value : end-point is outline-connected coordinate?
+     * exception    : none
+     */
+    bool end_point_is_outline_connected() const;
+
+    /* 
      * get num. of line
      * parameter    : void
      * return value : num. of coordinate
@@ -450,14 +514,27 @@ public :
      * return value : this instance to string
      * exception    : none
      */
-    std::string to_string() const;
+    std::string to_string(const t_layer* _invoker) const;
 
     /* member variable and instance */
 public:
+    short int                     m_code;
     unsigned int                  m_series_number;
+    short int                     m_type;
+
     std::vector< cd::t_xy<int>* > m_coordinate;
-    t_layer* m_invoker;
+    t_layer*                      m_invoker;
 private:
+};
+
+/* area recode class */
+class t_area
+{
+};
+
+/* point recode class */
+class t_point
+{
 };
 
 /* function */

@@ -58,7 +58,7 @@ public   :
      * return value : void
      * exception    : void
      */
-    void write(const std::string _contents);
+    void write(const std::string _contents = "");
 
     /* 
      * add line
@@ -66,7 +66,7 @@ public   :
      * return value : void
      * exception    : none
      */
-    void write_line(const std::string _contents);
+    void write_line(const std::string _contents = "");
 
 private:
 

@@ -11,16 +11,22 @@ namespace jmc
 t_line::t_line()
 {
     m_series_number = 0;
-    m_coordinate = std::vector<cd::t_xy<int>* >();
+    m_coordinate    = std::vector<cd::t_xy<int>* >();
+    m_code          = 0;
+    m_type          = 0;
 
-    m_invoker = nullptr;
+    m_invoker       = nullptr;
 }
 
 
 t_line::t_line(const t_line& _origin)
 {
     m_series_number = _origin.m_series_number;
-    m_coordinate = std::vector<cd::t_xy<int>* >();
+    m_coordinate    = std::vector<cd::t_xy<int>* >();
+    m_code          = _origin.m_code;
+    m_type          = _origin.m_type;
+
+    m_invoker       = _origin.m_invoker;
 
     for(std::vector< cd::t_xy<int>* >::const_iterator it
             = _origin.m_coordinate.begin();
@@ -29,17 +35,20 @@ t_line::t_line(const t_line& _origin)
     {
         m_coordinate.push_back(new cd::t_xy<int>(**it));
     }
-
-    m_invoker = nullptr;
 }
+
 
 t_line::t_line(t_layer*                         _invoker        ,
                const unsigned int               _series_number  ,
+               const short int                  _code           ,
+               const short int                  _type           ,
                const std::list< cd::t_xy<int> > _coordinate_list)
 {
     m_series_number = _series_number;
     m_coordinate    = std::vector< cd::t_xy<int>* >();
-    m_invoker = _invoker;
+    m_code          = _code;
+    m_type          = _type;
+    m_invoker       = _invoker;
 
     cd::t_xy<int> buffer_xy_int;
     for(std::list< cd::t_xy<int> >::const_iterator it
@@ -52,8 +61,6 @@ t_line::t_line(t_layer*                         _invoker        ,
                              m_invoker->m_invoker->m_mesh_number);
         m_coordinate.push_back(new cd::t_xy<int>(buffer_xy_int));
     }
-
-    
 }
 
 
@@ -70,6 +77,7 @@ t_line::~t_line()
 
 t_line& t_line::operator=(const t_line& _rhs)
 {
+    m_code = _rhs.m_code;
     for(std::vector< cd::t_xy<int>* >::iterator it
             = m_coordinate.begin();
         it != m_coordinate.end();
@@ -228,6 +236,45 @@ bool t_line::is_intentioned_coordinate
 }
 
 
+bool t_line::starting_point_is_outline_connected()
+    const
+{
+    if(m_coordinate.size() <= 0)
+    {
+        return false;
+    }
+
+    if(m_coordinate.at(0)->x ==     0 ||
+       m_coordinate.at(0)->x == 10000 ||
+       m_coordinate.at(0)->y ==     0 ||
+       m_coordinate.at(0)->y == 10000)
+    {
+        return true;
+    }
+    return false;
+}
+
+
+bool t_line::end_point_is_outline_connected()
+    const
+{
+    if(m_coordinate.size() <= 0)
+    {
+        return false;
+    }
+
+    if(m_coordinate.at(m_coordinate.size() - 1)->x ==     0 ||
+       m_coordinate.at(m_coordinate.size() - 1)->x == 10000 ||
+       m_coordinate.at(m_coordinate.size() - 1)->y ==     0 ||
+       m_coordinate.at(m_coordinate.size() - 1)->y == 10000)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+
 unsigned int t_line::get_num_of_coordinate() const
 {
     return m_coordinate.size();
@@ -243,13 +290,14 @@ unsigned int t_line::get_num_of_recode() const
 }
 
 
-std::string t_line::to_string() const
+std::string t_line::to_string(const t_layer* _invoker) const
 {
     std::string result = "";
     char buf_line[RECODE_LENGTH + 1] = "";
     
     memset(buf_line, ' ', RECODE_LENGTH);
 
+    
     /* sprintf_s(dest, format,
      *         layer code, data item code, line series number, line type code, 
      *         dst. node number, dst. adj. info,
@@ -260,7 +308,9 @@ std::string t_line::to_string() const
      */
     sprintf_s(buf_line,
               "L %2d%2d%5u%6u%5u%1u%5u%1u          %6u                           ",
-            2, 2, m_series_number, 0, 0, 0, 0, 0, 
+            (short int)_invoker->m_code, m_code, m_series_number, m_type,
+            0, ((starting_point_is_outline_connected())? 2 : 0),
+            0, ((end_point_is_outline_connected())?      2 : 0), 
             get_num_of_coordinate());
 
     result += buf_line;
@@ -269,6 +319,7 @@ std::string t_line::to_string() const
     int counter_writerd_coordinate = 0;
     char buf_coordinate[11] = "";
 
+    //coordinate recode
     for(unsigned int i = 0; i < m_coordinate.size(); ++i)
     {
         sprintf_s(buf_coordinate, "%5d%5d",

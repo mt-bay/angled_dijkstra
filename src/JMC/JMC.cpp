@@ -21,7 +21,7 @@ namespace jmc
 
 t_JMC::t_JMC()
 {
-    m_primary_mesh = std::map<int, t_primary_mesh* >();
+    m_primary_mesh = std::map<int, t_primary_mesh >();
 }
 
 
@@ -31,7 +31,7 @@ t_JMC::t_JMC(const di::t_dijkstra& _dijkstra) : t_JMC::t_JMC()
     io::t_log::get_instance().write_line("dijkstra result to JMC file(s)");
 #endif // _DEBUG
 
-    m_primary_mesh = std::map<int, t_primary_mesh* >();
+    m_primary_mesh = std::map<int, t_primary_mesh >();
 
     std::vector<unsigned int>::iterator it_path;
     std::list< cd::t_xy<int> > buf_path;
@@ -53,7 +53,7 @@ t_JMC::t_JMC(const di::t_dijkstra& _dijkstra) : t_JMC::t_JMC()
 
 t_JMC::t_JMC(const di::t_dijkstra& _dijkstra, std::vector<unsigned int> _part)
 {
-    m_primary_mesh = std::map<int, t_primary_mesh* >();
+    m_primary_mesh = std::map<int, t_primary_mesh >();
 
     std::vector<unsigned int>::iterator it_path;
     std::list< cd::t_xy<int> > buf_path;
@@ -78,7 +78,7 @@ t_JMC::t_JMC(const di::t_dijkstra& _dijkstra, std::vector<unsigned int> _part)
 
 t_JMC::t_JMC(const cd::t_p_graph& _p_graph, unsigned int _src)
 {
-    m_primary_mesh = std::map<int, t_primary_mesh* >();
+    m_primary_mesh = std::map<int, t_primary_mesh >();
 
     std::vector<unsigned int>::const_iterator it_adj;
     std::list< cd::t_xy<int> > buf_path;
@@ -101,12 +101,7 @@ t_JMC::t_JMC(const cd::t_p_graph& _p_graph, unsigned int _src)
 
 t_JMC::~t_JMC()
 {
-    for(std::map<int, t_primary_mesh* >::iterator it = m_primary_mesh.begin();
-        it != m_primary_mesh.end();
-        ++it)
-    {
-        delete it->second;
-    }
+
 }
 
 
@@ -114,14 +109,13 @@ bool t_JMC::output(const std::string _output_directory) const
 {
     try
     {
-        //std::list<int> write_primary_mesh = mt::get_keys(m_primary_mesh);
         std::string file_name;
 
         std::ofstream out_file;
 
         mt::mkdir(_output_directory);
 
-        for(std::map<int, t_primary_mesh* >::const_iterator it
+        for(std::map<int, t_primary_mesh >::const_iterator it
                 = m_primary_mesh.begin();
             it != m_primary_mesh.end();
             ++it)
@@ -129,7 +123,7 @@ bool t_JMC::output(const std::string _output_directory) const
             file_name = _output_directory
                         + "KS" + std::to_string(it->first) + ".DAT";
             out_file = std::ofstream(file_name);
-            out_file << it->second->to_string();
+            out_file << it->second.to_string();
             out_file.close();
         }
 
@@ -169,17 +163,17 @@ void t_JMC::add_path(const std::list<cd::t_xy<int> >& _path)
 
         for(int i = 0; i < buf_primary_mesh_before.size(); ++i)
         {
-            for(int j = 0; i < buf_primary_mesh.size(); ++j)
+            for(int j = 0; j < buf_primary_mesh.size(); ++j)
             {
                 if(buf_primary_mesh_before.at(i) != buf_primary_mesh.at(j))
                 {
                     if(   (buf_primary_mesh_before.at(i) / 100)
-                       != (buf_primary_mesh.at(i)        / 100))
+                       != (buf_primary_mesh.at(j)        / 100))
                     {
-                        buf_xy_int.y = (buf_primary_mesh.at(i) / 100)
+                        buf_xy_int.y = (buf_primary_mesh.at(j) / 100)
                                      * SECONDARY_MESH_MAX * MESH_LOCATION_MAX_Y;
 
-                        buf_xy_int.y = (buf_primary_mesh.at(i) / 100)
+                        buf_xy_int.y = (buf_primary_mesh.at(j) / 100)
                                      * SECONDARY_MESH_MAX * MESH_LOCATION_MAX_Y;
                     }
                 }
@@ -189,9 +183,9 @@ void t_JMC::add_path(const std::list<cd::t_xy<int> >& _path)
         ++it_before;
         ++it;
     }
+
     buf_path.push_back(*(--_path.end()));
 
-    std::vector<int> buf_primary_mesh;
     for(std::list< cd::t_xy<int> >::const_iterator it = ++_path.begin();
         it != _path.end();
         true)
@@ -220,9 +214,9 @@ void t_JMC::add_path(const std::list<cd::t_xy<int> >& _path)
         {
             if(m_primary_mesh.count(it->first) == 0)
             {
-                m_primary_mesh[it->first] = new t_primary_mesh();
+                m_primary_mesh[it->first] = t_primary_mesh(it->first);
             }
-            m_primary_mesh[it->first]->add_path(it->second);
+            m_primary_mesh[it->first].add_path(it->second);
         }
     }
 }

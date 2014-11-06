@@ -15,11 +15,6 @@ std::vector<int> location_to_primary_mesh(const cd::t_xy<int> _source)
                         / (SECONDARY_MESH_MAX + 1)) * 100
                    + ((_source.x / MESH_LOCATION_MAX_X)
                         / (SECONDARY_MESH_MAX + 1)) *   1);
-    if(_source.y % (MESH_LOCATION_MAX_Y * (SECONDARY_MESH_MAX + 1)) != 0 &&
-       _source.x % (MESH_LOCATION_MAX_X * (SECONDARY_MESH_MAX + 1)) != 0)
-    {
-        return result;
-    }
 
     int buf_int = result[0];
 
@@ -31,6 +26,12 @@ std::vector<int> location_to_primary_mesh(const cd::t_xy<int> _source)
     {
         buf_int -= 1;
     }
+
+    if(result.at(0) == buf_int)
+    {
+        return result;
+    }
+
     result.push_back(buf_int);
     return result;
 }
@@ -47,12 +48,6 @@ std::vector<int> location_to_secondary_mesh(const cd::t_xy<int> _source)
                         % (SECONDARY_MESH_MAX + 1)) *    10
                    + ((_source.x  / MESH_LOCATION_MAX_X)
                         % (SECONDARY_MESH_MAX + 1)) *     1);
-
-    if(_source.y % (MESH_LOCATION_MAX_Y) != 0 &&
-       _source.x % (MESH_LOCATION_MAX_X) != 0)
-    {
-        return result;
-    }
 
     int buf_int = result[0];
 
@@ -80,6 +75,12 @@ std::vector<int> location_to_secondary_mesh(const cd::t_xy<int> _source)
         }
     }
 
+    if(result.at(0) == buf_int)
+    {
+        return result;
+    }
+
+    result.push_back(buf_int);
     return result;
 }
 
