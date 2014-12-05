@@ -77,7 +77,11 @@ t_dijkstra t_dijkstra::gen_a_dijkstra
     return result;
 }
 
-
+/** 左折で事故を起こす確率：右折で事故を起こす確
+ *                     4.6：8.0
+ *  左折の際にかけるコストの倍率
+ *  →  4.6 / 8.0
+ *    = 0.575 */
 inline double t_dijkstra::get_angle_cost
                     (const double       _angle_weight   ,
                      const unsigned int _src_node_number,
