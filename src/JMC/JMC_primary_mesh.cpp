@@ -24,6 +24,7 @@ t_primary_mesh::t_primary_mesh(const t_primary_mesh& _origin)
         ++it)
     {
         m_secondary_mesh[it->first] = t_secondary_mesh(it->second);
+        m_secondary_mesh[it->first].m_invoker = this;
     }
 }
 
@@ -51,6 +52,7 @@ t_primary_mesh& t_primary_mesh::operator=(const t_primary_mesh& _rhs)
         ++it)
     {
         m_secondary_mesh[it->first] = t_secondary_mesh(it->second);
+        m_secondary_mesh[it->first].m_invoker = this;
     }
 
     return *this;
@@ -85,7 +87,6 @@ void t_primary_mesh::add_path(const std::list< cd::t_xy<int> >& _path)
             buf_path[buf_secondary_mesh.at(i)]
                 .push_back(cd::t_xy<int>(*it));
         }
-        io::t_log::get_instance().write_line();
     }
 
     for(std::map<int, std::list< cd::t_xy<int> > >::iterator it

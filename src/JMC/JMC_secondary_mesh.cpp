@@ -28,7 +28,7 @@ t_secondary_mesh::t_secondary_mesh(const t_secondary_mesh& _origin)
         m_layer.push_back(t_layer(*it));
     }
 
-    m_invoker = nullptr;
+    m_invoker = _origin.m_invoker;
 }
 
 

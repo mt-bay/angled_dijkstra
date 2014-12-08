@@ -24,50 +24,48 @@ int main(int argc, char** argv)
         io::t_log::get_instance().write_line("graph load");
 
         std::vector<unsigned int> dst;
-        //dst.push_back(4);
         dst.push_back(1627);
 
         cd::t_p_graph result_graph;
         
-        {
-            cd::t_p_graph graph
+        cd::t_p_graph graph
             = cd::t_p_graph::csv_to_graph("bin\\p_graph.csv");
-            io::t_log::get_instance().write_line(std::to_string(graph.get_V_size()));
+        io::t_log::get_instance().write_line(std::to_string(graph.get_V_size()));
 
-            io::t_log::get_instance().write_line("dijkstra start");
-            di::t_dijkstra dij_cost0  =
-                di::t_dijkstra::gen_dijkstra(graph, src, false, 0);
-            
-            io::t_log::get_instance().write_line("dijkstra to p_graph");
-            //result_graph = dij_cost0.to_p_graph();
-            result_graph = dij_cost0.to_p_graph_part_of(dst);
-            result_graph.to_csv("result\\cost0\\p_graph.csv");
-            
-            io::t_log::get_instance().write_line("dijkstra to JMC");
-            jmc::t_JMC jmc_cost0 = jmc::t_JMC(result_graph, src);
-            jmc_cost0.output("result\\cost0\\JMC\\");
-            
-        }
+        io::t_log::get_instance().write_line("dijkstra start");
+        di::t_dijkstra* dij  =
+            new di::t_dijkstra(graph, src, false, 0);
 
-        {
-            cd::t_p_graph graph
+        io::t_log::get_instance().write_line("dijkstra to p_graph");
+        result_graph = dij->to_p_graph_part_of(dst);
+        result_graph.to_csv("result\\cost0\\p_graph.csv");
+            
+        io::t_log::get_instance().write_line("dijkstra to JMC");
+        jmc::t_JMC jmc = jmc::t_JMC(result_graph, src);
+
+        io::t_log::get_instance().write_line("output JMC");
+        jmc.output("result\\cost0\\JMC\\");
+
+        delete dij;
+
+        graph
             = cd::t_p_graph::csv_to_graph("bin\\p_graph.csv");
 
-            io::t_log::get_instance().write_line("angled dijkstra start");
-            di::t_dijkstra dij_cost1000 =
-                di::t_dijkstra::gen_a_dijkstra(graph, 1000.0, src, false, 0);
+        io::t_log::get_instance().write_line("angled dijkstra start");
+        dij =
+            new di::t_angled_dijkstra(graph, src, 10000.0, 0.048, 0.080, false, 0);
 
-            io::t_log::get_instance().write_line("angled dijkstra to p_graph");
-            //result_graph = dij_cost1000.to_p_graph();
-            result_graph = dij_cost1000.to_p_graph_part_of(dst);
-            result_graph.to_csv("result\\cost1000\\p_graph.csv");
-            
-            io::t_log::get_instance().write_line("angled dijkstra to JMC");
-            jmc::t_JMC jmc_cost1000 = jmc::t_JMC(result_graph, src);
-            jmc_cost1000.output("result\\cost1000\\JMC\\");
-            
-        }
-        
+        io::t_log::get_instance().write_line("angled dijkstra to p_graph");
+        result_graph = dij->to_p_graph_part_of(dst);
+        result_graph.to_csv("result\\cost10000\\p_graph.csv");
+
+        io::t_log::get_instance().write_line("angled dijkstra to JMC");
+        jmc = jmc::t_JMC(result_graph, src);
+
+        io::t_log::get_instance().write_line("output JMC");
+        jmc.output("result\\cost10000\\JMC\\");
+
+        delete dij;
     }
     catch(std::exception e)
     {

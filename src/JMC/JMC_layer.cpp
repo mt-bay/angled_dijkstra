@@ -20,6 +20,8 @@ t_layer::t_layer()
 
 t_layer::t_layer(const t_layer& _origin)
 {
+    m_invoker = _origin.m_invoker;
+
     m_code = _origin.m_code;
     m_line = std::vector< t_line >();
 
@@ -29,8 +31,6 @@ t_layer::t_layer(const t_layer& _origin)
     {
         m_line.push_back(t_line(*it));
     }
-    
-    m_invoker = _origin.m_invoker;
 }
 
 
@@ -52,6 +52,8 @@ t_layer::~t_layer()
 
 t_layer& t_layer::operator=(const t_layer& _rhs)
 {
+    m_invoker = _rhs.m_invoker;
+
     m_code = _rhs.m_code;
 
     m_line.clear();
@@ -62,8 +64,6 @@ t_layer& t_layer::operator=(const t_layer& _rhs)
     {
         m_line.push_back(t_line(*it));
     }
-
-    m_invoker = _rhs.m_invoker;
 
     return *this;
 }

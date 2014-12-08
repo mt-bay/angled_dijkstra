@@ -42,6 +42,12 @@ public :
     t_JMC();
 
     /* 
+     * copy constructor
+     * parameter : origin
+     */
+    t_JMC(const t_JMC& _origin);
+
+    /* 
      * dijkstra result to JMC instance
      * parameter : dijkstra result
      */
@@ -60,6 +66,9 @@ private:
     /* destructor */
 public :
     virtual ~t_JMC();
+
+    /* operator overload */
+    t_JMC& operator= (const t_JMC& _rhs);
 
     /* static method */
 public :
@@ -84,6 +93,13 @@ private:
      */
     void add_path(const std::list<cd::t_xy<int> >& _path);
 
+    /* 
+     * deep copy
+     * parameter    : origin
+     * return value : void
+     * exception    : none
+     */
+    inline void deep_copy(const t_JMC& _origin);
 
     /* member variable and instance */
 public :

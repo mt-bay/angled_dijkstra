@@ -25,6 +25,13 @@ t_JMC::t_JMC()
 }
 
 
+t_JMC::t_JMC
+    (const t_JMC& _origin)
+{
+    deep_copy(_origin);
+}
+
+
 t_JMC::t_JMC(const di::t_dijkstra& _dijkstra) : t_JMC::t_JMC()
 {
 #ifdef _DEBUG
@@ -33,14 +40,14 @@ t_JMC::t_JMC(const di::t_dijkstra& _dijkstra) : t_JMC::t_JMC()
 
     m_primary_mesh = std::map<int, t_primary_mesh >();
 
-    std::vector<unsigned int>::iterator it_path;
+    std::vector<unsigned int>::const_iterator it_path;
     std::list< cd::t_xy<int> > buf_path;
 
-    for(unsigned int i = 0; i < _dijkstra.m_path->size(); ++i)
+    for(unsigned int i = 0; i < _dijkstra.m_path.size(); ++i)
     {
         buf_path.clear();
-        for(it_path =  _dijkstra.m_path->at(i).begin();
-            it_path != _dijkstra.m_path->at(i).end();
+        for(it_path =  _dijkstra.m_path.at(i).begin();
+            it_path != _dijkstra.m_path.at(i).end();
             ++it_path                                  )
         {
             buf_path
@@ -55,17 +62,17 @@ t_JMC::t_JMC(const di::t_dijkstra& _dijkstra, std::vector<unsigned int> _part)
 {
     m_primary_mesh = std::map<int, t_primary_mesh >();
 
-    std::vector<unsigned int>::iterator it_path;
+    std::vector<unsigned int>::const_iterator it_path;
     std::list< cd::t_xy<int> > buf_path;
 
-    for(unsigned int i = 0; i < _dijkstra.m_path->size(); ++i)
+    for(unsigned int i = 0; i < _dijkstra.m_path.size(); ++i)
     {
         if(mt::find(_part, i))
         {
             io::t_log::get_instance().write_line("write line " + std::to_string(i));
             buf_path.clear();
-         for(it_path =  _dijkstra.m_path->at(i).begin();
-                it_path != _dijkstra.m_path->at(i).end();
+         for(it_path =  _dijkstra.m_path.at(i).begin();
+             it_path != _dijkstra.m_path.at(i).end();
                 ++it_path                                  )
             {
              buf_path
@@ -96,12 +103,40 @@ t_JMC::t_JMC(const cd::t_p_graph& _p_graph, unsigned int _src)
     }
     add_path(buf_path);
 
+    io::t_log::get_instance().write("num. of primary :");
+    io::t_log::get_instance().write_line(std::to_string(m_primary_mesh.size()));
+    for(std::map<int, t_primary_mesh>::iterator it = m_primary_mesh.begin();
+        it != m_primary_mesh.end();
+        ++it)
+    {
+        
+        for(std::map<int, t_secondary_mesh>::iterator it_second = it->second.m_secondary_mesh.begin();
+        it_second != it->second.m_secondary_mesh.end();
+        ++it_second)
+        {
+            io::t_log::get_instance().write("secondary key(" + std::to_string(it_second->second.m_mesh_number) + ")'s road size : ");
+            io::t_log::get_instance().write("[" + std::to_string(it_second->second.m_layer.front().m_line.front().m_coordinate.size())+ "]");
+            io::t_log::get_instance().write_line();
+        }
+        io::t_log::get_instance().write_line();
+
+    }
+
 }
 
 
 t_JMC::~t_JMC()
 {
 
+}
+
+
+t_JMC&
+t_JMC::operator=
+    (const t_JMC& _rhs)
+{
+    deep_copy(_rhs);
+    return *this;
 }
 
 
@@ -123,7 +158,14 @@ bool t_JMC::output(const std::string _output_directory) const
             file_name = _output_directory
                         + "KS" + std::to_string(it->first) + ".DAT";
             out_file = std::ofstream(file_name);
-            out_file << it->second.to_string();
+            if(out_file.fail())
+            {
+                io::t_log::get_instance().write_line
+                    (file_name + "open failed");
+                continue;
+            }
+
+            out_file << it->second.to_string() << std::flush;
             out_file.close();
         }
 
@@ -218,6 +260,22 @@ void t_JMC::add_path(const std::list<cd::t_xy<int> >& _path)
             }
             m_primary_mesh[it->first].add_path(it->second);
         }
+    }
+}
+
+
+void
+t_JMC::deep_copy
+    (const t_JMC& _origin)
+{
+    m_primary_mesh.clear();
+
+    for(std::map<int, t_primary_mesh>::const_iterator it
+            = _origin.m_primary_mesh.begin();
+        it != _origin.m_primary_mesh.end();
+        ++it)
+    {
+        m_primary_mesh[it->first] = t_primary_mesh(it->second);
     }
 }
 
