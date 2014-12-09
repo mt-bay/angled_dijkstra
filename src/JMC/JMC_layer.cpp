@@ -34,6 +34,22 @@ t_layer::t_layer(const t_layer& _origin)
 }
 
 
+t_layer::t_layer(const t_layer& _origin, t_secondary_mesh* _invoker)
+{
+    m_invoker = _invoker;
+
+    m_code = _origin.m_code;
+    m_line = std::vector< t_line >();
+
+    for(std::vector< t_line >::const_iterator it = _origin.m_line.begin();
+        it != _origin.m_line.end();
+        ++it)
+    {
+        m_line.push_back(t_line(*it, this));
+    }
+}
+
+
 t_layer::t_layer(t_layer::code_type_e _layer_code,
                  t_secondary_mesh*    _invoker   )
 {

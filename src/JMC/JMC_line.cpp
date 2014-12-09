@@ -38,6 +38,25 @@ t_line::t_line(const t_line& _origin)
 }
 
 
+t_line::t_line(const t_line& _origin, t_layer* _invoker)
+{
+    m_series_number = _origin.m_series_number;
+    m_coordinate    = std::vector<cd::t_xy<int>* >();
+    m_code          = _origin.m_code;
+    m_type          = _origin.m_type;
+
+    m_invoker       = _invoker;
+
+    for(std::vector< cd::t_xy<int>* >::const_iterator it
+            = _origin.m_coordinate.begin();
+        it != _origin.m_coordinate.end();
+        ++it)
+    {
+        m_coordinate.push_back(new cd::t_xy<int>(**it));
+    }
+}
+
+
 t_line::t_line(t_layer*                         _invoker        ,
                const unsigned int               _series_number  ,
                const short int                  _code           ,

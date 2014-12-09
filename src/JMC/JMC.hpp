@@ -197,6 +197,12 @@ public :
     t_secondary_mesh(const t_secondary_mesh& _origin);
 
     /* 
+     * copy constructor
+     * parameter : origin
+     */
+    t_secondary_mesh(const t_secondary_mesh& _origin);
+
+    /* 
      * setter constructor
      * parameter : invoker, secondary mesh number
      */
@@ -320,6 +326,12 @@ public :
     t_layer(const t_layer& _origin);
 
     /* 
+     * copy and change invoker
+     * parameter : origin, invoker pointer
+     */
+    t_layer(const t_layer& _origin, t_secondary_mesh* _invoker);
+
+    /* 
      * invoker setter constructor
      * parameter : invoker
      */
@@ -411,6 +423,14 @@ public :
      * parameter : origin
      */
     t_line(const t_line& _origin);
+
+
+    /* 
+     * copy and change invoker
+     * parameter : origin, invoker pointer
+     */
+    t_line(const t_line& _origin, t_layer* _invoker);
+
 
     /* 
      * coordinate setter constructor
