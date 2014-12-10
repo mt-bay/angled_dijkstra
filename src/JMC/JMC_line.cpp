@@ -22,11 +22,16 @@ t_line::t_line()
 t_line::t_line(const t_line& _origin)
 {
     m_series_number = _origin.m_series_number;
-    m_coordinate    = std::vector<cd::t_xy<int>* >();
     m_code          = _origin.m_code;
     m_type          = _origin.m_type;
 
     m_invoker       = _origin.m_invoker;
+
+    while(!m_coordinate.empty())
+    {
+        delete m_coordinate.back();
+        m_coordinate.pop_back();
+    }
 
     for(std::vector< cd::t_xy<int>* >::const_iterator it
             = _origin.m_coordinate.begin();
@@ -38,14 +43,19 @@ t_line::t_line(const t_line& _origin)
 }
 
 
-t_line::t_line(const t_line& _origin, t_layer* _invoker)
+t_line::t_line(const t_line& _origin, const t_layer* _invoker)
 {
     m_series_number = _origin.m_series_number;
-    m_coordinate    = std::vector<cd::t_xy<int>* >();
     m_code          = _origin.m_code;
     m_type          = _origin.m_type;
 
     m_invoker       = _invoker;
+
+    while(!m_coordinate.empty())
+    {
+        delete m_coordinate.back();
+        m_coordinate.pop_back();
+    }
 
     for(std::vector< cd::t_xy<int>* >::const_iterator it
             = _origin.m_coordinate.begin();

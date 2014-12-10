@@ -23,23 +23,7 @@ t_layer::t_layer(const t_layer& _origin)
     m_invoker = _origin.m_invoker;
 
     m_code = _origin.m_code;
-    m_line = std::vector< t_line >();
-
-    for(std::vector< t_line >::const_iterator it = _origin.m_line.begin();
-        it != _origin.m_line.end();
-        ++it)
-    {
-        m_line.push_back(t_line(*it));
-    }
-}
-
-
-t_layer::t_layer(const t_layer& _origin, t_secondary_mesh* _invoker)
-{
-    m_invoker = _invoker;
-
-    m_code = _origin.m_code;
-    m_line = std::vector< t_line >();
+    m_line.clear();
 
     for(std::vector< t_line >::const_iterator it = _origin.m_line.begin();
         it != _origin.m_line.end();
@@ -50,8 +34,24 @@ t_layer::t_layer(const t_layer& _origin, t_secondary_mesh* _invoker)
 }
 
 
-t_layer::t_layer(t_layer::code_type_e _layer_code,
-                 t_secondary_mesh*    _invoker   )
+t_layer::t_layer(const t_layer& _origin, t_secondary_mesh* _invoker)
+{
+    m_invoker = _invoker;
+
+    m_code = _origin.m_code;
+    m_line.clear();
+
+    for(std::vector< t_line >::const_iterator it = _origin.m_line.begin();
+        it != _origin.m_line.end();
+        ++it)
+    {
+        m_line.push_back(t_line(*it, this));
+    }
+}
+
+
+t_layer::t_layer(t_layer::code_type_e    _layer_code,
+                 const t_secondary_mesh* _invoker   )
 {
     m_code = _layer_code;
     m_line = std::vector< t_line >();

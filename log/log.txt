@@ -3,26 +3,8 @@ graph load
 dijkstra start
 dijkstra to p_graph
 dijkstra to JMC
-num. of primary :1
-secondary key(563803)'s road size : [5]
-secondary key(563804)'s road size : [5]
-secondary key(563805)'s road size : [5]
-secondary key(563807)'s road size : [5]
-secondary key(563815)'s road size : [5]
-secondary key(563816)'s road size : [5]
-secondary key(563817)'s road size : [5]
-
 output JMC
 angled dijkstra start
 angled dijkstra to p_graph
 angled dijkstra to JMC
-num. of primary :1
-secondary key(563803)'s road size : [5]
-secondary key(563804)'s road size : [5]
-secondary key(563805)'s road size : [5]
-secondary key(563807)'s road size : [5]
-secondary key(563815)'s road size : [5]
-secondary key(563816)'s road size : [5]
-secondary key(563817)'s road size : [5]
-
 output JMC

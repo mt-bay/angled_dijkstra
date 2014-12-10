@@ -21,29 +21,35 @@ t_secondary_mesh::t_secondary_mesh(const t_secondary_mesh& _origin)
 {
     m_mesh_number = _origin.m_mesh_number;
 
+    m_invoker = _origin.m_invoker;
+
+    m_layer.clear();
+
     for(std::vector< t_layer >::iterator it = m_layer.begin();
         it != m_layer.end();
         ++it)
     {
-        m_layer.push_back(t_layer(*it));
+        m_layer.push_back(t_layer(*it, this));
     }
-
-    m_invoker = _origin.m_invoker;
 }
 
 
-t_secondary_mesh::t_secondary_mesh(const t_secondary_mesh& _origin)
+t_secondary_mesh::t_secondary_mesh
+    (const t_secondary_mesh& _origin,
+     const t_primary_mesh*   _invoker)
 {
     m_mesh_number = _origin.m_mesh_number;
+
+    m_invoker = _invoker;
+
+    m_layer.clear();
 
     for(std::vector< t_layer >::iterator it = m_layer.begin();
         it != m_layer.end();
         ++it)
     {
-        m_layer.push_back(t_layer(*it));
+        m_layer.push_back(t_layer(*it, this));
     }
-
-    m_invoker = _origin.m_invoker;
 }
 
 

@@ -197,10 +197,11 @@ public :
     t_secondary_mesh(const t_secondary_mesh& _origin);
 
     /* 
-     * copy constructor
-     * parameter : origin
+     * copy and change invoker
+     * parameter : origin, new invoker
      */
-    t_secondary_mesh(const t_secondary_mesh& _origin);
+    t_secondary_mesh(const t_secondary_mesh& _origin,
+                     const t_primary_mesh*   _invoker);
 
     /* 
      * setter constructor
@@ -290,7 +291,7 @@ private:
     /* member variable and instance */
 public:
     std::vector< t_layer > m_layer;
-    t_primary_mesh* m_invoker;
+    const t_primary_mesh* m_invoker;
     int m_mesh_number;
 
 private:
@@ -335,8 +336,8 @@ public :
      * invoker setter constructor
      * parameter : invoker
      */
-    t_layer(code_type_e        _layer_code,
-            t_secondary_mesh*  _invoker   );
+    t_layer(code_type_e             _layer_code,
+            const t_secondary_mesh* _invoker   );
 
     /* 
      * destructor
@@ -399,7 +400,7 @@ public:
     std::vector< t_area >  m_area;
     std::vector< t_point > m_point;
 
-    t_secondary_mesh*      m_invoker;
+    const t_secondary_mesh*      m_invoker;
 };
 
 /* node recode class */
@@ -429,7 +430,7 @@ public :
      * copy and change invoker
      * parameter : origin, invoker pointer
      */
-    t_line(const t_line& _origin, t_layer* _invoker);
+    t_line(const t_line& _origin, const t_layer* _invoker);
 
 
     /* 
@@ -559,7 +560,7 @@ public:
     short int                     m_type;
 
     std::vector< cd::t_xy<int>* > m_coordinate;
-    t_layer*                      m_invoker;
+    const t_layer*                      m_invoker;
 private:
 };
 

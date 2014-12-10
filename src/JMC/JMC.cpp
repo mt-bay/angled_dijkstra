@@ -102,26 +102,6 @@ t_JMC::t_JMC(const cd::t_p_graph& _p_graph, unsigned int _src)
         index = _p_graph.m_adjacency.at(index).at(0);
     }
     add_path(buf_path);
-
-    io::t_log::get_instance().write("num. of primary :");
-    io::t_log::get_instance().write_line(std::to_string(m_primary_mesh.size()));
-    for(std::map<int, t_primary_mesh>::iterator it = m_primary_mesh.begin();
-        it != m_primary_mesh.end();
-        ++it)
-    {
-        
-        for(std::map<int, t_secondary_mesh>::iterator it_second = it->second.m_secondary_mesh.begin();
-        it_second != it->second.m_secondary_mesh.end();
-        ++it_second)
-        {
-            io::t_log::get_instance().write("secondary key(" + std::to_string(it_second->second.m_mesh_number) + ")'s road size : ");
-            io::t_log::get_instance().write("[" + std::to_string(it_second->second.m_layer.front().m_line.front().m_coordinate.size())+ "]");
-            io::t_log::get_instance().write_line();
-        }
-        io::t_log::get_instance().write_line();
-
-    }
-
 }
 
 
@@ -142,6 +122,27 @@ t_JMC::operator=
 
 bool t_JMC::output(const std::string _output_directory) const
 {
+    /*
+    io::t_log::get_instance().write("num. of primary :");
+    io::t_log::get_instance().write_line(std::to_string(m_primary_mesh.size()));
+    for(std::map<int, t_primary_mesh>::const_iterator it = m_primary_mesh.begin();
+        it != m_primary_mesh.end();
+        ++it)
+    {
+        
+        for(std::map<int, t_secondary_mesh>::const_iterator it_second = it->second.m_secondary_mesh.begin();
+        it_second != it->second.m_secondary_mesh.end();
+        ++it_second)
+        {
+            io::t_log::get_instance().write("secondary key(" + std::to_string(it_second->second.m_mesh_number) + ")'s road size : ");
+            io::t_log::get_instance().write("[" + std::to_string(it_second->second.m_layer.front().m_line.front().m_coordinate.size())+ "]");
+            io::t_log::get_instance().write_line();
+        }
+        io::t_log::get_instance().write_line();
+
+    }
+    */
+
     try
     {
         std::string file_name;

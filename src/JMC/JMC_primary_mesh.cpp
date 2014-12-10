@@ -16,15 +16,15 @@ t_primary_mesh::t_primary_mesh()
 t_primary_mesh::t_primary_mesh(const t_primary_mesh& _origin)
 {
     m_mesh_number    = _origin.m_mesh_number;
-    m_secondary_mesh = std::map<int, t_secondary_mesh>();
+
+    m_secondary_mesh.clear();
     
     for(std::map<int, t_secondary_mesh>::const_iterator it
         = _origin.m_secondary_mesh.begin();
         it != _origin.m_secondary_mesh.end();
         ++it)
     {
-        m_secondary_mesh[it->first] = t_secondary_mesh(it->second);
-        m_secondary_mesh[it->first].m_invoker = this;
+        m_secondary_mesh[it->first] = t_secondary_mesh(it->second, this);
     }
 }
 
@@ -51,8 +51,7 @@ t_primary_mesh& t_primary_mesh::operator=(const t_primary_mesh& _rhs)
         it != _rhs.m_secondary_mesh.end();
         ++it)
     {
-        m_secondary_mesh[it->first] = t_secondary_mesh(it->second);
-        m_secondary_mesh[it->first].m_invoker = this;
+        m_secondary_mesh[it->first] = t_secondary_mesh(it->second, this);
     }
 
     return *this;
