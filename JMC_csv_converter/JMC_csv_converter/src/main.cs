@@ -14,12 +14,6 @@ namespace JMC_csv_converter.src
                                         args[0] : @"DATA\";
             string p_graph_file = (args.Length >= 2)?
                                     args[1] : @"result\p_graph.csv";
-            /*
-            string location_file = (args.Length >= 2)?
-                                        args[1] : @"result\location.csv";
-            string adj_file      = (args.Length >= 3)?
-                                        args[2] : @"result\adj.csv";
-            */
             try
             {
                 t_JMC   jmc   = new t_JMC(jmc_dir);

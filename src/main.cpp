@@ -17,20 +17,41 @@
 
 int main(int argc, char** argv)
 {
+    int arg_index = 0;
+
+    double angle_cost
+        = (argc > (++arg_index))? std::stod(argv[arg_index]) : 0.0;
+
+    double accident_left
+        = (argc > (++arg_index))? std::stod(argv[arg_index]) : 1.0;
+
+    double accident_right
+        = (argc > (++arg_index))? std::stod(argv[arg_index]) : 1.0;
+
+    unsigned int src
+        =  (argc > (++arg_index))? std::stoi(argv[arg_index]) : 0;
+
+    std::vector<unsigned int> dst;
+
+    if(argc <= (++arg_index))
+    {
+        dst.push_back(0);
+    }
+    for(true ; arg_index < argc; ++arg_index)
+    {
+        dst.push_back(std::stoi(argv[arg_index]));
+    }
+
     try
     {
-        const unsigned int src = 0;
-        
         io::t_log::get_instance().write_line("graph load");
-
-        std::vector<unsigned int> dst;
-        dst.push_back(1627);
 
         cd::t_p_graph result_graph;
         
         cd::t_p_graph graph
             = cd::t_p_graph::csv_to_graph("bin\\p_graph.csv");
-        io::t_log::get_instance().write_line(std::to_string(graph.get_V_size()));
+        io::t_log::get_instance().write_line
+            (std::to_string(graph.get_V_size()));
 
         io::t_log::get_instance().write_line("dijkstra start");
         di::t_dijkstra* dij  =
@@ -38,13 +59,13 @@ int main(int argc, char** argv)
 
         io::t_log::get_instance().write_line("dijkstra to p_graph");
         result_graph = dij->to_p_graph_part_of(dst);
-        result_graph.to_csv("result\\cost0\\p_graph.csv");
+        result_graph.to_csv("result\\common\\p_graph.csv");
             
         io::t_log::get_instance().write_line("dijkstra to JMC");
         jmc::t_JMC result_jmc = jmc::t_JMC(result_graph, src);
 
         io::t_log::get_instance().write_line("output JMC");
-        result_jmc.output("result\\cost0\\JMC\\");
+        result_jmc.output("result\\common\\JMC\\");
 
         delete dij;
 
@@ -54,17 +75,17 @@ int main(int argc, char** argv)
         io::t_log::get_instance().write_line("angled dijkstra start");
         dij =
             new di::t_angled_dijkstra
-                (graph, src, 10000.0, 0.048, 0.080, false, 0);
+                (graph, src, angle_cost, accident_left, accident_right, false, 0);
 
         io::t_log::get_instance().write_line("angled dijkstra to p_graph");
-        result_graph = dij->to_p_graph_part_of(dst);
-        result_graph.to_csv("result\\cost10000\\p_graph.csv");
+        cd::t_p_graph result_a_graph = dij->to_p_graph_part_of(dst);
+        result_a_graph.to_csv("result\\angled\\p_graph.csv");
 
         io::t_log::get_instance().write_line("angled dijkstra to JMC");
-        jmc::t_JMC result_a_jmc(result_graph, src);
+        jmc::t_JMC result_a_jmc = jmc::t_JMC(result_graph, src);
 
         io::t_log::get_instance().write_line("output JMC");
-        result_a_jmc.output("result\\cost10000\\JMC\\");
+        result_a_jmc.output("result\\angled\\JMC\\");
 
         delete dij;
     }

@@ -1,0 +1,20 @@
+﻿read : DATA\KS3641.DAT
+read : DATA\KS3741.DAT
+read : DATA\KS3841.DAT
+read : DATA\KS3942.DAT
+read : DATA\KS4042.DAT
+read : DATA\KS4142.DAT
+read : DATA\KS4440.DAT
+read : DATA\KS4540.DAT
+read : DATA\KS4739.DAT
+read : DATA\KS4740.DAT
+read : DATA\KS4839.DAT
+read : DATA\KS4939.DAT
+read : DATA\KS5139.DAT
+read : DATA\KS5239.DAT
+read : DATA\KS5338.DAT
+read : DATA\KS5339.DAT
+read successful
+info : number of coordinate : 132416
+info : convert JMC to p_graph
+convert successful
