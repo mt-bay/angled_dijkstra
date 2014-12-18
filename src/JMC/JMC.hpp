@@ -201,13 +201,13 @@ public :
      * parameter : origin, new invoker
      */
     t_secondary_mesh(const t_secondary_mesh& _origin,
-                     const t_primary_mesh*   _invoker);
+                     t_primary_mesh&   _invoker);
 
     /* 
      * setter constructor
      * parameter : invoker, secondary mesh number
      */
-    t_secondary_mesh(t_primary_mesh* _invoker,
+    t_secondary_mesh(t_primary_mesh& _invoker,
                      const int _secondary_mesh_number);
 
     /* 
@@ -291,8 +291,8 @@ private:
     /* member variable and instance */
 public:
     std::vector< t_layer > m_layer;
-    const t_primary_mesh* m_invoker;
-    int m_mesh_number;
+    t_primary_mesh&        m_invoker;
+    int                    m_mesh_number;
 
 private:
 };
@@ -330,14 +330,14 @@ public :
      * copy and change invoker
      * parameter : origin, invoker pointer
      */
-    t_layer(const t_layer& _origin, t_secondary_mesh* _invoker);
+    t_layer(t_layer& _origin, t_secondary_mesh& _invoker);
 
     /* 
      * invoker setter constructor
      * parameter : invoker
      */
-    t_layer(code_type_e             _layer_code,
-            const t_secondary_mesh* _invoker   );
+    t_layer(code_type_e       _layer_code,
+            t_secondary_mesh& _invoker   );
 
     /* 
      * destructor
@@ -393,14 +393,14 @@ public:
 
     /* member variable and instance */
 public:
-    code_type_e            m_code;
+    code_type_e             m_code;
 
-    std::vector< t_node >  m_node;
-    std::vector< t_line >  m_line;
-    std::vector< t_area >  m_area;
-    std::vector< t_point > m_point;
+    std::vector< t_node >   m_node;
+    std::vector< t_line >   m_line;
+    std::vector< t_area >   m_area;
+    std::vector< t_point >  m_point;
 
-    const t_secondary_mesh*      m_invoker;
+    t_secondary_mesh& m_invoker;
 };
 
 /* node recode class */
@@ -430,18 +430,18 @@ public :
      * copy and change invoker
      * parameter : origin, invoker pointer
      */
-    t_line(const t_line& _origin, const t_layer* _invoker);
+    t_line(const t_line& _origin, t_layer& _invoker);
 
 
     /* 
      * coordinate setter constructor
      * parameter : coordinate list
      */
-    t_line(t_layer*                         _invoker        ,
-           const unsigned int               _series_number  ,
-           const short int                  _code           ,
-           const short int                  _type           ,
-           const std::list< cd::t_xy<int> > _coordinate_list);
+    t_line(t_layer&                          _invoker        ,
+           const unsigned int                _series_number  ,
+           const short int                   _code           ,
+           const short int                   _type           ,
+           const std::list< cd::t_xy<int> >& _coordinate_list);
 
     /* 
      * destructor
@@ -551,16 +551,16 @@ public :
      * return value : this instance to string
      * exception    : none
      */
-    std::string to_string(const t_layer* _invoker) const;
+    std::string to_string(/*const t_layer* _invoker*/) const;
 
     /* member variable and instance */
 public:
-    short int                     m_code;
-    unsigned int                  m_series_number;
-    short int                     m_type;
+    short int                    m_code;
+    unsigned int                 m_series_number;
+    short int                    m_type;
 
-    std::vector< cd::t_xy<int>* > m_coordinate;
-    const t_layer*                      m_invoker;
+    std::vector< cd::t_xy<int> > m_coordinate;
+    t_layer&                     m_invoker;
 private:
 };
 

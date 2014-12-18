@@ -9,75 +9,66 @@ namespace jmc
 
 
 t_line::t_line()
+    : m_invoker(t_layer())
 {
+    m_invoker = t_layer();
+
     m_series_number = 0;
-    m_coordinate    = std::vector<cd::t_xy<int>* >();
+    m_coordinate    = std::vector<cd::t_xy<int> >();
     m_code          = 0;
     m_type          = 0;
-
-    m_invoker       = nullptr;
 }
 
 
 t_line::t_line(const t_line& _origin)
+    : m_invoker(_origin.m_invoker)
 {
     m_series_number = _origin.m_series_number;
     m_code          = _origin.m_code;
     m_type          = _origin.m_type;
 
-    m_invoker       = _origin.m_invoker;
+    m_coordinate.clear();
 
-    while(!m_coordinate.empty())
-    {
-        delete m_coordinate.back();
-        m_coordinate.pop_back();
-    }
-
-    for(std::vector< cd::t_xy<int>* >::const_iterator it
+    for(std::vector< cd::t_xy<int> >::const_iterator it
             = _origin.m_coordinate.begin();
         it != _origin.m_coordinate.end();
         ++it)
     {
-        m_coordinate.push_back(new cd::t_xy<int>(**it));
+        m_coordinate.push_back(cd::t_xy<int>(*it));
     }
 }
 
 
-t_line::t_line(const t_line& _origin, const t_layer* _invoker)
+t_line::t_line(const t_line& _origin, t_layer& _invoker)
+    : m_invoker(_invoker)
 {
     m_series_number = _origin.m_series_number;
     m_code          = _origin.m_code;
     m_type          = _origin.m_type;
 
-    m_invoker       = _invoker;
+    m_coordinate.clear();
 
-    while(!m_coordinate.empty())
-    {
-        delete m_coordinate.back();
-        m_coordinate.pop_back();
-    }
-
-    for(std::vector< cd::t_xy<int>* >::const_iterator it
+    for(std::vector< cd::t_xy<int> >::const_iterator it
             = _origin.m_coordinate.begin();
         it != _origin.m_coordinate.end();
         ++it)
     {
-        m_coordinate.push_back(new cd::t_xy<int>(**it));
+        m_coordinate.push_back(cd::t_xy<int>(*it));
     }
 }
 
 
-t_line::t_line(t_layer*                         _invoker        ,
-               const unsigned int               _series_number  ,
-               const short int                  _code           ,
-               const short int                  _type           ,
-               const std::list< cd::t_xy<int> > _coordinate_list)
+t_line::t_line(t_layer&                          _invoker        ,
+               const unsigned int                _series_number  ,
+               const short int                   _code           ,
+               const short int                   _type           ,
+               const std::list< cd::t_xy<int> >& _coordinate_list)
+    : m_invoker(_invoker)
 {
     m_series_number = _series_number;
-    m_coordinate    = std::vector< cd::t_xy<int>* >();
+    m_coordinate    = std::vector< cd::t_xy<int> >();
     m_code          = _code;
     m_type          = _type;
-    m_invoker       = _invoker;
 
     cd::t_xy<int> buffer_xy_int;
     for(std::list< cd::t_xy<int> >::const_iterator it
@@ -87,41 +78,30 @@ t_line::t_line(t_layer*                         _invoker        ,
     {
         buffer_xy_int = encode_coordinate
                             (*it,
-                             m_invoker->m_invoker->m_mesh_number);
-        m_coordinate.push_back(new cd::t_xy<int>(buffer_xy_int));
+                             m_invoker.m_invoker.m_mesh_number);
+        m_coordinate.push_back(cd::t_xy<int>(buffer_xy_int));
     }
 }
 
 
 t_line::~t_line()
 {
-    for(std::vector< cd::t_xy<int>* >::iterator it = m_coordinate.begin();
-        it != m_coordinate.end();
-        ++it)
-    {
-        delete *it;
-    }
+
 }
 
 
 t_line& t_line::operator=(const t_line& _rhs)
 {
     m_code = _rhs.m_code;
-    for(std::vector< cd::t_xy<int>* >::iterator it
-            = m_coordinate.begin();
-        it != m_coordinate.end();
-        ++it)
-    {
-        delete *it;
-    }
+    
     m_coordinate.clear();
     
-    for(std::vector< cd::t_xy<int>* >::const_iterator it
+    for(std::vector< cd::t_xy<int> >::const_iterator it
             = _rhs.m_coordinate.begin();
         it != _rhs.m_coordinate.end();
         ++it)
     {
-        m_coordinate.push_back(new cd::t_xy<int>(**it));
+        m_coordinate.push_back(cd::t_xy<int>(*it));
     }
 
     m_invoker = _rhs.m_invoker;
@@ -134,19 +114,13 @@ void t_line::add_coordinate(const cd::t_xy<int> _coordinate)
 {
     cd::t_xy<int> buf_xy_int;
     buf_xy_int = encode_coordinate(_coordinate,
-                                   m_invoker->m_invoker->m_mesh_number);
-    m_coordinate.push_back(new cd::t_xy<int>(buf_xy_int));
+                                   m_invoker.m_invoker.m_mesh_number);
+    m_coordinate.push_back(cd::t_xy<int>(buf_xy_int));
 }
 
 
 void t_line::renewal_coordinate_list(const std::list< cd::t_xy<int> > _coordinate)
 {
-    for(std::vector< cd::t_xy<int>* >::iterator it = m_coordinate.begin();
-        it != m_coordinate.end();
-        ++it)
-    {
-        delete *it;
-    }
     m_coordinate.clear();
 
     cd::t_xy<int> buf_xy_int;
@@ -156,8 +130,8 @@ void t_line::renewal_coordinate_list(const std::list< cd::t_xy<int> > _coordinat
         ++it)
     {
         buf_xy_int = encode_coordinate(*it,
-                                       m_invoker->m_invoker->m_mesh_number);
-        m_coordinate.push_back(new cd::t_xy<int>(buf_xy_int));
+                                       m_invoker.m_invoker.m_mesh_number);
+        m_coordinate.push_back(cd::t_xy<int>(buf_xy_int));
     }
 }
 
@@ -167,7 +141,7 @@ bool t_line::do_intention_coordinate(const std::list< cd::t_xy<int> > _target)
 {
     std::list< cd::t_xy<int> >::const_iterator target_it;
     target_it = _target.begin();
-    std::vector< cd::t_xy<int>* >::const_iterator recode_it;
+    std::vector< cd::t_xy<int> >::const_iterator recode_it;
     recode_it = m_coordinate.begin();
 
     cd::t_xy<int> buf_xy_int;
@@ -179,9 +153,9 @@ bool t_line::do_intention_coordinate(const std::list< cd::t_xy<int> > _target)
             return false;
         }
         buf_xy_int = encode_coordinate(*target_it,
-                                       m_invoker->m_invoker->m_mesh_number);
+                                       m_invoker.m_invoker.m_mesh_number);
 
-        if(buf_xy_int == **recode_it)
+        if(buf_xy_int == *recode_it)
         {
             break;
         }
@@ -197,9 +171,9 @@ bool t_line::do_intention_coordinate(const std::list< cd::t_xy<int> > _target)
         }
 
         buf_xy_int = encode_coordinate(*target_it,
-                                       m_invoker->m_invoker->m_mesh_number);
+                                       m_invoker.m_invoker.m_mesh_number);
 
-        if(buf_xy_int != **recode_it)
+        if(buf_xy_int != *recode_it)
         {
             return false;
         }
@@ -218,7 +192,7 @@ bool t_line::is_intentioned_coordinate
 {
     std::list< cd::t_xy<int> >::const_iterator target_it;
     target_it = _target.begin();
-    std::vector< cd::t_xy<int>* >::const_iterator recode_it;
+    std::vector< cd::t_xy<int> >::const_iterator recode_it;
     recode_it = m_coordinate.begin();
 
     cd::t_xy<int> buf_xy_int;
@@ -231,9 +205,9 @@ bool t_line::is_intentioned_coordinate
         }
 
         buf_xy_int = encode_coordinate(*target_it,
-                                       m_invoker->m_invoker->m_mesh_number);
+                                       m_invoker.m_invoker.m_mesh_number);
 
-        if(buf_xy_int == **recode_it)
+        if(buf_xy_int == *recode_it)
         {
             break;
         }
@@ -249,9 +223,9 @@ bool t_line::is_intentioned_coordinate
         }
 
         buf_xy_int = encode_coordinate(*target_it,
-                                       m_invoker->m_invoker->m_mesh_number);
+                                       m_invoker.m_invoker.m_mesh_number);
 
-        if(buf_xy_int != **recode_it)
+        if(buf_xy_int != *recode_it)
         {
             return false;
         }
@@ -273,10 +247,10 @@ bool t_line::starting_point_is_outline_connected()
         return false;
     }
 
-    if(m_coordinate.at(0)->x ==     0 ||
-       m_coordinate.at(0)->x == 10000 ||
-       m_coordinate.at(0)->y ==     0 ||
-       m_coordinate.at(0)->y == 10000)
+    if(m_coordinate.front().x ==     0 ||
+       m_coordinate.front().x == 10000 ||
+       m_coordinate.front().y ==     0 ||
+       m_coordinate.front().y == 10000)
     {
         return true;
     }
@@ -292,10 +266,10 @@ bool t_line::end_point_is_outline_connected()
         return false;
     }
 
-    if(m_coordinate.at(m_coordinate.size() - 1)->x ==     0 ||
-       m_coordinate.at(m_coordinate.size() - 1)->x == 10000 ||
-       m_coordinate.at(m_coordinate.size() - 1)->y ==     0 ||
-       m_coordinate.at(m_coordinate.size() - 1)->y == 10000)
+    if(m_coordinate.back ().x ==     0 ||
+       m_coordinate.back ().x == 10000 ||
+       m_coordinate.back ().y ==     0 ||
+       m_coordinate.back ().y == 10000)
     {
         return true;
     }
@@ -319,7 +293,7 @@ unsigned int t_line::get_num_of_recode() const
 }
 
 
-std::string t_line::to_string(const t_layer* _invoker) const
+std::string t_line::to_string(/*const t_layer* _invoker*/) const
 {
     std::string result = "";
     char buf_line[RECODE_LENGTH + 1] = "";
@@ -337,8 +311,8 @@ std::string t_line::to_string(const t_layer* _invoker) const
      */
     sprintf_s(buf_line,
               "L %2d%2d%5u%6u%5u%1u%5u%1u          %6u                           ",
-            (short int)_invoker->m_code, m_code, m_series_number, m_type,
-            0, ((starting_point_is_outline_connected())? 2 : 0),
+            (short int)m_invoker.m_code, m_code, m_series_number, m_type,
+            get_num_of_coordinate(), ((starting_point_is_outline_connected())? 2 : 0),
             0, ((end_point_is_outline_connected())?      2 : 0), 
             get_num_of_coordinate());
 
@@ -352,7 +326,7 @@ std::string t_line::to_string(const t_layer* _invoker) const
     for(unsigned int i = 0; i < m_coordinate.size(); ++i)
     {
         sprintf_s(buf_coordinate, "%5d%5d",
-                m_coordinate.at(i)->x, m_coordinate.at(i)->y);
+                m_coordinate.at(i).x, m_coordinate.at(i).y);
         result += buf_coordinate;
         if(++counter_writerd_coordinate % 7 == 0)
         {

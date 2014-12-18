@@ -1,10 +1,8 @@
+angle cost     : 10000.000000
+accident left  : 0.048000
+accident right : 0.080000
+src. node num. : 0
+dst. node num. : 76377, 
 graph load
-8984
-dijkstra start
-dijkstra to p_graph
 dijkstra to JMC
-output JMC
-angled dijkstra start
-angled dijkstra to p_graph
-angled dijkstra to JMC
 output JMC

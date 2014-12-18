@@ -9,38 +9,36 @@ namespace jmc
 
 
 t_secondary_mesh::t_secondary_mesh()
+    : m_invoker(t_primary_mesh())
 {
     m_mesh_number = 0;
     m_layer = std::vector< t_layer >();
-
-    m_invoker = nullptr;
 }
 
 
 t_secondary_mesh::t_secondary_mesh(const t_secondary_mesh& _origin)
+    : m_invoker(_origin.m_invoker)
 {
     m_mesh_number = _origin.m_mesh_number;
 
-    m_invoker = _origin.m_invoker;
-
+    m_layer = std::vector< t_layer >();
     m_layer.clear();
 
     for(std::vector< t_layer >::iterator it = m_layer.begin();
         it != m_layer.end();
         ++it)
     {
-        m_layer.push_back(t_layer(*it, this));
+        m_layer.push_back(t_layer(*it, *this));
     }
 }
 
 
 t_secondary_mesh::t_secondary_mesh
     (const t_secondary_mesh& _origin,
-     const t_primary_mesh*   _invoker)
+     t_primary_mesh&   _invoker)
+     : m_invoker(_invoker)
 {
     m_mesh_number = _origin.m_mesh_number;
-
-    m_invoker = _invoker;
 
     m_layer.clear();
 
@@ -48,13 +46,14 @@ t_secondary_mesh::t_secondary_mesh
         it != m_layer.end();
         ++it)
     {
-        m_layer.push_back(t_layer(*it, this));
+        m_layer.push_back(t_layer(*it, *this));
     }
 }
 
 
-t_secondary_mesh::t_secondary_mesh(t_primary_mesh* _invoker,
+t_secondary_mesh::t_secondary_mesh(t_primary_mesh& _invoker,
                                    const int _secondary_mesh_number)
+    : m_invoker(_invoker)
 {
     m_mesh_number = _secondary_mesh_number;
     m_layer = std::vector< t_layer >();
@@ -71,6 +70,8 @@ t_secondary_mesh::~t_secondary_mesh()
 
 t_secondary_mesh& t_secondary_mesh::operator= (const t_secondary_mesh& _rhs)
 {
+    m_invoker = _rhs.m_invoker;
+
     m_mesh_number = _rhs.m_mesh_number;
 
     m_layer.clear();
@@ -81,8 +82,6 @@ t_secondary_mesh& t_secondary_mesh::operator= (const t_secondary_mesh& _rhs)
     {
         m_layer.push_back(t_layer(*it));
     }
-
-    m_invoker = _rhs.m_invoker;
 
     return *this;
 }
@@ -99,17 +98,19 @@ void t_secondary_mesh::add_outline()
     int found = find_last_layer_index(t_layer::code_type_e::ADMINISTRATIVE);
     if(found == -1)
     {
-        m_layer.push_back(t_layer(t_layer::code_type_e::ADMINISTRATIVE, this));
+        m_layer.push_back(t_layer(t_layer::code_type_e::ADMINISTRATIVE, *this));
         found = find_last_layer_index(t_layer::code_type_e::ADMINISTRATIVE);
     }
-    std::list< cd::t_xy<int> >& path = std::list< cd::t_xy<int> >();
-    path.push_back(cd::t_xy<int>(10000,     0));
-    path.push_back(cd::t_xy<int>(10000, 10000));
-    path.push_back(cd::t_xy<int>(    0, 10000));
-    path.push_back(cd::t_xy<int>(    0,     0));
-    path.push_back(cd::t_xy<int>(10000,     0));
+    std::list< cd::t_xy<int> >& path = std::list< cd::t_xy<int> >
+    {
+        get_padding() + cd::t_xy<int>(10000,     0),
+        get_padding() + cd::t_xy<int>(10000, 10000),
+        get_padding() + cd::t_xy<int>(    0, 10000),
+        get_padding() + cd::t_xy<int>(    0,     0),
+        get_padding() + cd::t_xy<int>(10000,     0)
+    };
 
-    m_layer.at(m_layer.size() - 1).add_path(9, 9, path);
+    m_layer.back().add_path(9, 9, path);
 }
 
 
@@ -118,9 +119,10 @@ void t_secondary_mesh::add_path(const std::list< cd::t_xy<int> >& _path)
     int found = find_last_layer_index(t_layer::code_type_e::ROAD);
     if(found == -1)
     {
-        m_layer.push_back(t_layer(t_layer::code_type_e::ROAD, this));
+        m_layer.push_back(t_layer(t_layer::code_type_e::ROAD, *this));
         found = find_last_layer_index(t_layer::code_type_e::ROAD);
     }
+
     m_layer.at(found).add_path(2, 0, _path);
     return;
 }

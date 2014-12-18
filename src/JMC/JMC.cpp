@@ -95,7 +95,7 @@ t_JMC::t_JMC(const cd::t_p_graph& _p_graph, unsigned int _src)
     for(unsigned int i = 0; i < _p_graph.get_V_size(); ++i)
     {
         buf_path.push_back(*_p_graph.m_node_location.at(index));
-        if(_p_graph.m_adjacency.at(index).size() <= 0)
+        if(_p_graph.m_adjacency.at(index).empty())
         {
             break;
         }
@@ -238,8 +238,9 @@ void t_JMC::add_path(const std::list<cd::t_xy<int> >& _path)
         {
             if(buf_path_map.count(buf_primary_mesh.at(i)) == 0)
             {
-                buf_path_map[buf_primary_mesh.at(i)]
-                    = std::list< cd::t_xy<int> >();
+                buf_path_map.insert
+                    (std::make_pair(buf_primary_mesh.at(i)      ,
+                                    std::list< cd::t_xy<int> >()));
             }
             buf_path_map[buf_primary_mesh.at(i)].push_back(cd::t_xy<int>(*it));
         }

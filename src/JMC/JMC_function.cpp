@@ -6,6 +6,8 @@
 
 #include "../tools/define.hpp"
 
+#include "../log/log.hpp"
+
 namespace jmc
 {
 std::vector<int> location_to_primary_mesh(const cd::t_xy<int> _source)
@@ -88,16 +90,20 @@ std::vector<int> location_to_secondary_mesh(const cd::t_xy<int> _source)
 cd::t_xy<int> encode_coordinate(const cd::t_xy<int> _source        ,
                                 const int           _secondary_mesh)
 {
+
     cd::t_xy<int> mesh_padding = cd::t_xy<int>
                                     (((((_secondary_mesh /   100) % 100)
                                         * (SECONDARY_MESH_MAX + 1))
-                                        + (_secondary_mesh /  1) % 10)
+                                        + (_secondary_mesh /   1) %  10)
                                         * MESH_LOCATION_MAX_X,
                                      ((((_secondary_mesh / 10000) % 100)
                                         * (SECONDARY_MESH_MAX + 1))
-                                        + (_secondary_mesh / 10) % 10)
+                                        + (_secondary_mesh /  10) %  10)
                                         * MESH_LOCATION_MAX_Y);
-
+    /*
+    io::t_log::get_instance().write_line("coordinate encode(source : " + _source.toString() + ", mesh padding : " + mesh_padding.toString() + ")");
+    io::t_log::get_instance().write_line("mesh number : " + std::to_string(_secondary_mesh));
+    */
     return cd::t_xy<int>(_source.x % mesh_padding.x,
                          _source.y % mesh_padding.y);
 }

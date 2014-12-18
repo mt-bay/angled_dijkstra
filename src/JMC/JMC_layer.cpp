@@ -10,17 +10,17 @@ namespace jmc
 {
 
 t_layer::t_layer()
+    : m_invoker(t_secondary_mesh())
 {
+    m_invoker = t_secondary_mesh();
     m_code = (t_layer::code_type_e)1;
     m_line = std::vector< t_line >();
-
-    m_invoker = nullptr;
 }
 
 
 t_layer::t_layer(const t_layer& _origin)
+    : m_invoker(_origin.m_invoker)
 {
-    m_invoker = _origin.m_invoker;
 
     m_code = _origin.m_code;
     m_line.clear();
@@ -29,15 +29,14 @@ t_layer::t_layer(const t_layer& _origin)
         it != _origin.m_line.end();
         ++it)
     {
-        m_line.push_back(t_line(*it, this));
+        m_line.push_back(t_line(*it, *this));
     }
 }
 
 
-t_layer::t_layer(const t_layer& _origin, t_secondary_mesh* _invoker)
+t_layer::t_layer(t_layer& _origin, t_secondary_mesh& _invoker)
+    : m_invoker(_invoker)
 {
-    m_invoker = _invoker;
-
     m_code = _origin.m_code;
     m_line.clear();
 
@@ -45,18 +44,17 @@ t_layer::t_layer(const t_layer& _origin, t_secondary_mesh* _invoker)
         it != _origin.m_line.end();
         ++it)
     {
-        m_line.push_back(t_line(*it, this));
+        m_line.push_back(t_line(*it, *this));
     }
 }
 
 
-t_layer::t_layer(t_layer::code_type_e    _layer_code,
-                 const t_secondary_mesh* _invoker   )
+t_layer::t_layer(t_layer::code_type_e _layer_code,
+                 t_secondary_mesh&    _invoker   )
+    : m_invoker(_invoker)
 {
     m_code = _layer_code;
     m_line = std::vector< t_line >();
-
-    m_invoker = _invoker;
 }
 
 
@@ -89,6 +87,10 @@ void t_layer::add_path(const short int                   _code,
                        const short int                   _type,
                        const std::list< cd::t_xy<int> >& _path)
 {
+    if(_path.size() < 2)
+    {
+        return;
+    }
     for(std::vector< t_line >::iterator it = m_line.begin();
         it != m_line.end();
         ++it)
@@ -103,7 +105,9 @@ void t_layer::add_path(const short int                   _code,
             return;
         }
     }
-    m_line.push_back(t_line(this, m_line.size() + 1, _code, _type, _path));
+    
+    m_line.push_back(t_line(*this, m_line.size() + 1, _code, _type, _path));
+    /*m_line.back().renewal_coordinate_list(_path);*/
 }
 
 
@@ -148,7 +152,7 @@ std::string t_layer::to_string() const
         it != m_line.end();
         ++it)
     {
-        result += it->to_string(this);
+        result += it->to_string(/*this*/);
     }
 
     return result;
