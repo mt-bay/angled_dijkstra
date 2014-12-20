@@ -1,8 +1,4 @@
-﻿  JMC_secondary_mesh.cpp
-src\JMC\JMC_secondary_mesh.cpp(13): warning C4413: 'jmc::t_secondary_mesh::m_invoker': 参照メンバーが一時的に初期化されます (コンストラクターの終了後は維持されません)
-          c:\users\yamaura\documents\products\angled_dijkstra\src\jmc\JMC.hpp(294) : 'jmc::t_secondary_mesh::m_invoker' の宣言を確認してください。
-src\JMC\JMC_secondary_mesh.cpp(134): warning C4267: '初期化中' : 'size_t' から 'int' に変換しました。データが失われているかもしれません。
-src\JMC\JMC_secondary_mesh.cpp(152): warning C4267: '+=' : 'size_t' から 'unsigned int' に変換しました。データが失われているかもしれません。
+﻿  main.cpp
   コード生成しています。
   コード生成が終了しました。
   angled_dijkstra.vcxproj -> C:\Users\Yamaura\Documents\Products\angled_dijkstra\x64\Release\angled_dijkstra.exe

@@ -12,7 +12,6 @@ namespace jmc
 t_layer::t_layer()
     : m_invoker(t_secondary_mesh())
 {
-    m_invoker = t_secondary_mesh();
     m_code = (t_layer::code_type_e)1;
     m_line = std::vector< t_line >();
 }
@@ -107,7 +106,6 @@ void t_layer::add_path(const short int                   _code,
     }
     
     m_line.push_back(t_line(*this, m_line.size() + 1, _code, _type, _path));
-    /*m_line.back().renewal_coordinate_list(_path);*/
 }
 
 

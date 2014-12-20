@@ -62,7 +62,7 @@ void t_primary_mesh::add_path(const std::list< cd::t_xy<int> >& _path)
 {
     std::map<int, std::vector< std::list< cd::t_xy<int> > > > buf_path;
 
-    int path_added_secondary_mesh_num = 0;
+    std::vector<int> before_added_secondary_mesh_num;
 
     std::vector<int> buf_secondary_mesh;
     
@@ -84,16 +84,20 @@ void t_primary_mesh::add_path(const std::list< cd::t_xy<int> >& _path)
                 buf_path[buf_secondary_mesh.at(i)]
                     = std::vector< std::list< cd::t_xy<int> > >();
             }
-            if(path_added_secondary_mesh_num != buf_secondary_mesh.at(i))
+            if(std::find(before_added_secondary_mesh_num.begin(),
+                         before_added_secondary_mesh_num.end()  ,
+                         buf_secondary_mesh.at(i)               ) ==
+               before_added_secondary_mesh_num.end()              )
             {
                 buf_path[buf_secondary_mesh.at(i)].
                     push_back(std::list< cd::t_xy<int> >());
             }
 
-            path_added_secondary_mesh_num = buf_secondary_mesh.at(i);
             buf_path[buf_secondary_mesh.at(i)]
                 .back().push_back(cd::t_xy<int>(*it));
         }
+
+        before_added_secondary_mesh_num = buf_secondary_mesh;
     }
 
     for(std::map<int, std::vector< std::list< cd::t_xy<int> > > >::iterator it
@@ -113,6 +117,8 @@ void t_primary_mesh::add_path(const std::list< cd::t_xy<int> >& _path)
                 (std::make_pair(it->first                         , 
                                 t_secondary_mesh(*this, it->first)));
             m_secondary_mesh[it->first].add_outline();
+
+            
         }
 
         for(std::vector< std::list< cd::t_xy<int> > >::iterator it_path
@@ -136,6 +142,7 @@ std::string t_primary_mesh::to_string() const
         it != m_secondary_mesh.end();
         ++it)
     {
+        io::t_log::get_instance().write_line("write secondary : " + std::to_string(it->first));
         result += it->second.to_string();
     }
 

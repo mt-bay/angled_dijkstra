@@ -65,12 +65,11 @@ int main(int argc, char** argv)
         cd::t_p_graph result_graph;
 
         result_graph = cd::t_p_graph::csv_to_graph("result\\common\\p_graph.csv");
-        
-        /*
+
         cd::t_p_graph graph
             = cd::t_p_graph::csv_to_graph("bin\\p_graph.csv");
         io::t_log::get_instance().write_line
-            (std::to_string(graph.get_V_size()));
+            ("sum of node : " + std::to_string(graph.get_V_size()));
 
         io::t_log::get_instance().write_line("dijkstra start");
         di::t_dijkstra dij  =
@@ -79,7 +78,6 @@ int main(int argc, char** argv)
         io::t_log::get_instance().write_line("dijkstra to p_graph");
         result_graph = dij.to_p_graph_part_of(dst);
         result_graph.to_csv("result\\common\\p_graph.csv");  
-        */
 
         io::t_log::get_instance().write_line("dijkstra to JMC");
         jmc::t_JMC result_jmc = jmc::t_JMC(result_graph, src);
@@ -87,7 +85,6 @@ int main(int argc, char** argv)
         io::t_log::get_instance().write_line("output JMC");
         result_jmc.output("result\\common\\JMC\\");
 
-        /*
         graph
             = cd::t_p_graph::csv_to_graph("bin\\p_graph.csv");
 
@@ -105,7 +102,6 @@ int main(int argc, char** argv)
 
         io::t_log::get_instance().write_line("output JMC");
         result_a_jmc.output("result\\angled\\JMC\\");
-        */
     }
     catch(std::exception e)
     {

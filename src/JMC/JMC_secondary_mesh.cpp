@@ -57,8 +57,6 @@ t_secondary_mesh::t_secondary_mesh(t_primary_mesh& _invoker,
 {
     m_mesh_number = _secondary_mesh_number;
     m_layer = std::vector< t_layer >();
-
-    m_invoker = _invoker;
 }
 
 
