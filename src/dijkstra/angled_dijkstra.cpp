@@ -135,9 +135,9 @@ t_angled_dijkstra::get_angle_cost
 
     return (abs(_angle_weight) < 1.0e-14)?
                 0.0 :
-                abs(_angle_weight
-                  * sin(angle)
-                  * get_angle_rate(m_accident_right, m_accident_left, angle));
+               abs(_angle_weight
+               * get_angle_rate(m_accident_right, m_accident_left, angle))
+               * std::pow(sin(angle / 2.0), 2);
 }
 
 
