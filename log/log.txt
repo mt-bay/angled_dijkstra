@@ -1,67 +1,6 @@
 angle cost     : 10000.000000
 accident left  : 0.048000
 accident right : 0.080000
-src. node num. : 0
-dst. node num. : 76377, 
+src. node num. : 43150
+dst. node num. : 29863, 63242, 65194, 20759, 52362, 9528, 10958, 12178, 
 graph load
-sum of node : 76378
-dijkstra start
-dijkstra to p_graph
-dijkstra to JMC
-output JMC
-write secondary : 523600
-write secondary : 523610
-write secondary : 523611
-write secondary : 523612
-write secondary : 523622
-write secondary : 523623
-write secondary : 523633
-write secondary : 523634
-write secondary : 523644
-write secondary : 523645
-write secondary : 523655
-write secondary : 523665
-write secondary : 523666
-write secondary : 523676
-write secondary : 533606
-write secondary : 533616
-write secondary : 533617
-write secondary : 533627
-write secondary : 533637
-write secondary : 533647
-write secondary : 533657
-write secondary : 533666
-write secondary : 533667
-write secondary : 533676
-write secondary : 533677
-angled dijkstra start
-76378
-angled dijkstra to p_graph
-angled dijkstra to JMC
-output JMC
-write secondary : 523600
-write secondary : 523601
-write secondary : 523611
-write secondary : 523612
-write secondary : 523621
-write secondary : 523622
-write secondary : 523623
-write secondary : 523633
-write secondary : 523634
-write secondary : 523644
-write secondary : 523645
-write secondary : 523655
-write secondary : 523665
-write secondary : 523666
-write secondary : 523676
-write secondary : 533606
-write secondary : 533616
-write secondary : 533617
-write secondary : 533627
-write secondary : 533637
-write secondary : 533647
-write secondary : 533657
-write secondary : 533666
-write secondary : 533667
-write secondary : 533676
-write secondary : 533677

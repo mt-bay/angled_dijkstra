@@ -115,6 +115,29 @@ t_dijkstra::run_dijkstra
 }
 
 
+std::string
+t_dijkstra::get_route_cost_information
+    (const unsigned int _index         ,
+     const double       _angle_weight  ,
+     const double       _accident_left ,
+     const double       _accident_right)
+     const
+{
+    std::string result = "";
+    result += std::string("index : ") + std::to_string(_index);
+    result += std::string(", ") + std::string("sum. of route cost : ") +
+                std::to_string(m_route_cost.at(_index));
+
+    result += std::string("(sum. of angle cost(if t = ") +
+              std::to_string(_angle_weight) +
+              std::string(" : ") +
+              std::to_string(get_sum_angle_cost(_index         ,
+                                                _angle_weight  ,
+                                                _accident_left ,
+                                                _accident_right)) +
+              std::string(")");
+    return result;
+}
 
 
 unsigned int t_dijkstra::get_V_size() const
@@ -182,7 +205,7 @@ cd::t_p_graph t_dijkstra::to_p_graph() const
     
     for(unsigned int i = 0; i < m_p_graph.m_node_location.size(); ++i)
     {
-        result.add_node(*m_p_graph.m_node_location.at(i));
+        result.add_node(m_p_graph.m_node_location.at(i));
     }
 
     for(unsigned int i = 0; i < m_path.size(); ++i)
@@ -209,7 +232,7 @@ cd::t_p_graph t_dijkstra::to_p_graph_part_of
 
     for(unsigned int i = 0; i < m_p_graph.m_node_location.size(); ++i)
     {
-        result.add_node(*m_p_graph.m_node_location.at(i));
+        result.add_node(m_p_graph.m_node_location.at(i));
     }
     for(unsigned int i = 0; i < get_V_size(); ++i)
     {
@@ -270,6 +293,40 @@ int t_dijkstra::find_secondary_mesh_is(std::ofstream* _search_file_ofs) const
 }
 
 
+inline double
+t_dijkstra::get_angle_cost
+    (const double       _angle_weight   ,
+     const unsigned int _src_node_number,
+     const unsigned int _dst_node_number,
+     const double       _accident_left  ,
+     const double       _accident_right )
+     const
+{
+    double angle = path_to_angle(_src_node_number, _dst_node_number);
+
+    return (abs(_angle_weight) < 1.0e-14)?
+                0.0 :
+               abs(_angle_weight
+               * get_angle_rate(_accident_right, _accident_left, angle))
+               * std::pow(sin(angle / 2.0), 2);
+}
+
+
+
+inline double
+t_dijkstra::get_angle_rate
+    (const double _accident_left ,
+     const double _accident_right,
+     const double _angle         )
+     const
+{
+    double calibrated_angle = std::fmod(_angle, 2 * M_PI);
+
+    return (0 < calibrated_angle && calibrated_angle < M_PI)?
+            _accident_left : _accident_right;
+}
+
+
 unsigned int t_dijkstra::get_confirm_node_number() const
 {
     unsigned int candidature     = -1;
@@ -286,6 +343,66 @@ unsigned int t_dijkstra::get_confirm_node_number() const
     }
 
     return candidature;
+}
+
+
+long double t_dijkstra::get_sum_angle_cost
+    (const size_t _index         ,
+     const double _angle_weight  ,
+     const double _accident_left ,
+     const double _accident_right)
+        const
+{
+    double result = 0.0;
+
+    for(size_t s = 1; s < m_path.at(_index).size(); ++s)
+    {
+        result += get_angle_cost(_angle_weight              ,
+                                 m_path.at(_index).at(s - 1),
+                                 m_path.at(_index).at(s)    ,
+                                 _accident_left             ,
+                                 _accident_right            );
+    }
+
+    return result;
+}
+
+
+double t_dijkstra::path_to_angle
+                    (unsigned int _src_node_number,
+                     unsigned int _dst_node_number)
+                        const
+                        throw(std::out_of_range)
+{
+    if(_src_node_number >= m_p_graph.get_V_size() || _src_node_number < 0)
+        throw;
+    if(_dst_node_number >= m_p_graph.get_V_size() || _dst_node_number < 0)
+        throw;
+
+    if(m_path.at(_src_node_number).size() < 2)
+    {
+        return 0.0;
+    }
+    else
+    {
+        cd::t_xy<int> p0 
+                    = m_p_graph
+                    . m_node_location
+                    .  at(m_path.at(_src_node_number)
+                    .  at(m_path.at(_src_node_number).size() - 2));
+
+        cd::t_xy<int> p1
+                    = m_p_graph
+                    . m_node_location
+                    . at(m_path.at(_src_node_number)
+                    . at(m_path.at(_src_node_number).size() - 1));
+
+        cd::t_xy<int> p2
+                    = m_p_graph
+                    . m_node_location.at(_dst_node_number);
+
+        return cd::t_xy<int>::get_angle(p0, p1, p2);
+    }
 }
 
 

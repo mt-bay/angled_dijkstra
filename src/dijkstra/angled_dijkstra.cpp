@@ -56,6 +56,28 @@ t_angled_dijkstra::operator= (const t_angled_dijkstra& _rhs)
 }
 
 
+std::string
+t_angled_dijkstra::get_route_cost_information
+    (unsigned int _index)
+{
+    std::string result;
+
+    result += std::string("index : ") + std::to_string(_index);
+    result += std::string(", ") + std::string("sum. of route cost : ") +
+                std::to_string(m_route_cost.at(_index));
+
+    result += std::string("(route cost : ") +
+              std::to_string(m_route_cost.at(_index) -
+                             m_sum_angle_cost.at(_index));
+
+    result += std::string(", sum. of angle cost : ")      + 
+              std::to_string(m_sum_angle_cost.at(_index)) +
+              std::string(")");
+
+    return result;
+}
+
+
 void
 t_angled_dijkstra::run_dijkstra
     (const bool           _use_dst        ,
@@ -86,17 +108,29 @@ t_angled_dijkstra::run_dijkstra
             {
                 if(m_route_cost.at(last_confirmed)          +
                    m_p_graph.get_link_cost(last_confirmed, i) +
-                   get_angle_cost(m_angle_weight ,
-                                         last_confirmed,
-                                         i             )
+                   get_angle_cost(m_angle_weight  ,
+                                  last_confirmed  ,
+                                  i               ,
+                                  m_accident_left ,
+                                  m_accident_right)
                    < m_route_cost.at(i))
                 {
                     m_route_cost.at(i)
                         = m_route_cost.at(last_confirmed)            +
                           m_p_graph.get_link_cost(last_confirmed, i) +
-                              get_angle_cost(m_angle_weight,
-                                             last_confirmed,
-                                             i             );
+                              get_angle_cost(m_angle_weight  ,
+                                             last_confirmed  ,
+                                             i               ,
+                                             m_accident_left ,
+                                             m_accident_right);
+
+                    m_sum_angle_cost.at(i) =
+                        m_sum_angle_cost.at(last_confirmed) +
+                        get_angle_cost(m_angle_weight  ,
+                                       last_confirmed  ,
+                                       i               ,
+                                       m_accident_left ,
+                                       m_accident_right);
 
                     m_path.at(i).clear();
                     for(unsigned int j = 0;
@@ -120,76 +154,6 @@ t_angled_dijkstra::run_dijkstra
     return;
 }
 
-/** 左折で事故を起こす確率：右折で事故を起こす確
- *                     4.6：8.0
- *  左折の際にかけるコストの倍率
- *  →  4.6 / 8.0
- *    = 0.575 */
-inline double
-t_angled_dijkstra::get_angle_cost
-    (const double       _angle_weight   ,
-     const unsigned int _src_node_number,
-     const unsigned int _dst_node_number)
-{
-    double angle = path_to_angle(_src_node_number, _dst_node_number);
-
-    return (abs(_angle_weight) < 1.0e-14)?
-                0.0 :
-               abs(_angle_weight
-               * get_angle_rate(m_accident_right, m_accident_left, angle))
-               * std::pow(sin(angle / 2.0), 2);
-}
-
-
-
-inline double
-t_angled_dijkstra::get_angle_rate
-    (const double _accident_left ,
-     const double _accident_right,
-     const double _angle         )
-{
-    double calibrated_angle = std::fmod(_angle, 2 * M_PI);
-
-    return (0 < calibrated_angle && calibrated_angle < M_PI)?
-            _accident_left : _accident_right;
-}
-
-double t_dijkstra::path_to_angle
-                    (unsigned int _src_node_number,
-                     unsigned int _dst_node_number)
-                        throw(std::out_of_range)
-{
-    if(_src_node_number >= m_p_graph.get_V_size() || _src_node_number < 0)
-        throw;
-    if(_dst_node_number >= m_p_graph.get_V_size() || _dst_node_number < 0)
-        throw;
-
-    if(m_path.at(_src_node_number).size() < 2)
-    {
-        return 0.0;
-    }
-    else
-    {
-        cd::t_xy<int> p0 
-                    = *m_p_graph
-                    . m_node_location
-                    .  at(m_path.at(_src_node_number)
-                    .  at(m_path.at(_src_node_number).size() - 2));
-
-        cd::t_xy<int> p1
-                    = *m_p_graph
-                    .  m_node_location
-                    .  at(m_path.at(_src_node_number)
-                    .  at(m_path.at(_src_node_number).size() - 1));
-
-        cd::t_xy<int> p2
-                    = *m_p_graph
-                    . m_node_location.at(_dst_node_number);
-
-        return cd::t_xy<int>::get_angle(p0, p1, p2);
-    }
-}
-
 
 void
 t_angled_dijkstra::init
@@ -205,6 +169,9 @@ t_angled_dijkstra::init
     m_angle_weight   = _angle_weight;
     m_accident_left  = _accident_left;
     m_accident_right = _accident_right;
+
+    m_sum_angle_cost = std::vector<long double>(m_p_graph.get_V_size(),
+                                                                   0.0);
 }
 
 
@@ -217,6 +184,15 @@ t_angled_dijkstra::deep_copy
     m_angle_weight   = _origin.m_angle_weight;
     m_accident_left  = _origin.m_accident_left;
     m_accident_right = _origin.m_accident_right;
+
+    m_sum_angle_cost.clear();
+    for(std::vector<long double>::const_iterator it =
+            _origin.m_sum_angle_cost.begin();
+        it != _origin.m_sum_angle_cost.end();
+        ++it)
+    {
+        m_sum_angle_cost.push_back(*it);
+    }
 
     io::t_log::get_instance().write_line(std::to_string(get_V_size()));
 }

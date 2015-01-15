@@ -64,8 +64,6 @@ int main(int argc, char** argv)
 
         cd::t_p_graph result_graph;
 
-        result_graph = cd::t_p_graph::csv_to_graph("result\\common\\p_graph.csv");
-
         cd::t_p_graph graph
             = cd::t_p_graph::csv_to_graph("bin\\p_graph.csv");
         io::t_log::get_instance().write_line
@@ -75,9 +73,21 @@ int main(int argc, char** argv)
         di::t_dijkstra dij  =
             di::t_dijkstra(graph, src, false, 0);
 
+        for(std::vector<unsigned int>::iterator it = dst.begin();
+            it != dst.end();
+            ++it)
+        {
+            io::t_log::get_instance().
+                write_line(dij.get_route_cost_information(*it           ,
+                                                          angle_cost    ,
+                                                          accident_left ,
+                                                          accident_right));
+        }
+
         io::t_log::get_instance().write_line("dijkstra to p_graph");
         result_graph = dij.to_p_graph_part_of(dst);
-        result_graph.to_csv("result\\common\\p_graph.csv");  
+        //result_graph = dij.to_p_graph();
+        result_graph.to_csv("result\\common\\p_graph.csv");
 
         io::t_log::get_instance().write_line("dijkstra to JMC");
         jmc::t_JMC result_jmc = jmc::t_JMC(result_graph, src);
@@ -93,8 +103,17 @@ int main(int argc, char** argv)
             di::t_angled_dijkstra
                 (graph, src, angle_cost, accident_left, accident_right, false, 0);
 
+        for(std::vector<unsigned int>::iterator it = dst.begin();
+            it != dst.end();
+            ++it)
+        {
+            io::t_log::get_instance().
+                write_line(a_dij.get_route_cost_information(*it));
+        }
+
         io::t_log::get_instance().write_line("angled dijkstra to p_graph");
         cd::t_p_graph result_a_graph = a_dij.to_p_graph_part_of(dst);
+        //cd::t_p_graph result_a_graph = a_dij.to_p_graph();
         result_a_graph.to_csv("result\\angled\\p_graph.csv");
 
         io::t_log::get_instance().write_line("angled dijkstra to JMC");

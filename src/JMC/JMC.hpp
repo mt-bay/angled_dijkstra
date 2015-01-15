@@ -101,6 +101,19 @@ private:
      */
     inline void deep_copy(const t_JMC& _origin);
 
+    /* 
+     * get path array
+     * parameter    : graph, node number, next ref adj. number, path list
+     * return value : path list
+     */
+    std::vector< std::list<cd::t_xy<int> > >
+    get_path_array
+        (const cd::t_p_graph&             _graph              ,
+         const unsigned int               _node_num           ,
+         const std::list<cd::t_xy<int> >& _processed_path_list
+                                            = std::list< cd::t_xy<int> >())
+            const;
+
     /* member variable and instance */
 public :
     std::map<int, t_primary_mesh > m_primary_mesh;

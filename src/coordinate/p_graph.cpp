@@ -19,17 +19,17 @@ t_p_graph::t_p_graph()
 
 t_p_graph::t_p_graph(const t_p_graph& _origin)
 {
-    m_node_location = std::vector< cd::t_xy<int>* >(0, new cd::t_xy<int>());
+    m_node_location = std::vector< cd::t_xy<int> >(0, cd::t_xy<int>());
 
     m_adjacency = std::vector< std::vector<unsigned int> >(0, std::vector<unsigned int>());
     m_link_cost = std::vector< std::vector<long double> >(0, std::vector<long double>());
 
-    for(std::vector< cd::t_xy<int>* >::const_iterator it
+    for(std::vector< cd::t_xy<int> >::const_iterator it
             = _origin.m_node_location.begin();
         it != _origin.m_node_location.end();
         ++it)
     {
-        m_node_location.push_back(new cd::t_xy<int>(**it));
+        m_node_location.push_back(cd::t_xy<int>(*it));
     }
 
     for(unsigned int i = 0; i < _origin.m_adjacency.size(); ++i)
@@ -57,9 +57,9 @@ t_p_graph::~t_p_graph()
 }
 
 
-void t_p_graph::add_node(cd::t_xy<int> _location)
+void t_p_graph::add_node(const cd::t_xy<int>& _location)
 {
-    m_node_location.push_back(new cd::t_xy<int>(_location));
+    m_node_location.push_back(cd::t_xy<int>(_location));
     m_adjacency.push_back(std::vector<unsigned int>());
     m_link_cost.push_back(std::vector<long double>());
 }
@@ -102,8 +102,8 @@ void t_p_graph::set_adjacency(unsigned int _src,
 
         m_adjacency.at(_src).push_back(_dst);
         m_link_cost.at(_src).push_back
-            (cd::t_xy<int>::length(*m_node_location.at(_src),
-                                   *m_node_location.at(_dst)));
+            (cd::t_xy<int>::length(m_node_location.at(_src),
+                                   m_node_location.at(_dst)));
         return;
     }
 }
@@ -116,8 +116,8 @@ void t_p_graph::to_csv(std::string _file_path)
 
     for(unsigned int i = 0; i < get_V_size(); ++i)
     {
-        csv << std::to_string(m_node_location.at(i)->x) << ",";
-        csv << std::to_string(m_node_location.at(i)->y);
+        csv << std::to_string(m_node_location.at(i).x) << ",";
+        csv << std::to_string(m_node_location.at(i).y);
         for(unsigned int j = 0; j < m_adjacency.at(i).size(); ++j)
         {
             csv << "," << std::to_string(m_adjacency.at(i).at(j));
@@ -137,8 +137,9 @@ t_p_graph t_p_graph::csv_to_graph(std::string _file)
 
     if(csv.fail())
     {
-        io::t_log::get_instance().write_line("csv read failed");
-        throw std::exception("csv read failed");
+        std::string e_str = "csv(" + _file + ")read failed";
+        io::t_log::get_instance().write_line(e_str);
+        throw std::exception(e_str.c_str());
     }
 
     std::string line;
@@ -147,9 +148,9 @@ t_p_graph t_p_graph::csv_to_graph(std::string _file)
     while(std::getline(csv, line))
     {
         elm = mt::split_v(line, ",");
-        result.m_node_location.push_back(new cd::t_xy<int>
-                                                (std::stoi(elm.at(0)),
-                                                 std::stoi(elm.at(1))));
+        result.m_node_location.push_back(cd::t_xy<int>
+                                            (std::stoi(elm.at(0)),
+                                             std::stoi(elm.at(1))));
         result.m_adjacency.push_back(std::vector<unsigned int>());
         for(unsigned int i = 2; i < elm.size(); ++i)
         {
@@ -165,8 +166,8 @@ t_p_graph t_p_graph::csv_to_graph(std::string _file)
         for(unsigned int j = 0; j < result.m_adjacency.at(i).size(); ++j)
         {
             result.m_link_cost.at(i).push_back
-                (cd::t_xy<int>::length(*result.m_node_location.at(i),
-                                       *result.m_node_location
+                (cd::t_xy<int>::length(result.m_node_location.at(i),
+                                       result.m_node_location
                                        .at(result.m_adjacency.at(i).at(j))));
         }
     }
@@ -215,7 +216,7 @@ unsigned char t_p_graph::get_adjacency(const unsigned int _src_node_num,
 
 void t_p_graph::init()
 {
-    m_node_location = std::vector< cd::t_xy<int>* >();
+    m_node_location = std::vector< cd::t_xy<int> >();
 
     m_adjacency = std::vector< std::vector<unsigned int> >();
     m_link_cost = std::vector< std::vector<long double> >();

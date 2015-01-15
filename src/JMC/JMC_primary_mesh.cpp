@@ -105,7 +105,7 @@ void t_primary_mesh::add_path(const std::list< cd::t_xy<int> >& _path)
         it != buf_path.end();
         ++it)
     {
-        if(it->second.size() <= 0)
+        if(it->second.empty())
         {
             continue;
         }
@@ -136,13 +136,15 @@ void t_primary_mesh::add_path(const std::list< cd::t_xy<int> >& _path)
 
 std::string t_primary_mesh::to_string() const
 {
+    io::t_log::get_instance().write_line("write : " +
+                                         std::to_string(m_mesh_number));
+
     std::string result = "";
     for(std::map<int, t_secondary_mesh>::const_iterator it
         = m_secondary_mesh.begin();
         it != m_secondary_mesh.end();
         ++it)
     {
-        io::t_log::get_instance().write_line("write secondary : " + std::to_string(it->first));
         result += it->second.to_string();
     }
 

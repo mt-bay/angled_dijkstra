@@ -53,6 +53,14 @@ public    :
     virtual t_angled_dijkstra& operator= (const t_angled_dijkstra& _rhs);
 
     /* method */
+public:
+    /* 
+     * get route cost information
+     * parameter    : index
+     * return value : route cost information
+     */
+    virtual std::string get_route_cost_information(unsigned int _index);
+
 protected:
     /* 
      * run angled dijkstra
@@ -70,27 +78,7 @@ protected:
                                 = 0           )
             throw(std::out_of_range);
 
-    /* 
-     * get angle cost
-     * parameter    : angle weight, source node number, destination node number
-     * return value : angle cost
-     * exception    : out_of_range
-     */
-    inline double get_angle_cost(const double       _angle_cost     ,
-                                 const unsigned int _src_node_number,
-                                 const unsigned int _dst_node_number);
-
-    /* 
-     * get angle rate
-     * parameter    : accident probability when turn left ,
-                      accident probability when turn right,
-                      angle
-     * return value : angle rate
-     * exception    : none
-     */
-    inline double get_angle_rate(const double _accident_left ,
-                                 const double _accident_right,
-                                 const double _angle         );
+    
 
     /* 
      * initilize instance
@@ -116,10 +104,11 @@ protected:
 
     /* member variable and instance */
 public:
+    std::vector<long double> m_sum_angle_cost;
 protected:
-    long double m_angle_weight;
-    double      m_accident_left;
-    double      m_accident_right;
+    long double              m_angle_weight;
+    double                   m_accident_left;
+    double                   m_accident_right;
 };
 
 

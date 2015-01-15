@@ -74,7 +74,7 @@ public    :
      * return value : void
      * exception    : none
      */
-    void add_node(t_xy<int> _location);
+    void add_node(const t_xy<int>& _location);
 
     /* 
      * set adjacency
@@ -132,7 +132,7 @@ protected :
 
     /* member variable and instance */
 public    :
-    std::vector< t_xy<int>* >                m_node_location;
+    std::vector< t_xy<int> >                 m_node_location;
     std::vector< std::vector<unsigned int> > m_adjacency;
 
 protected :

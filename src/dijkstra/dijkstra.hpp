@@ -79,6 +79,18 @@ public    :
     virtual unsigned int get_V_size() const;
 
     /* 
+     * get route cost information
+     * parameter    : index
+     * return value : route cost information
+     */
+    virtual std::string get_route_cost_information
+        (const unsigned int _index         ,
+         const double       _angle_weight  ,
+         const double       _accident_left ,
+         const double       _accident_right)
+            const;
+
+    /* 
      * this instance to csv file
      * parameter    : file name
      * return value : write successful
@@ -132,12 +144,51 @@ protected :
     virtual int find_secondary_mesh_is(std::ofstream* _search_file_ofs) const;
     
     /* 
+     * get angle cost
+     * parameter    : angle weight, source node number, destination node number
+     * return value : angle cost
+     * exception    : out_of_range
+     */
+    inline double get_angle_cost(const double       _angle_cost     ,
+                                 const unsigned int _src_node_number,
+                                 const unsigned int _dst_node_number,
+                                 const double       _accident_left  ,
+                                 const double       _accident_right )
+                                    const;
+
+    /* 
+     * get angle rate
+     * parameter    : accident probability when turn left ,
+                      accident probability when turn right,
+                      angle
+     * return value : angle rate
+     * exception    : none
+     */
+    inline double get_angle_rate(const double _accident_left ,
+                                 const double _accident_right,
+                                 const double _angle         )
+                                    const;
+
+    /* 
      * get confirm node number
      * parameter    : void
      * return value : confirm node number
      * exception    : none
      */
     virtual unsigned int get_confirm_node_number() const;
+
+    /* 
+     * get sum. of angle cost(if angle weight = argv[1])
+     * parameter    : angle weight                      ,
+                      accident probability if turn left ,
+                      accident probability if turn right,
+     * return value : sum. of angle cost
+     */
+    long double get_sum_angle_cost(const size_t _index         ,
+                                   const double _angle_weight  ,
+                                   const double _accident_left ,
+                                   const double _accident_right)
+        const;
 
     /* 
      * initilize instance
@@ -174,7 +225,8 @@ protected :
      */
     double     path_to_angle(unsigned int _src_node_number,
                              unsigned int _dst_node_number)
-                                 throw(std::out_of_range);
+                                const
+                                throw(std::out_of_range);
 
 private   :
 
@@ -194,6 +246,7 @@ public    :
     std::vector<unsigned char>                m_is_confirmed;
     std::vector< std::vector<unsigned int> >  m_path;
 protected :
+    
 private   :
 };
 

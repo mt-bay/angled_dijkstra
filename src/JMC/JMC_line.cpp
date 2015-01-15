@@ -335,7 +335,9 @@ std::string t_line::to_string(/*const t_layer* _invoker*/) const
     }
     if(counter_writerd_coordinate % 7 != 0)
     {
-        for(true; counter_writerd_coordinate < 7; ++counter_writerd_coordinate)
+        for(true                               ; 
+            counter_writerd_coordinate % 7 != 0;
+            ++counter_writerd_coordinate       )
         {
             result += "          ";
         }

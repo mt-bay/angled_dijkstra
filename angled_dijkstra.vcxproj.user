@@ -4,7 +4,11 @@
     <ShowAllFiles>true</ShowAllFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LocalDebuggerCommandArguments>10000.0 0.048 0.080 0 76377</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>10000.0 0.048 0.080 43150 29863 63242 65194 20759 52362 9528 10958 12178</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerCommandArguments>10000.0 0.048 0.080 43150 29863 63242 65194 20759 52362 9528 10958 12178</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

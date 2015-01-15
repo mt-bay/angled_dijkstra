@@ -96,7 +96,8 @@ void t_secondary_mesh::add_outline()
     int found = find_last_layer_index(t_layer::code_type_e::ADMINISTRATIVE);
     if(found == -1)
     {
-        m_layer.push_back(t_layer(t_layer::code_type_e::ADMINISTRATIVE, *this));
+        m_layer.push_back(t_layer(t_layer::code_type_e::ADMINISTRATIVE,
+                                  *this                               ));
         found = find_last_layer_index(t_layer::code_type_e::ADMINISTRATIVE);
     }
     std::list< cd::t_xy<int> >& path = std::list< cd::t_xy<int> >
