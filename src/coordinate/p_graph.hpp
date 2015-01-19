@@ -95,6 +95,14 @@ public    :
     unsigned int get_V_size() const;
 
     /* 
+     * get num. of E
+     * parameter    : void
+     * return value : num. of E
+     * exception    : none
+     */
+    unsigned int get_sum_of_E() const;
+
+    /* 
      * get link cost
      * parameter    : source node number, destination node number
      * return value : link cost

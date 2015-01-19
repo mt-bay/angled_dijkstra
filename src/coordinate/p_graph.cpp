@@ -183,6 +183,22 @@ unsigned int t_p_graph::get_V_size()
 }
 
 
+unsigned int t_p_graph::get_sum_of_E()
+    const
+{
+    unsigned int result = 0;
+    for(std::vector< std::vector<unsigned int> >::const_iterator it =
+            m_adjacency.begin();
+        it != m_adjacency.end();
+        ++it)
+    {
+        result += it->size();
+    }
+
+    return result;
+}
+
+
 long double t_p_graph::get_link_cost(const unsigned int _src_node_num, 
                                      const unsigned int _dst_node_num)
     const

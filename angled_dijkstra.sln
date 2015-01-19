@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "angled_dijkstra", "angled_dijkstra.vcxproj", "{0CA9134F-9B28-4C27-9F97-FDAA5C4548C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JMC_csv_converter", "JMC_csv_converter\JMC_csv_converter\JMC_csv_converter.csproj", "{4A62748C-6A88-4D6B-A6A5-3A1DDC6AFB5E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "csv_viewer", "csv_viewer\csv_viewer.vcxproj", "{4B1D823C-7090-4CF9-9D1E-43A22D33D6BF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "concordance_rate_checker", "concordance_rate_checker\concordance_rate_checker.vcxproj", "{2C9AB1F8-8D75-429B-902C-22BDCABC3958}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,18 @@ Global
 		{4B1D823C-7090-4CF9-9D1E-43A22D33D6BF}.Release|Win32.ActiveCfg = Release|Win32
 		{4B1D823C-7090-4CF9-9D1E-43A22D33D6BF}.Release|Win32.Build.0 = Release|Win32
 		{4B1D823C-7090-4CF9-9D1E-43A22D33D6BF}.Release|x64.ActiveCfg = Release|x64
+		{2C9AB1F8-8D75-429B-902C-22BDCABC3958}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{2C9AB1F8-8D75-429B-902C-22BDCABC3958}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{2C9AB1F8-8D75-429B-902C-22BDCABC3958}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{2C9AB1F8-8D75-429B-902C-22BDCABC3958}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2C9AB1F8-8D75-429B-902C-22BDCABC3958}.Debug|Win32.Build.0 = Debug|Win32
+		{2C9AB1F8-8D75-429B-902C-22BDCABC3958}.Debug|x64.ActiveCfg = Debug|Win32
+		{2C9AB1F8-8D75-429B-902C-22BDCABC3958}.Release|Any CPU.ActiveCfg = Release|Win32
+		{2C9AB1F8-8D75-429B-902C-22BDCABC3958}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{2C9AB1F8-8D75-429B-902C-22BDCABC3958}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{2C9AB1F8-8D75-429B-902C-22BDCABC3958}.Release|Win32.ActiveCfg = Release|Win32
+		{2C9AB1F8-8D75-429B-902C-22BDCABC3958}.Release|Win32.Build.0 = Release|Win32
+		{2C9AB1F8-8D75-429B-902C-22BDCABC3958}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

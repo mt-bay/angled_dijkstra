@@ -54,7 +54,11 @@ int main(int argc, char** argv)
     io::t_log::get_instance().write     ("dst. node num. : ");
     for(size_t s = 0; s < dst.size(); ++s)
     {
-        io::t_log::get_instance().write(std::to_string(dst.at(s)) + ", ");
+        if(s != 0)
+        {
+            io::t_log::get_instance().write(", ");
+        }
+        io::t_log::get_instance().write(std::to_string(dst.at(s)));
     }
     io::t_log::get_instance().write_line();
     
@@ -67,8 +71,9 @@ int main(int argc, char** argv)
         cd::t_p_graph graph
             = cd::t_p_graph::csv_to_graph("bin\\p_graph.csv");
         io::t_log::get_instance().write_line
-            ("sum of node : " + std::to_string(graph.get_V_size()));
-
+            (  "|V| : " + std::to_string(graph.get_V_size()) +
+             ", |E| : " + std::to_string(graph.get_sum_of_E()));
+        
         io::t_log::get_instance().write_line("dijkstra start");
         di::t_dijkstra dij  =
             di::t_dijkstra(graph, src, false, 0);
@@ -82,11 +87,20 @@ int main(int argc, char** argv)
                                                           angle_cost    ,
                                                           accident_left ,
                                                           accident_right));
+
+            io::t_log::get_instance().
+                write_line("if(t = 10000) : " + 
+                           std::to_string(
+                            dij.get_sum_angle_cost(*it           ,
+                                                   10000         ,
+                                                   accident_left ,
+                                                   accident_right))
+                           );
         }
 
         io::t_log::get_instance().write_line("dijkstra to p_graph");
         result_graph = dij.to_p_graph_part_of(dst);
-        //result_graph = dij.to_p_graph();
+
         result_graph.to_csv("result\\common\\p_graph.csv");
 
         io::t_log::get_instance().write_line("dijkstra to JMC");
@@ -109,11 +123,20 @@ int main(int argc, char** argv)
         {
             io::t_log::get_instance().
                 write_line(a_dij.get_route_cost_information(*it));
+
+            io::t_log::get_instance().
+                write_line("if(t = 10000) : " + 
+                           std::to_string(
+                            a_dij.get_sum_angle_cost(*it           ,
+                                                   10000         ,
+                                                   accident_left ,
+                                                   accident_right))
+                           );
         }
 
         io::t_log::get_instance().write_line("angled dijkstra to p_graph");
         cd::t_p_graph result_a_graph = a_dij.to_p_graph_part_of(dst);
-        //cd::t_p_graph result_a_graph = a_dij.to_p_graph();
+
         result_a_graph.to_csv("result\\angled\\p_graph.csv");
 
         io::t_log::get_instance().write_line("angled dijkstra to JMC");

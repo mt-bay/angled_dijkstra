@@ -110,6 +110,19 @@ public    :
                             (const std::vector<unsigned int>& _dst)
                                     const;
 
+    /* 
+     * get sum. of angle cost(if angle weight = argv[1])
+     * parameter    : angle weight                      ,
+                      accident probability if turn left ,
+                      accident probability if turn right,
+     * return value : sum. of angle cost
+     */
+    long double get_sum_angle_cost(const size_t _index         ,
+                                   const double _angle_weight  ,
+                                   const double _accident_left ,
+                                   const double _accident_right)
+        const;
+
 protected :
     /* 
      * run dijkstra
@@ -176,19 +189,6 @@ protected :
      * exception    : none
      */
     virtual unsigned int get_confirm_node_number() const;
-
-    /* 
-     * get sum. of angle cost(if angle weight = argv[1])
-     * parameter    : angle weight                      ,
-                      accident probability if turn left ,
-                      accident probability if turn right,
-     * return value : sum. of angle cost
-     */
-    long double get_sum_angle_cost(const size_t _index         ,
-                                   const double _angle_weight  ,
-                                   const double _accident_left ,
-                                   const double _accident_right)
-        const;
 
     /* 
      * initilize instance

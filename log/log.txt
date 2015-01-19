@@ -2,5 +2,30 @@ angle cost     : 10000.000000
 accident left  : 0.048000
 accident right : 0.080000
 src. node num. : 43150
-dst. node num. : 29863, 63242, 65194, 20759, 52362, 9528, 10958, 12178, 
+dst. node num. : 29863, 63242, 65194, 20759, 52362, 9528, 10958, 12178
 graph load
+|V| : 65307, |E| : 143092
+dijkstra start
+index : 29863, sum. of route cost : 69327.714043(sum. of angle cost(if t = 10000.000000 : 85936.778539)
+if(t = 10000) : 85936.778539
+index : 63242, sum. of route cost : 45611.724574(sum. of angle cost(if t = 10000.000000 : 29505.744252)
+if(t = 10000) : 29505.744252
+index : 65194, sum. of route cost : 75047.207956(sum. of angle cost(if t = 10000.000000 : 65373.961899)
+if(t = 10000) : 65373.961899
+index : 20759, sum. of route cost : 53782.130670(sum. of angle cost(if t = 10000.000000 : 77207.644573)
+if(t = 10000) : 77207.644573
+index : 52362, sum. of route cost : 58505.340236(sum. of angle cost(if t = 10000.000000 : 81170.302976)
+if(t = 10000) : 81170.302976
+index : 9528, sum. of route cost : 71068.229235(sum. of angle cost(if t = 10000.000000 : 119120.806303)
+if(t = 10000) : 119120.806303
+index : 10958, sum. of route cost : 46018.868609(sum. of angle cost(if t = 10000.000000 : 38704.679485)
+if(t = 10000) : 38704.679485
+index : 12178, sum. of route cost : 74843.395262(sum. of angle cost(if t = 10000.000000 : 89702.454149)
+if(t = 10000) : 89702.454149
+dijkstra to p_graph
+dijkstra to JMC
+output JMC
+write : 5239
+write : 5338
+write : 5339
+angled dijkstra start

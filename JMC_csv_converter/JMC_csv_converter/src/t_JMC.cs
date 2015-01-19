@@ -234,6 +234,10 @@ namespace JMC_csv_converter.src
         }
 
 
+        /// <summary>
+        /// this instance to p_graph data
+        /// </summary>
+        /// <returns>generated p_graph</returns>
         public t_p_graph to_p_graph()
         {
             t_p_graph result = new t_p_graph();

@@ -23,11 +23,8 @@ namespace JMC_csv_converter.src
                 t_p_graph p_graph = jmc.to_p_graph();
 
                 p_graph.to_csv(p_graph_file);
-                /*
-                t_graph graph = jmc.to_graph();
-
-                graph.to_csv(location_file, adj_file);
-                */
+                
+                
 
                 t_logger.get_instance().write(@"convert successful");
             }
