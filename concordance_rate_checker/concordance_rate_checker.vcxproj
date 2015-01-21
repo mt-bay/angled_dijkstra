@@ -72,6 +72,7 @@
     <ClCompile Include="src\JMC\JMC_line.cpp" />
     <ClCompile Include="src\JMC\JMC_primary_mesh.cpp" />
     <ClCompile Include="src\JMC\JMC_secondary_mesh.cpp" />
+    <ClCompile Include="src\log\log.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +80,7 @@
     <ClInclude Include="src\coordinate\graph.hpp" />
     <ClInclude Include="src\coordinate\p_graph.hpp" />
     <ClInclude Include="src\JMC\JMC.hpp" />
+    <ClInclude Include="src\log\log.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
