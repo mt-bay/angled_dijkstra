@@ -1,8 +1,12 @@
 #include "JMC.hpp"
 
+#include <fstream>
+
 #include "../coordinate/coordinate.hpp"
 
 #include "../log/log.hpp"
+
+#include "../tools/tools.hpp"
 
 namespace jmc
 {
@@ -33,6 +37,37 @@ t_primary_mesh::t_primary_mesh(const int _mesh_number)
 {
     m_mesh_number    = _mesh_number;
     m_secondary_mesh = std::map<int, t_secondary_mesh >();
+}
+
+
+t_primary_mesh::t_primary_mesh(const std::string _primary_mesh_path  ,
+                               const int         _primary_mesh_number)
+{
+    std::ifstream ifs_primary_mesh(_primary_mesh_path);
+
+    if(ifs_primary_mesh.fail())
+    {
+        io::t_log::get_instance().write_line
+            ("open error : " + _primary_mesh_path);
+    }
+
+    int                      secondary_mesh_num;
+    std::vector<std::string> secondary_mesh_str;
+
+    std::string buf_str;
+
+    while(std::getline(ifs_primary_mesh, buf_str))
+    {
+        if(mt::substr_byte(buf_str, 0, 2) == "M ")
+        {
+            if(!secondary_mesh_str.empty())
+            {
+                m_secondary_mesh[secondary_mesh_num]
+                    = 
+            }
+        }
+    }
+    //w.i.p
 }
 
 

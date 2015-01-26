@@ -9,8 +9,6 @@
 #include "../coordinate/coordinate.hpp"
 #include "../coordinate/p_graph.hpp"
 
-#include "../dijkstra/dijkstra.hpp"
-
 #include "../log/log.hpp"
 
 #include "../tools/define.hpp"
@@ -32,57 +30,6 @@ t_JMC::t_JMC
 }
 
 
-t_JMC::t_JMC(const di::t_dijkstra& _dijkstra) : t_JMC::t_JMC()
-{
-#ifdef _DEBUG
-    io::t_log::get_instance().write_line("dijkstra result to JMC file(s)");
-#endif // _DEBUG
-
-    m_primary_mesh = std::map<int, t_primary_mesh >();
-
-    std::vector<unsigned int>::const_iterator it_path;
-    std::list< cd::t_xy<int> > buf_path;
-
-    for(unsigned int i = 0; i < _dijkstra.m_path.size(); ++i)
-    {
-        buf_path.clear();
-        for(it_path =  _dijkstra.m_path.at(i).begin();
-            it_path != _dijkstra.m_path.at(i).end();
-            ++it_path                                  )
-        {
-            buf_path
-                .push_back(_dijkstra.m_p_graph.m_node_location.at(*it_path));
-        }
-        add_path(buf_path);
-    }
-}
-
-
-t_JMC::t_JMC(const di::t_dijkstra& _dijkstra, std::vector<unsigned int> _part)
-{
-    m_primary_mesh = std::map<int, t_primary_mesh >();
-
-    std::vector<unsigned int>::const_iterator it_path;
-    std::list< cd::t_xy<int> > buf_path;
-
-    for(unsigned int i = 0; i < _dijkstra.m_path.size(); ++i)
-    {
-        if(mt::find(_part, i))
-        {
-            io::t_log::get_instance().write_line("write line " + std::to_string(i));
-            buf_path.clear();
-         for(it_path =  _dijkstra.m_path.at(i).begin();
-             it_path != _dijkstra.m_path.at(i).end();
-                ++it_path                                  )
-            {
-             buf_path
-                 .push_back(_dijkstra.m_p_graph.m_node_location.at(*it_path));
-            }
-            add_path(buf_path);
-        }
-    }
-}
-
 t_JMC::t_JMC(const cd::t_p_graph& _p_graph, unsigned int _src)
 {
     m_primary_mesh = std::map<int, t_primary_mesh >();
@@ -96,6 +43,27 @@ t_JMC::t_JMC(const cd::t_p_graph& _p_graph, unsigned int _src)
         ++it)
     {
         add_path(*it);
+    }
+}
+
+t_JMC::t_JMC(const std::string _jmc_dir)
+    : t_JMC()
+{
+    std::list<std::string> file_list =
+        mt::get_file_path_list(_jmc_dir, "*.DAT");
+
+    std::string dir_path = _jmc_dir + ((_jmc_dir.back() == '\\')? "" : "\\");
+
+    std::string buf_str;
+    int buf_mesh_number;
+
+    for(std::list<std::string>::iterator it = file_list.begin();
+        it != file_list.end();
+        ++it)
+    {
+        buf_str = it->substr(2, 4);
+        buf_mesh_number = std::stoi(buf_str);
+        m_primary_mesh[buf_mesh_number] = t_primary_mesh(dir_path + *it);
     }
 }
 

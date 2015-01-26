@@ -9,7 +9,7 @@ int main(int argc, char** argv)
     if(argc < L_ARGC_MIN)
     {
         io::t_log::get_instance().write_line
-            ("[this program] [target line item recode] [target line classification recode] [dij result p_graph] [origin JMC file(s)]...");
+            ("[this program] [file path that is saved line type to check] [dij result p_graph] [origin JMC file(s)]...");
 
         return -1;
     }

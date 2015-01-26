@@ -60,6 +60,15 @@ t_secondary_mesh::t_secondary_mesh(t_primary_mesh& _invoker,
 }
 
 
+t_secondary_mesh::t_secondary_mesh
+    (t_primary_mesh&           _invoker     ,
+     std::vector<std::string>& _contents_str)
+    : m_invoker(_invoker)
+{
+    //w.i.p
+}
+
+
 t_secondary_mesh::~t_secondary_mesh()
 {
 

@@ -12,10 +12,6 @@ template<typename T>
 class t_xy;
 class t_p_graph;
 }
-namespace di
-{
-class t_dijkstra;
-}
 
 
 namespace jmc
@@ -47,19 +43,13 @@ public :
      */
     t_JMC(const t_JMC& _origin);
 
-    /* 
-     * dijkstra result to JMC instance
-     * parameter : dijkstra result
-     */
-    t_JMC(const di::t_dijkstra& _dijkstra);
+    t_JMC(const cd::t_p_graph& _p_graph, unsigned int _src);
 
     /* 
-     * part of dijkstra result to JMC instance
-     * parameter : dijkstra result
+     * construct by JMC file(s)
+     * parameter : directory-path saved JMC file(s)
      */
-    t_JMC(const di::t_dijkstra& _dijkstra, std::list<unsigned int> _part);
-    t_JMC(const di::t_dijkstra& _dijkstra, std::vector<unsigned int> _part);
-    t_JMC(const cd::t_p_graph& _p_graph, unsigned int _src);
+    t_JMC(const std::string _jmc_dir);
 
 private:
     
@@ -146,6 +136,13 @@ public :
     t_primary_mesh(int _mesh_number);
 
     /* 
+     * read by primary mesh file
+     * parameter : primary mesh file path
+     */
+    t_primary_mesh(const std::string _primary_mesh_path  ,
+                   const int         _primary_mesh_number);
+
+    /* 
      * destructor
      */
     virtual ~t_primary_mesh();
@@ -222,6 +219,13 @@ public :
      */
     t_secondary_mesh(t_primary_mesh& _invoker,
                      const int _secondary_mesh_number);
+
+    /* 
+     * contents str to secondary mesh
+     * parameter : invoker, contets str
+     */
+    t_secondary_mesh(t_primary_mesh&           _invoker     ,
+                     std::vector<std::string>& _contents_str);
 
     /* 
      * destructor
