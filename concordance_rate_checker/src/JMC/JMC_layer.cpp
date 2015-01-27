@@ -57,6 +57,36 @@ t_layer::t_layer(t_layer::code_type_e _layer_code,
 }
 
 
+t_layer::t_layer
+    (t_secondary_mesh&              _invoker     ,
+     const std::vector<std::string> _contents_str)
+     : m_invoker(_invoker)
+{
+    std::vector<std::string> recode_str;
+
+    std::string mesh_type_candidacy;
+
+    for(std::vector<std::string>::const_iterator it =
+            _contents_str.begin();
+        it != _contents_str.end();
+        ++it)
+    {
+        //node recode
+        mesh_type_candidacy = mt::substr_byte(*it, 0, 2);
+        if(mesh_type_candidacy == "N " ||
+           mesh_type_candidacy == "L " ||
+           mesh_type_candidacy == "A " ||
+           mesh_type_candidacy == "P " )
+        {
+            push_recode(recode_str);
+        }
+
+        recode_str.push_back(*it);
+    }
+    //w.i.p
+}
+
+
 t_layer::~t_layer()
 {
 
@@ -150,10 +180,25 @@ std::string t_layer::to_string() const
         it != m_line.end();
         ++it)
     {
-        result += it->to_string(/*this*/);
+        result += it->to_string();
     }
 
     return result;
+}
+
+void t_layer::push_recode
+    (const std::vector<std::string>& _content)
+{
+    if(_content.empty())
+    {
+        return;
+    }
+
+    std::string recode_type = mt::substr_byte(_content.front(), 0, 2);
+    if(recode_type == "N ")
+    {
+
+    }
 }
 
 

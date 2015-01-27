@@ -67,9 +67,12 @@
     <ClCompile Include="src\coordinate\graph.cpp" />
     <ClCompile Include="src\coordinate\p_graph.cpp" />
     <ClCompile Include="src\JMC\JMC.cpp" />
+    <ClCompile Include="src\JMC\JMC_area.cpp" />
     <ClCompile Include="src\JMC\JMC_function.cpp" />
     <ClCompile Include="src\JMC\JMC_layer.cpp" />
     <ClCompile Include="src\JMC\JMC_line.cpp" />
+    <ClCompile Include="src\JMC\JMC_node.cpp" />
+    <ClCompile Include="src\JMC\JMC_point.cpp" />
     <ClCompile Include="src\JMC\JMC_primary_mesh.cpp" />
     <ClCompile Include="src\JMC\JMC_secondary_mesh.cpp" />
     <ClCompile Include="src\log\log.cpp" />

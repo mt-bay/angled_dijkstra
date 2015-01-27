@@ -224,8 +224,8 @@ public :
      * contents str to secondary mesh
      * parameter : invoker, contets str
      */
-    t_secondary_mesh(t_primary_mesh&           _invoker     ,
-                     std::vector<std::string>& _contents_str);
+    t_secondary_mesh(t_primary_mesh&                 _invoker     ,
+                     const std::vector<std::string>& _contents_str);
 
     /* 
      * destructor
@@ -357,6 +357,13 @@ public :
             t_secondary_mesh& _invoker   );
 
     /* 
+     * contents str to layer
+     * parameter : contents str
+     */
+    t_layer(t_secondary_mesh&              _invoker     ,
+            const std::vector<std::string> _contents_str);
+
+    /* 
      * destructor
      */
     ~t_layer();
@@ -408,6 +415,9 @@ public:
      */
     std::string to_string() const;
 
+private:
+    void push_recode(const std::vector<std::string>& _content);
+
     /* member variable and instance */
 public:
     code_type_e             m_code;
@@ -423,6 +433,17 @@ public:
 /* node recode class */
 class t_node
 {
+public:
+    /* constructor */
+    t_node();
+
+    t_node(const t_node& _origin);
+
+    t_node(t_layer&                       _invoker     ,
+           const std::vector<std::string> _contents_str);
+
+    /* operator overload */
+    t_node& operator= (const t_node& _rhs);
 };
 
 /* line recode class */
@@ -442,13 +463,18 @@ public :
      */
     t_line(const t_line& _origin);
 
-
     /* 
      * copy and change invoker
-     * parameter : origin, invoker pointer
+     * parameter : origin, invoker reference
      */
     t_line(const t_line& _origin, t_layer& _invoker);
 
+    /* 
+     * contents string to line recode
+     * parameter : invoker
+     */
+    t_line(t_layer&                       _invoker     ,
+           const std::vector<std::string> _contents_str);
 
     /* 
      * coordinate setter constructor
@@ -584,11 +610,29 @@ private:
 /* area recode class */
 class t_area
 {
+public:
+    t_area();
+
+    t_area(const t_area& _origin);
+
+    t_area(t_layer&                       _invoker     ,
+           const std::vector<std::string> _contents_str);
+
+    t_area& operator= (const t_area& _rhs);
 };
 
 /* point recode class */
 class t_point
 {
+public:
+    t_point();
+
+    t_point(const t_area& _origin);
+
+    t_point(t_layer&                       _invoker     ,
+            const std::vector<std::string> _contents_str);
+
+    t_point& operator=(const t_area& _rhs);
 };
 
 /* function */

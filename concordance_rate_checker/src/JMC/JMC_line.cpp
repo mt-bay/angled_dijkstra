@@ -4,6 +4,8 @@
 
 #include "../log/log.hpp"
 
+#include "../tools/tools.hpp"
+
 namespace jmc
 {
 
@@ -55,6 +57,25 @@ t_line::t_line(const t_line& _origin, t_layer& _invoker)
     {
         m_coordinate.push_back(cd::t_xy<int>(*it));
     }
+}
+
+
+t_line::t_line
+    (t_layer&                       _invoker     ,
+     const std::vector<std::string> _contents_str)
+    : m_invoker(_invoker)
+{
+    m_code =
+        std::stoi(mt::substr_byte(_contents_str.front(),  4, 2));
+    m_series_number =
+        std::stoi(mt::substr_byte(_contents_str.front(),  6, 5));
+    m_type =
+        std::stoi(mt::substr_byte(_contents_str.front(), 11, 6));
+
+    size_t num_of_coordinate =
+        std::stoi(mt::substr_byte(_contents_str.front(), 39, 6));
+
+    //w.i.p
 }
 
 

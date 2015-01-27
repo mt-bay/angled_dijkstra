@@ -63,11 +63,26 @@ t_primary_mesh::t_primary_mesh(const std::string _primary_mesh_path  ,
             if(!secondary_mesh_str.empty())
             {
                 m_secondary_mesh[secondary_mesh_num]
-                    = 
+                    = t_secondary_mesh(*this, secondary_mesh_str);
             }
+
+            secondary_mesh_str.clear();
+            
+            secondary_mesh_num =
+                std::stoi(mt::substr_byte(buf_str, 2, 6));
+        }
+        else
+        {
+            secondary_mesh_str.push_back(buf_str);
         }
     }
-    //w.i.p
+    if(!secondary_mesh_str.empty())
+    {
+        m_secondary_mesh[secondary_mesh_num] =
+            t_secondary_mesh(*this, secondary_mesh_str);
+    }
+
+    ifs_primary_mesh.close();
 }
 
 

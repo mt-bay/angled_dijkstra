@@ -4,6 +4,8 @@
 #include "../log/log.hpp"
 #include "../tools/define.hpp"
 
+#include "../tools/tools.hpp"
+
 namespace jmc
 {
 
@@ -61,11 +63,36 @@ t_secondary_mesh::t_secondary_mesh(t_primary_mesh& _invoker,
 
 
 t_secondary_mesh::t_secondary_mesh
-    (t_primary_mesh&           _invoker     ,
-     std::vector<std::string>& _contents_str)
+    (t_primary_mesh&                 _invoker     ,
+     const std::vector<std::string>& _contents_str)
     : m_invoker(_invoker)
 {
-    //w.i.p
+    std::vector<std::string> layer_str;
+
+    for(std::vector<std::string>::const_iterator it =
+            _contents_str.begin();
+        it != _contents_str.end();
+        ++it)
+    {
+        if(mt::substr_byte(*it, 0, 2) == "H1" ||
+           mt::substr_byte(*it, 0, 2) == "H2")
+        {
+            if(!layer_str.empty())
+            {
+                m_layer.push_back(t_layer(*this, layer_str));
+                layer_str.clear();
+            }
+        }
+        else
+        {
+            layer_str.push_back(*it);
+        }
+    }
+
+    if(!layer_str.empty())
+    {
+        m_layer.push_back(t_layer(*this, layer_str));
+    }
 }
 
 

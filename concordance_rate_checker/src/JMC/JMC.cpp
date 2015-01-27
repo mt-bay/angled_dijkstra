@@ -63,7 +63,7 @@ t_JMC::t_JMC(const std::string _jmc_dir)
     {
         buf_str = it->substr(2, 4);
         buf_mesh_number = std::stoi(buf_str);
-        m_primary_mesh[buf_mesh_number] = t_primary_mesh(dir_path + *it);
+        m_primary_mesh[buf_mesh_number] = t_primary_mesh(dir_path + (*it));
     }
 }
 
