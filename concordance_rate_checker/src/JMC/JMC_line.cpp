@@ -75,7 +75,28 @@ t_line::t_line
     size_t num_of_coordinate =
         std::stoi(mt::substr_byte(_contents_str.front(), 39, 6));
 
-    //w.i.p
+    size_t num_of_coordinate_recode =
+        (num_of_coordinate - 1) / 7 + 1;
+
+    cd::t_xy<int> buf_xy;
+
+    for(size_t s = 0; s < num_of_coordinate_recode; ++s)
+    {
+        for(int i = 0; i < 7 || i < num_of_coordinate - (s * 7 + i); ++i)
+        {
+
+
+            buf_xy = 
+                cd::t_xy<int>(
+                    std::stoi(mt::substr_byte(_contents_str.at(s + 1),
+                                              (i * 10)               ,
+                                              (i + 10) + 5)          ),
+                    std::stoi(mt::substr_byte(_contents_str.at(s + 1),
+                                              (i * 10) + 5           ,
+                                              (i + 10) + 5))         );
+            m_coordinate.push_back(buf_xy);
+        }
+    }
 }
 
 

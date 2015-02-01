@@ -74,6 +74,13 @@ public :
      */
     bool output(const std::string _output_directory) const;
 
+    /* 
+     * line consist of parameter is exist?
+     * parameter    : src. node, dst.node
+     * return value : extis?
+     */
+    bool is_exist(const cd::t_xy<int>& _src, const cd::t_xy<int>& _dst) const;
+
 private:
     /* 
      * add path
@@ -627,22 +634,24 @@ class t_point
 public:
     t_point();
 
-    t_point(const t_area& _origin);
+    t_point(const t_point& _origin);
 
     t_point(t_layer&                       _invoker     ,
             const std::vector<std::string> _contents_str);
 
-    t_point& operator=(const t_area& _rhs);
+    t_point& operator=(const t_point& _rhs);
 };
 
 /* function */
 std::vector<int> location_to_primary_mesh
-                    (const cd::t_xy<int> _source);
+                    (const cd::t_xy<int>& _source);
 std::vector<int> location_to_secondary_mesh
-                    (const cd::t_xy<int> _source);
+                    (const cd::t_xy<int>& _source);
 
-cd::t_xy<int> encode_coordinate(const cd::t_xy<int> _source        ,
-                                const int           _secondary_mesh);
+cd::t_xy<int> encode_coordinate(const cd::t_xy<int>& _source        ,
+                                const int            _secondary_mesh);
+
+int secondary_mesh_to_primary_mesh(const int _secondary_mesh);
 
 /* constant */
 const int RECODE_LENGTH = 72;

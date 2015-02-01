@@ -27,7 +27,7 @@ t_point::t_point
 
 t_point& t_point::operator= (const t_point& _rhs)
 {
-
+    return *this;
 }
 
 

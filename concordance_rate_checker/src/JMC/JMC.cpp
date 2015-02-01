@@ -63,7 +63,8 @@ t_JMC::t_JMC(const std::string _jmc_dir)
     {
         buf_str = it->substr(2, 4);
         buf_mesh_number = std::stoi(buf_str);
-        m_primary_mesh[buf_mesh_number] = t_primary_mesh(dir_path + (*it));
+        m_primary_mesh[buf_mesh_number] = 
+            t_primary_mesh(dir_path + (*it), buf_mesh_number);
     }
 }
 
@@ -118,6 +119,99 @@ bool t_JMC::output(const std::string _output_directory) const
     {
         return false;
     }
+}
+
+
+bool t_JMC::is_exist
+    (const cd::t_xy<int>& _src,
+     const cd::t_xy<int>& _dst)
+const
+{
+    std::vector<int> src_primary = location_to_primary_mesh(_src);
+    std::vector<int> dst_primary = location_to_primary_mesh(_dst);
+
+    //checking src's target primary mesh exist
+    bool exist_primary_mesh = false;
+    for(std::vector<int>::iterator it = src_primary.begin();
+        it != src_primary.end();
+        true)
+    {
+        if(m_primary_mesh.find(*it) != m_primary_mesh.cend())
+        {
+            exist_primary_mesh = true;
+            ++it;
+        }
+        else
+        {
+            it = src_primary.erase(it);
+        }
+    }
+    if(!exist_primary_mesh)
+    {
+        return false;
+    }
+
+    //checking dst's target primary mesh exist
+    exist_primary_mesh = false;
+    for(std::vector<int>::iterator it = dst_primary.begin();
+        it != dst_primary.end();
+        true)
+    {
+        if(m_primary_mesh.find(*it) != m_primary_mesh.end())
+        {
+            exist_primary_mesh = true;
+            ++it;
+        }
+        else
+        {
+            it = dst_primary.erase(it);
+        }
+    }
+    if(!exist_primary_mesh)
+    {
+        return false;
+    }
+
+    std::vector<int> src_secondary = location_to_secondary_mesh(_src);
+    std::vector<int> dst_secondary = location_to_secondary_mesh(_dst);
+
+    int buf_primary_mesh;
+
+    //trim src secondary mesh vector
+    for(std::vector<int>::const_iterator it = src_secondary.begin();
+        it != src_secondary.end();
+        true)
+    {
+        buf_primary_mesh = secondary_mesh_to_primary_mesh(*it);
+
+        if(std::find(src_primary.begin(),
+                     src_primary.end()  ,
+                     buf_primary_mesh   ) == src_primary.end())
+        {
+            it = src_secondary.erase(it);
+            continue;
+        }
+        ++it;
+    }
+
+    //rtim dst secondary mesh vector
+    for(std::vector<int>::const_iterator it = dst_secondary.begin();
+        it != dst_secondary.end();
+        true)
+    {
+        buf_primary_mesh = secondary_mesh_to_primary_mesh(*it);
+
+        if(std::find(dst_primary.begin(),
+                     dst_primary.end()  ,
+                     buf_primary_mesh   ) == dst_primary.end())
+        {
+            it = dst_secondary.erase(it);
+            continue;
+        }
+        ++it;
+    }
+
+    //w.i.p
 }
 
 

@@ -9,7 +9,7 @@ int main(int argc, char** argv)
     if(argc < L_ARGC_MIN)
     {
         io::t_log::get_instance().write_line
-            ("[this program] [file path that is saved line type to check] [dij result p_graph] [origin JMC file(s)]...");
+            ("[this program] [file path that is saved line type to check] [dij result p_graph] [origin JMC file(s) directory path]...");
 
         return -1;
     }
@@ -22,5 +22,8 @@ int main(int argc, char** argv)
         l_target_line_classification_recode = std::stoi(argv[++index]);
         
     }
+
+
+
     return 0;
 }

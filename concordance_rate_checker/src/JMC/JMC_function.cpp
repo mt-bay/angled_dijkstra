@@ -10,7 +10,7 @@
 
 namespace jmc
 {
-std::vector<int> location_to_primary_mesh(const cd::t_xy<int> _source)
+std::vector<int> location_to_primary_mesh(const cd::t_xy<int>& _source)
 {
     std::vector<int> result = std::vector<int>();
     result.push_back(((_source.y / MESH_LOCATION_MAX_Y)
@@ -39,7 +39,7 @@ std::vector<int> location_to_primary_mesh(const cd::t_xy<int> _source)
 }
 
 
-std::vector<int> location_to_secondary_mesh(const cd::t_xy<int> _source)
+std::vector<int> location_to_secondary_mesh(const cd::t_xy<int>& _source)
 {
     std::vector<int> result = std::vector<int>();
     result.push_back(((_source.y / MESH_LOCATION_MAX_Y)
@@ -89,8 +89,8 @@ std::vector<int> location_to_secondary_mesh(const cd::t_xy<int> _source)
 }
 
 
-cd::t_xy<int> encode_coordinate(const cd::t_xy<int> _source        ,
-                                const int           _secondary_mesh)
+cd::t_xy<int> encode_coordinate(const cd::t_xy<int>& _source        ,
+                                const int            _secondary_mesh)
 {
 
     cd::t_xy<int> mesh_padding = cd::t_xy<int>
@@ -105,6 +105,12 @@ cd::t_xy<int> encode_coordinate(const cd::t_xy<int> _source        ,
 
     return cd::t_xy<int>(_source.x % mesh_padding.x,
                          _source.y % mesh_padding.y);
+}
+
+
+int secondary_mesh_to_primary_mesh(const int _secondary_mesh)
+{
+    return _secondary_mesh / 100;
 }
 
 
